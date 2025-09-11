@@ -14,11 +14,6 @@ on:
 
 jobs:
   build-and-deploy:
-    
-    defaults:
-      run:
-        working-directory: ${{ env.WORK_DIR }}
-
     permissions:
       contents: read
       id-token: write    
@@ -26,11 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
 
       - name: 'Az CLI login'
         uses: azure/login@v2
@@ -43,7 +33,8 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: ${{ env.WORK_DIR  }}
+          package: ${{ env.WORK_DIR }}
+          startup-command: 'npm start'
           
       - name: logout
         run: |
