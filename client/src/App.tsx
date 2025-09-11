@@ -14,6 +14,7 @@ type AskResponse = {
   sources?: any[]
   raw?: any
   error?: string
+  incomplete?: boolean
 }
 
 export default function App() {
@@ -43,7 +44,7 @@ export default function App() {
   }, [])
 
   const ask = async () => {
-    if (!question.trim()) return
+    if (!question.trim() || askLoading) return
     setAskLoading(true)
     setAskError(null)
     setAskResult(null)
@@ -53,15 +54,58 @@ export default function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: question.trim() })
       })
-      const json = await res.json()
-      if (!res.ok) {
-        setAskError(json.error || 'Request failed')
-      } else {
-        setAskResult(json)
+      if (!res.ok || !res.body) {
+        const maybe = await res.json().catch(() => ({}))
+        throw new Error(maybe.error || 'Request failed')
       }
+      const reader = res.body.getReader()
+      const decoder = new TextDecoder('utf-8')
+      let buffer = ''
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        buffer += decoder.decode(value, { stream: true })
+        // SSE messages separated by double newlines
+        const parts = buffer.split('\n\n')
+        buffer = parts.pop() || ''
+        for (const part of parts) {
+          const lines = part.split('\n').filter(Boolean)
+          let dataLine = lines.find(l => l.startsWith('data: '))
+          // handle "event: error" lines
+          const isError = lines.some(l => l.startsWith('event: error'))
+          if (isError) {
+            if (dataLine) {
+              try {
+                const payload = JSON.parse(dataLine.replace(/^data: /, ''))
+                setAskError(payload.error || 'Error')
+              } catch {
+                setAskError('Error')
+              }
+            } else {
+              setAskError('Error')
+            }
+            setAskLoading(false)
+            return
+          }
+          if (dataLine) {
+            try {
+              const payload = JSON.parse(dataLine.replace(/^data: /, '')) as AskResponse
+              setAskResult(prev => ({ ...(prev || {}), ...payload }))
+              if (!payload.incomplete) {
+                setAskLoading(false)
+              }
+            } catch (e) {
+              // eslint-disable-next-line no-console
+              console.warn('Failed to parse SSE chunk', e, part)
+            }
+          }
+        }
+      }
+      // Ensure loading cleared if stream ended without explicit final flag
+      setAskLoading(false)
     } catch (err: any) {
       setAskError(err?.message || 'Network error')
-    } finally {
       setAskLoading(false)
     }
   }
@@ -87,7 +131,7 @@ export default function App() {
             onKeyDown={onKeyDown}
             disabled={askLoading}
           />
-          <button onClick={ask} disabled={askLoading || !question.trim()}>{askLoading ? 'Asking...' : 'Ask'}</button>
+          <button onClick={ask} disabled={askLoading || !question.trim()}>{askLoading ? 'Streaming...' : 'Ask'}</button>
         </div>
         <div style={{ marginTop: 12, minHeight: 60 }}>
           {askError && (
@@ -97,9 +141,9 @@ export default function App() {
             <div>
               <strong>Answer:</strong>
               <div style={{ whiteSpace: 'pre-wrap', marginTop: 4 }}>
-                {askResult.answer || '(No answer)'}
+                {askResult.answer || '(No answer yet)'}
               </div>
-              {askResult.sources && askResult.sources.length > 0 && (
+              {askResult.sources && askResult.sources.length > 0 && !askResult.incomplete && (
                 <details style={{ marginTop: 8 }}>
                   <summary>Sources ({askResult.sources.length})</summary>
                   <pre style={{ maxHeight: 200, overflow: 'auto', background: '#f7f7f7', padding: 8 }}>
@@ -108,7 +152,7 @@ export default function App() {
                 </details>
               )}
               <details style={{ marginTop: 8 }}>
-                <summary>Raw</summary>
+                <summary>Raw (latest chunk)</summary>
                 <pre style={{ maxHeight: 240, overflow: 'auto', background: '#f7f7f7', padding: 8 }}>
                   {JSON.stringify(askResult.raw, null, 2)}
                 </pre>
@@ -116,7 +160,7 @@ export default function App() {
             </div>
           )}
           {askLoading && !askResult && !askError && (
-            <div style={{ opacity: 0.7 }}>Waiting for answer...</div>
+            <div style={{ opacity: 0.7 }}>Waiting for first chunk...</div>
           )}
         </div>
       </section>
