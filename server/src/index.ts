@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from "express";
 import cors from "cors";
-import { Nuclia } from '@nuclia/core';
+import { Nuclia, Answer } from '@nuclia/core';
 
 const app = express();
 app.use(cors());
@@ -13,7 +13,7 @@ const nuclia = new Nuclia({
   backend: 'https://nuclia.cloud/api',
   zone: 'europe-1',
   knowledgeBox: process.env.NUCLIA_KB,
-  apiKey: process.env.NUCLIA_API_KEY as string,
+  apiKey: process.env.NUCLIA_API_KEY,
 });
 
 app.get("/api/health", (_req: express.Request, res: express.Response) => {
@@ -24,27 +24,28 @@ app.get("/api/health", (_req: express.Request, res: express.Response) => {
 const askHandler = (req: express.Request, res: express.Response) => {
   const { question, options } = req.body;
 
-  let responded = false;
+  // Set up Server-Sent Events (SSE) headers
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.flushHeaders();
 
+  let finished = false;
   const timeout = setTimeout(() => {
-    if (!responded) {
-      responded = true;
-      res.status(504).json({ error: 'Ask request timed out' });
+    if (!finished) {
+      finished = true;
+      res.write(`event: error\ndata: {\"error\":\"Ask request timed out\"}\n\n`);
+      res.end();
     }
   }, 15000);
 
   try {
+    // Nuclia SDK emits answer objects with fields: answers, answer, incomplete, sources, etc.
     const subscription = (nuclia as any).knowledgeBox.ask(question).subscribe({
       next: (result: any) => {
-        if (responded) return;
-        responded = true;
-        clearTimeout(timeout);
-        // Attempt to extract a concise answer & sources if present.
-        let answer: string | undefined;
-        let sources: any[] | undefined;
+        if (finished) return;
+        let answer, sources;
         if (result) {
-          // Heuristics based on typical Nuclia answer structure.
-            // result.answers[0].answer or result.answer
           if (Array.isArray(result.answers) && result.answers.length) {
             const first = result.answers[0];
             answer = first.answer || first.text || first.value || undefined;
@@ -53,33 +54,48 @@ const askHandler = (req: express.Request, res: express.Response) => {
           answer = answer || (result.answer || result.text || result.value);
           if (!sources && Array.isArray(result.sources)) sources = result.sources;
         }
-        res.json({
+        res.write(`data: ${JSON.stringify({
           question,
           answer: answer || null,
+          incomplete: result.incomplete,
           sources: sources || [],
           raw: result,
-        });
+        })}\n\n`);
+        if (!result.incomplete) {
+          finished = true;
+          clearTimeout(timeout);
+          res.end();
+        }
       },
       error: (err: any) => {
-        if (responded) return;
-        responded = true;
+        if (finished) return;
+        finished = true;
         clearTimeout(timeout);
-        res.status(500).json({ error: err?.message || 'Ask failed' });
+        res.write(`event: error\ndata: {\"error\":\"${err?.message || 'Ask failed'}\"}\n\n`);
+        res.end();
+      },
+      complete: () => {
+        if (!finished) {
+          finished = true;
+          clearTimeout(timeout);
+          res.end();
+        }
       }
     });
 
-    // Ensure subscription is cleaned up on connection close to avoid leaks.
+    // Clean up subscription on connection close
     res.on('close', () => {
-      if (!responded) {
+      if (!finished) {
         subscription.unsubscribe();
         clearTimeout(timeout);
       }
     });
   } catch (err: any) {
-    if (!responded) {
-      responded = true;
+    if (!finished) {
+      finished = true;
       clearTimeout(timeout);
-      res.status(500).json({ error: err?.message || 'Ask failed (exception)' });
+      res.write(`event: error\ndata: {\"error\":\"${err?.message || 'Ask failed (exception)'}\"}\n\n`);
+      res.end();
     }
   }
 };
