@@ -22,6 +22,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies and build
+        run: |
+          cd ${{ env.WORK_DIR }}
+          npm ci
+          npm run build
+
       - name: 'Az CLI login'
         uses: azure/login@v2
         with:
