@@ -30,14 +30,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22'
-
-      - name: Install dependencies and build
-        run: |
-          cd server
-          npm install
-          cd ..   
-                
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: 'Az CLI login'
         uses: azure/login@v2
