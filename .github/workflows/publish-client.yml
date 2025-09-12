@@ -48,6 +48,8 @@ jobs:
           npm ci
 
       - name: Build application
+        env:
+          VITE_API_BASE_URL: 'https://nuclea-kendo-demo.azurewebsites.net'
         run: |
           cd client
           npm run build

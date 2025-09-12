@@ -1,5 +1,7 @@
 import React from "react";
-import { Chat, type Message, type User } from "@progress/kendo-react-conversational-ui";
+import { Chat, type Message, type User, type ChatSuggestion } from "@progress/kendo-react-conversational-ui";
+import ChatMessage from "../components/ChatMessage";
+import { buildApiUrl } from '../config/api';
 
 type AskResponse = {
   question: string
@@ -32,6 +34,39 @@ const initialMessages: Message[] = [
 const ChatDemo = () => {
   const [messages, setMessages] = React.useState(initialMessages);
 
+  // Predefined suggestions related to Kendo React
+  const kendoSuggestions: ChatSuggestion[] = [
+    {
+      id: 1,
+      text: "How do I get started with KendoReact components?",
+      description: "Learn about getting started with KendoReact"
+    },
+    {
+      id: 2,
+      text: "What are the best KendoReact components for data visualization?",
+      description: "Explore charts, grids, and data visualization components"
+    },
+    {
+      id: 3,
+      text: "How to implement theming and styling in KendoReact?",
+      description: "Learn about themes, CSS customization, and styling"
+    }
+  ];
+
+  // Handle suggestion clicks
+  const handleSuggestionClick = (suggestion: ChatSuggestion) => {
+    // Create a message from the suggestion
+    const suggestionMessage: Message = {
+      id: Date.now(),
+      author: user,
+      timestamp: new Date(),
+      text: suggestion.text
+    };
+    
+    // Send the suggestion as a message
+    addNewMessage({ message: suggestionMessage });
+  };
+
 interface AddNewMessageEvent {
     message: Message;
 }
@@ -57,7 +92,7 @@ const addNewMessage = async (event: AddNewMessageEvent): Promise<void> => {
     setMessages(prev => [...prev, botMessage]);
 
     try {
-        const res = await fetch('/api/ask', {
+        const res = await fetch(buildApiUrl('/api/ask'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ question: (userMessage.text || '').trim() })
@@ -133,9 +168,12 @@ const addNewMessage = async (event: AddNewMessageEvent): Promise<void> => {
                 authorId={user.id}
                 onSendMessage={addNewMessage}
                 placeholder={'Type a message...'}
-                width={"60%"}
+                width={"100%"}
                 height={"100%"}
-                className="k-m-auto k-border-transparent"
+                className="k-border-transparent"
+                messageTemplate={ChatMessage}
+                suggestions={kendoSuggestions}
+                onSuggestionClick={handleSuggestionClick}
             />
         </div>
     );
