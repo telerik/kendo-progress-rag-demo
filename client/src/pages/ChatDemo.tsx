@@ -133,9 +133,9 @@ const addNewMessage = async (event: AddNewMessageEvent): Promise<void> => {
                 authorId={user.id}
                 onSendMessage={addNewMessage}
                 placeholder={'Type a message...'}
-                width={"60%"}
+                width={"100%"}
                 height={"100%"}
-                className="k-m-auto k-border-transparent"
+                className="k-border-transparent"
             />
         </div>
     );
