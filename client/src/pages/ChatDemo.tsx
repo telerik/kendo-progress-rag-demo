@@ -1,6 +1,7 @@
 import React from "react";
 import { Chat, type Message, type User, type ChatSuggestion } from "@progress/kendo-react-conversational-ui";
 import ChatMessage from "../components/ChatMessage";
+import { buildApiUrl } from '../config/api';
 
 type AskResponse = {
   question: string
@@ -91,7 +92,7 @@ const addNewMessage = async (event: AddNewMessageEvent): Promise<void> => {
     setMessages(prev => [...prev, botMessage]);
 
     try {
-        const res = await fetch('/api/ask', {
+        const res = await fetch(buildApiUrl('/api/ask'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ question: (userMessage.text || '').trim() })

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Grid, GridColumn as Column } from '@progress/kendo-react-grid'
+import { buildApiUrl } from '../config/api'
 
 type Product = {
   ProductID: number
@@ -29,7 +30,7 @@ export default function GridDemo() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch('/api/products')
+        const res = await fetch(buildApiUrl('/api/products'))
         const json = await res.json()
         setData(json)
       } catch (err) {
@@ -47,7 +48,7 @@ export default function GridDemo() {
     setAskError(null)
     setAskResult(null)
     try {
-      const res = await fetch('/api/ask', {
+      const res = await fetch(buildApiUrl('/api/ask'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: question.trim() })
