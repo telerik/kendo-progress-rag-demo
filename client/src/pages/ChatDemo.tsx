@@ -27,7 +27,7 @@ const initialMessages: Message[] = [
         id: 1,
         author: bot,
         timestamp: new Date(),
-        text: 'Hello! I\'m your Nuclia AI assistant. Ask me anything about your knowledge base.'
+        text: 'Hello! I\'m your Nuclia AI assistant. I can help you with KendoReact questions and documentation. Try one of the suggestions below, or ask me anything about KendoReact components, theming, data visualization, and more!'
     }
 ];
 
@@ -86,7 +86,7 @@ const addNewMessage = async (event: AddNewMessageEvent): Promise<void> => {
         id: botMessageId,
         author: bot,
         timestamp: new Date(),
-        text: 'Thinking...'
+        typing: true 
     };
     
     setMessages(prev => [...prev, botMessage]);
@@ -141,7 +141,7 @@ const addNewMessage = async (event: AddNewMessageEvent): Promise<void> => {
                             // Update the bot message with streaming content
                             setMessages(prev => prev.map(msg => 
                                 msg.id === botMessageId 
-                                    ? { ...msg, text: currentAnswer }
+                                    ? { ...msg, text: currentAnswer, typing: false }
                                     : msg
                             ));
                         }
@@ -156,7 +156,7 @@ const addNewMessage = async (event: AddNewMessageEvent): Promise<void> => {
         // Update bot message with error
         setMessages(prev => prev.map(msg => 
             msg.id === botMessageId 
-                ? { ...msg, text: `Sorry, I encountered an error: ${errorMessage}` }
+                ? { ...msg, text: `Sorry, I encountered an error: ${errorMessage}`, typing: false }
                 : msg
         ));
     }
@@ -167,7 +167,7 @@ const addNewMessage = async (event: AddNewMessageEvent): Promise<void> => {
                 messages={messages}
                 authorId={user.id}
                 onSendMessage={addNewMessage}
-                placeholder={'Type a message...'}
+                placeholder={'Try a suggestion or ask about KendoReact...'}
                 width={"100%"}
                 height={"100%"}
                 className="k-border-transparent"
