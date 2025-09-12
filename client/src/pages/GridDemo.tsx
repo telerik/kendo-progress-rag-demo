@@ -19,7 +19,6 @@ type AskResponse = {
 
 export default function GridDemo() {
   const [data, setData] = useState<Product[]>([])
-  const [loading, setLoading] = useState(true)
 
   // Ask feature state
   const [question, setQuestion] = useState('')
@@ -38,7 +37,6 @@ export default function GridDemo() {
         // eslint-disable-next-line no-console
         console.error('Failed to load products', err)
       } finally {
-        setLoading(false)
       }
     })()
   }, [])
