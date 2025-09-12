@@ -47,6 +47,26 @@ jobs:
           package: ${{ env.WORK_DIR }}
           startup-command: 'npm start'
           
+      - name: Configure App Settings
+        uses: azure/appservice-settings@v1
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          app-settings-json: |
+            [
+              {
+                "name": "NUCLIA_KB",
+                "value": "${{ secrets.NUCLIA_KB }}"
+              },
+              {
+                "name": "NUCLIA_API_KEY", 
+                "value": "${{ secrets.NUCLIA_API_KEY }}"
+              },
+              {
+                "name": "NODE_ENV",
+                "value": "production"
+              }
+            ]
+          
       - name: logout
         run: |
           az logout
