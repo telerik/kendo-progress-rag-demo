@@ -1,185 +1,24 @@
-import { useEffect, useState } from 'react'
-import { Grid, GridColumn as Column } from '@progress/kendo-react-grid'
-
-type Product = {
-  ProductID: number
-  ProductName: string
-  UnitPrice: number
-  UnitsInStock: number
-}
-
-type AskResponse = {
-  question: string
-  answer: string | null
-  sources?: any[]
-  raw?: any
-  error?: string
-  incomplete?: boolean
-}
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AppBarComponent from "./components/AppBarComponent";
+import DrawerComponent from "./components/DrawerComponent";
+import Home from "./pages/Home";
+import ChatDemo from "./pages/ChatDemo";
+import GridDemo from "./pages/GridDemo";
 
 export default function App() {
-  const [data, setData] = useState<Product[]>([])
-  const [loading, setLoading] = useState(true)
-
-  // Ask feature state
-  const [question, setQuestion] = useState('')
-  const [askLoading, setAskLoading] = useState(false)
-  const [askResult, setAskResult] = useState<AskResponse | null>(null)
-  const [askError, setAskError] = useState<string | null>(null)
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch('/api/products')
-        const json = await res.json()
-        setData(json)
-      } catch (err) {
-        // swallow for demo
-        // eslint-disable-next-line no-console
-        console.error('Failed to load products', err)
-      } finally {
-        setLoading(false)
-      }
-    })()
-  }, [])
-
-  const ask = async () => {
-    if (!question.trim() || askLoading) return
-    setAskLoading(true)
-    setAskError(null)
-    setAskResult(null)
-    try {
-      const res = await fetch('/api/ask', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: question.trim() })
-      })
-      if (!res.ok || !res.body) {
-        const maybe = await res.json().catch(() => ({}))
-        throw new Error(maybe.error || 'Request failed')
-      }
-      const reader = res.body.getReader()
-      const decoder = new TextDecoder('utf-8')
-      let buffer = ''
-
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        buffer += decoder.decode(value, { stream: true })
-        // SSE messages separated by double newlines
-        const parts = buffer.split('\n\n')
-        buffer = parts.pop() || ''
-        for (const part of parts) {
-          const lines = part.split('\n').filter(Boolean)
-          let dataLine = lines.find(l => l.startsWith('data: '))
-          // handle "event: error" lines
-          const isError = lines.some(l => l.startsWith('event: error'))
-          if (isError) {
-            if (dataLine) {
-              try {
-                const payload = JSON.parse(dataLine.replace(/^data: /, ''))
-                setAskError(payload.error || 'Error')
-              } catch {
-                setAskError('Error')
-              }
-            } else {
-              setAskError('Error')
-            }
-            setAskLoading(false)
-            return
-          }
-          if (dataLine) {
-            try {
-              const payload = JSON.parse(dataLine.replace(/^data: /, '')) as AskResponse
-              setAskResult(prev => ({ ...(prev || {}), ...payload }))
-              if (!payload.incomplete) {
-                setAskLoading(false)
-              }
-            } catch (e) {
-              // eslint-disable-next-line no-console
-              console.warn('Failed to parse SSE chunk', e, part)
-            }
-          }
-        }
-      }
-      // Ensure loading cleared if stream ended without explicit final flag
-      setAskLoading(false)
-    } catch (err: any) {
-      setAskError(err?.message || 'Network error')
-      setAskLoading(false)
-    }
-  }
-
-  const onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === 'Enter') {
-      ask()
-    }
-  }
 
   return (
-    <div style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
-      <h1>Express + Vite + KendoReact</h1>
-
-      <section style={{ border: '1px solid #ddd', padding: 16, borderRadius: 4 }}>
-        <h2 style={{ marginTop: 0 }}>Ask</h2>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <input
-            style={{ flex: 1, padding: '8px 12px' }}
-            placeholder="Ask a question..."
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            onKeyDown={onKeyDown}
-            disabled={askLoading}
-          />
-          <button onClick={ask} disabled={askLoading || !question.trim()}>{askLoading ? 'Streaming...' : 'Ask'}</button>
-        </div>
-        <div style={{ marginTop: 12, minHeight: 60 }}>
-          {askError && (
-            <div style={{ color: 'crimson' }}>Error: {askError}</div>
-          )}
-          {askResult && !askError && (
-            <div>
-              <strong>Answer:</strong>
-              <div style={{ whiteSpace: 'pre-wrap', marginTop: 4 }}>
-                {askResult.answer || '(No answer yet)'}
-              </div>
-              {askResult.sources && askResult.sources.length > 0 && !askResult.incomplete && (
-                <details style={{ marginTop: 8 }}>
-                  <summary>Sources ({askResult.sources.length})</summary>
-                  <pre style={{ maxHeight: 200, overflow: 'auto', background: '#f7f7f7', padding: 8 }}>
-                    {JSON.stringify(askResult.sources, null, 2)}
-                  </pre>
-                </details>
-              )}
-              <details style={{ marginTop: 8 }}>
-                <summary>Raw (latest chunk)</summary>
-                <pre style={{ maxHeight: 240, overflow: 'auto', background: '#f7f7f7', padding: 8 }}>
-                  {JSON.stringify(askResult.raw, null, 2)}
-                </pre>
-              </details>
-            </div>
-          )}
-          {askLoading && !askResult && !askError && (
-            <div style={{ opacity: 0.7 }}>Waiting for first chunk...</div>
-          )}
-        </div>
-      </section>
-
-      <section>
-        <h2 style={{ marginTop: 0 }}>Products</h2>
-        <Grid
-          style={{ height: 400 }}
-          data={data}
-          loading={loading}
-          sortable
-          filterable
-        >
-          <Column field="ProductID" title="ID" width="80px" />
-          <Column field="ProductName" title="Product" />
-          <Column field="UnitPrice" title="Price" />
-          <Column field="UnitsInStock" title="In Stock" />
-        </Grid>
-      </section>
-    </div>
+    <>
+      <BrowserRouter basename={`/`}>
+        <AppBarComponent />
+        <DrawerComponent>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/chat-demo" element={<ChatDemo />} />
+                <Route path="/grid-demo" element={<GridDemo />} />
+            </Routes>
+        </DrawerComponent>
+      </BrowserRouter>
+    </>
   )
 }
