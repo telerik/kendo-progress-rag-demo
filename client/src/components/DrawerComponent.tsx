@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Drawer, DrawerContent } from "@progress/kendo-react-layout";
-import { homeIcon, commentIcon, gridIcon } from "@progress/kendo-svg-icons";
+import { folderIcon, searchIcon, gridIcon } from "@progress/kendo-svg-icons";
 import type { To } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
     
 const drawerItems = [
-    { text: "Home", svgIcon: homeIcon, route: "/", selected: true },
-    { text: "Nuclia AI Assistant", svgIcon: commentIcon, route: "/chat-demo" },
+    { text: "Home", svgIcon: folderIcon, route: "/", selected: true },
+    { text: "Knowledge Assistant", svgIcon: searchIcon, route: "/chat-demo" },
     { text: "Grid Demo", svgIcon: gridIcon, route: "/grid-demo" },
 ];
 
@@ -53,7 +53,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
         selected: item.text === selected,
       }))}
       onSelect={onSelect}
-      width={200}
+      width={220}
       className="k-h-full k-flex-1"
     >
       <DrawerContent>
