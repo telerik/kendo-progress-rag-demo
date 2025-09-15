@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Button } from '@progress/kendo-react-buttons';
 import { SvgIcon } from '@progress/kendo-react-common';
@@ -126,7 +125,7 @@ const ChatMessage: React.FC<ChatMessageTemplateProps> = ({ item }) => {
         // Handle inline code in regular text
         const inlineCodeParts = renderInlineCode(part);
         return (
-          <span key={index} className="k-d-block k-mb-2">
+          <span key={index} className="k-d-block">
             {inlineCodeParts.map((inlinePart, inlineIndex) => (
               <React.Fragment key={`${index}-${inlineIndex}`}>
                 {inlinePart}
@@ -136,23 +135,13 @@ const ChatMessage: React.FC<ChatMessageTemplateProps> = ({ item }) => {
         );
       } else if (part.type === 'code') {
         // Render code block with syntax highlighting
-        // Use different themes and backgrounds based on message type
-        const syntaxTheme = isSenderMessage ? vscDarkPlus : oneLight;
-        const headerBg = isSenderMessage ? '#2d2d30' : '#f8f9fa';
-        const headerColor = isSenderMessage ? '#cccccc' : '#495057';
-        const headerBorder = isSenderMessage ? '#3e3e42' : '#dee2e6';
-        const codeBg = isSenderMessage ? '#1e1e1e' : '#ffffff';
+        const syntaxTheme = oneLight;
         
         return (
-          <div key={index} className="k-mb-4">
+          <div key={index} className="k-mb-4 k-mb-2">
             <div className="k-rounded-md k-overflow-hidden">
               <div 
-                className="k-px-3 k-py-2 k-font-mono k-text-sm k-d-flex k-justify-content-between k-align-items-center" 
-                style={{
-                  backgroundColor: headerBg,
-                  color: headerColor,
-                  borderBottom: `1px solid ${headerBorder}`
-                }}
+                className="k-px-3 k-py-2 k-font-mono k-text-sm k-d-flex k-justify-content-between k-align-items-center k-border-b k-border-b-solid k-border-base-subtle k-bg-surface"
               >
                 <span>{part.language}</span>
                 <Button
@@ -161,7 +150,6 @@ const ChatMessage: React.FC<ChatMessageTemplateProps> = ({ item }) => {
                   size="small"
                   className="k-ml-2"
                   style={{
-                    color: headerColor,
                     minHeight: '20px',
                     padding: '2px 4px'
                   }}
@@ -175,10 +163,10 @@ const ChatMessage: React.FC<ChatMessageTemplateProps> = ({ item }) => {
                 language={part.language}
                 style={syntaxTheme}
                 customStyle={{
-                  margin: 0,
-                  padding: '12px',
-                  backgroundColor: codeBg,
-                  fontSize: '0.9em'
+                  margin: 'var(--kendo-spacing-0)',
+                  padding: 'var(--kendo-spacing-3)',
+                  backgroundColor: 'var(--kendo-color-app-surface)',
+                  fontSize: 'var(--kendo-font-size-sm)'
                 }}
                 showLineNumbers={false}
                 wrapLines={true}

@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
     
 const drawerItems = [
     { text: "Home", svgIcon: homeIcon, route: "/", selected: true },
-    { text: "Chat Demo", svgIcon: commentIcon, route: "/chat-demo" },
+    { text: "Nuclia AI Assistant", svgIcon: commentIcon, route: "/chat-demo" },
     { text: "Grid Demo", svgIcon: gridIcon, route: "/grid-demo" },
 ];
 
