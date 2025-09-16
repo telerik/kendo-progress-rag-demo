@@ -1,189 +1,154 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Grid, GridColumn as Column } from '@progress/kendo-react-grid'
-import { buildApiUrl } from '../config/api'
+import { Chat, type Message, type User } from '@progress/kendo-react-conversational-ui'
+import { Card } from '@progress/kendo-react-layout'
+import { Chart, ChartSeries, ChartSeriesItem, ChartCategoryAxis, ChartCategoryAxisItem, ChartValueAxis, ChartValueAxisItem } from '@progress/kendo-react-charts'
 
-type Product = {
-  ProductID: number
-  ProductName: string
-  UnitPrice: number
-  UnitsInStock: number
-}
-
-type AskResponse = {
-  question: string
-  answer: string | null
-  sources?: any[]
-  raw?: any
-  error?: string
-  incomplete?: boolean
+type CompanyData = {
+  Company: string
+  Revenue: number
+  EBITDA: number
 }
 
 export default function GridDemo() {
-  const [data, setData] = useState<Product[]>([])
+  // Mock financial data
+  const companyData: CompanyData[] = [
+    { Company: 'Apple', Revenue: 560000, EBITDA: 347000 },
+    { Company: 'Microsoft', Revenue: 333000, EBITDA: 210000 },
+    { Company: 'Amazon', Revenue: 322000, EBITDA: 220000 },
+    { Company: 'Google', Revenue: 296000, EBITDA: 260000 },
+    { Company: 'Tesla', Revenue: 118000, EBITDA: 140000 },
+    { Company: 'Facebook', Revenue: 119000, EBITDA: 169000 },
+    { Company: 'IBM', Revenue: 119000, EBITDA: 63000 },
+    { Company: 'Intel', Revenue: 68000, EBITDA: 94000 },
+    { Company: 'Cisco', Revenue: 58000, EBITDA: 38000 },
+    { Company: 'Oracle', Revenue: 30000, EBITDA: 23000 }
+  ]
 
-  // Ask feature state
-  const [question, setQuestion] = useState('')
-  const [askLoading, setAskLoading] = useState(false)
-  const [askResult, setAskResult] = useState<AskResponse | null>(null)
-  const [askError, setAskError] = useState<string | null>(null)
+  // Mock cash flow data
+  const cashFlowData = [
+    { quarter: 'Q1 2023', value: 300 },
+    { quarter: 'Q2 2023', value: 380 },
+    { quarter: 'Q4 2023', value: 520 }
+  ]
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch(buildApiUrl('/api/products'))
-        const json = await res.json()
-        setData(json)
-      } catch (err) {
-        // swallow for demo
-        // eslint-disable-next-line no-console
-        console.error('Failed to load products', err)
-      } finally {
-      }
-    })()
-  }, [])
-
-  const ask = async () => {
-    if (!question.trim() || askLoading) return
-    setAskLoading(true)
-    setAskError(null)
-    setAskResult(null)
-    try {
-      const res = await fetch(buildApiUrl('/api/ask'), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: question.trim() })
-      })
-      if (!res.ok || !res.body) {
-        const maybe = await res.json().catch(() => ({}))
-        throw new Error(maybe.error || 'Request failed')
-      }
-      const reader = res.body.getReader()
-      const decoder = new TextDecoder('utf-8')
-      let buffer = ''
-
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        buffer += decoder.decode(value, { stream: true })
-        // SSE messages separated by double newlines
-        const parts = buffer.split('\n\n')
-        buffer = parts.pop() || ''
-        for (const part of parts) {
-          const lines = part.split('\n').filter(Boolean)
-          let dataLine = lines.find(l => l.startsWith('data: '))
-          // handle "event: error" lines
-          const isError = lines.some(l => l.startsWith('event: error'))
-          if (isError) {
-            if (dataLine) {
-              try {
-                const payload = JSON.parse(dataLine.replace(/^data: /, ''))
-                setAskError(payload.error || 'Error')
-              } catch {
-                setAskError('Error')
-              }
-            } else {
-              setAskError('Error')
-            }
-            setAskLoading(false)
-            return
-          }
-          if (dataLine) {
-            try {
-              const payload = JSON.parse(dataLine.replace(/^data: /, '')) as AskResponse
-              setAskResult(prev => ({ ...(prev || {}), ...payload }))
-              if (!payload.incomplete) {
-                setAskLoading(false)
-              }
-            } catch (e) {
-              // eslint-disable-next-line no-console
-              console.warn('Failed to parse SSE chunk', e, part)
-            }
-          }
-        }
-      }
-      // Ensure loading cleared if stream ended without explicit final flag
-      setAskLoading(false)
-    } catch (err: any) {
-      setAskError(err?.message || 'Network error')
-      setAskLoading(false)
-    }
+  // Chat users
+  const user: User = {
+    id: 1,
+    name: 'Demo User',
   }
 
-  const onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === 'Enter') {
-      ask()
+  const bot: User = { 
+    id: 0, 
+    name: 'Financial Assistant',
+  }
+
+  // Chat state using KendoReact Message type
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: 1,
+      author: user,
+      timestamp: new Date(),
+      text: "Show me Tesla's free cash flow trend over the past 4 quarters"
+    },
+    {
+      id: 2,
+      author: bot,
+      timestamp: new Date(),
+      text: "Tesla's free cash flow grew 15% YoY but declined last quarter"
     }
+  ])
+
+  // Handle new messages from Chat component
+  const handleSendMessage = (event: { message: Message }) => {
+    const userMessage = {
+      ...event.message,
+      author: user
+    }
+    
+    setMessages(prev => [...prev, userMessage])
+    
+    // Simulate bot response
+    setTimeout(() => {
+      const botResponse: Message = {
+        id: Date.now(),
+        author: bot,
+        timestamp: new Date(),
+        text: "I can help you analyze financial data. Please ask about specific companies or metrics."
+      }
+      setMessages(prev => [...prev, botResponse])
+    }, 1000)
   }
 
   return (
-    <div className="k-p-lg k-d-flex k-flex-col k-gap-lg">
-      <h1 className="k-font-size-xl k-font-bold">Express + Vite + KendoReact</h1>
+    <div className="k-d-grid k-grid-cols-1 k-grid-cols-xl-3 k-bg-surface k-gap-lg k-p-lg k-h-full">
+      {/* Left Panel - Chat */}
+      <div className="k-col-span-1 k-col-span-xl-1 k-col-start-xl-1 k-col-end-xl-2">
+        <Card>
+          <div className="k-p-lg k-d-flex k-flex-col">
+            <h2 className="k-font-size-xl k-font-bold k-mb-lg">Chat</h2>
+            
+            <Chat
+              messages={messages}
+              authorId={user.id}
+              onSendMessage={handleSendMessage}
+              placeholder="Type your message..."
+              height={"840px"}
+            />
+          </div>
+        </Card>
+      </div>
 
-      <section className="k-border k-border-subtle k-p-md k-rounded-md">
-        <h2 className="k-mt-0 k-font-size-lg k-font-semibold">Ask</h2>
-        <div className="k-d-flex k-gap-sm">
-          <input
-            className="k-flex-1 k-p-sm k-border k-border-subtle k-rounded-sm"
-            placeholder="Ask a question..."
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            onKeyDown={onKeyDown}
-            disabled={askLoading}
-          />
-          <button 
-            className="k-p-sm k-border k-border-primary k-bg-primary k-text-surface k-rounded-sm" 
-            onClick={ask} 
-            disabled={askLoading || !question.trim()}
-          >
-            {askLoading ? 'Streaming...' : 'Ask'}
-          </button>
-        </div>
-        <div className="k-mt-md k-min-h-16">
-          {askError && (
-            <div className="k-text-error">Error: {askError}</div>
-          )}
-          {askResult && !askError && (
-            <div>
-              <strong>Answer:</strong>
-              <div className="k-mt-xs" style={{ whiteSpace: 'pre-wrap' }}>
-                {askResult.answer || '(No answer yet)'}
+      {/* Right Panel - Financial Analysis */}
+      <div className="k-col-span-1 k-col-span-xl-2 k-col-start-xl-2 k-col-end-xl-4">
+        <Card>
+          <div className="k-p-lg">
+            <h2 className="k-font-size-xl k-font-bold k-mb-lg">Financial Analysis</h2>
+            
+            <div className="k-d-flex k-flex-col k-gap-lg">
+              {/* KPI Comparison Table */}
+              <div>
+                <h3 className="k-font-size-lg k-font-semibold k-mb-md">KPI Comparison</h3>
+                <Grid
+                  data={companyData}
+                  style={{ height: 350 }}
+                  sortable
+                  filterable
+                >
+                  <Column field="Company" title="Company" width="300px" />
+                  <Column field="Revenue" title="Revenue" format="{0:n0}" />
+                  <Column field="EBITDA" title="EBITDA" format="{0:n0}" />
+                </Grid>
               </div>
-              {askResult.sources && askResult.sources.length > 0 && !askResult.incomplete && (
-                <details className="k-mt-sm">
-                  <summary>Sources ({askResult.sources.length})</summary>
-                  <pre className="k-bg-surface-alt k-p-sm k-rounded-sm k-overflow-auto" style={{ maxHeight: 200 }}>
-                    {JSON.stringify(askResult.sources, null, 2)}
-                  </pre>
-                </details>
-              )}
-              <details className="k-mt-sm">
-                <summary>Raw (latest chunk)</summary>
-                <pre className="k-bg-surface-alt k-p-sm k-rounded-sm k-overflow-auto" style={{ maxHeight: 240 }}>
-                  {JSON.stringify(askResult.raw, null, 2)}
-                </pre>
-              </details>
-            </div>
-          )}
-          {askLoading && !askResult && !askError && (
-            <div className="k-text-subtle">Waiting for first chunk...</div>
-          )}
-        </div>
-      </section>
 
-      <section>
-        <h2 className="k-mt-0 k-font-size-lg k-font-semibold">Products</h2>
-        <Grid
-          style={{ height: 400 }}
-          data={data}
-          sortable
-          filterable
-        >
-          <Column field="ProductID" title="ID" width="80px" />
-          <Column field="ProductName" title="Product" />
-          <Column field="UnitPrice" title="Price" />
-          <Column field="UnitsInStock" title="In Stock" />
-        </Grid>
-      </section>
+              {/* Free Cash Flow Trend - KendoReact Chart */}
+              <div>
+                <h3 className="k-font-size-lg k-font-semibold k-mb-md">Free Cash Flow Trend</h3>
+                <Chart style={{ height: 350 }}>
+                  <ChartCategoryAxis>
+                    <ChartCategoryAxisItem categories={cashFlowData.map(d => d.quarter)} />
+                  </ChartCategoryAxis>
+                  <ChartValueAxis>
+                    <ChartValueAxisItem 
+                      labels={{ format: "{0}M" }}
+                      title={{ text: "Cash Flow (Millions)" }}
+                    />
+                  </ChartValueAxis>
+                  <ChartSeries>
+                    <ChartSeriesItem 
+                      type="line" 
+                      data={cashFlowData.map(d => d.value)}
+                      markers={{ visible: true }}
+                      color="#ff6800"
+                      tooltip={{ visible: true, format: "{0}M" }}
+                    />
+                  </ChartSeries>
+                </Chart>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
     </div>
   )
 }

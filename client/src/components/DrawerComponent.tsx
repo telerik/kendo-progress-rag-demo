@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Drawer, DrawerContent } from "@progress/kendo-react-layout";
-import { folderIcon, searchIcon, gridIcon } from "@progress/kendo-svg-icons";
+import { folderIcon, searchIcon, chartLineStackedMarkersIcon } from "@progress/kendo-svg-icons";
 import type { To } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
     
 const drawerItems = [
     { text: "Home", svgIcon: folderIcon, route: "/", selected: true },
     { text: "Knowledge Assistant", svgIcon: searchIcon, route: "/chat-demo" },
-    { text: "Grid Demo", svgIcon: gridIcon, route: "/grid-demo" },
+    { text: "Finance Analysis", svgIcon: chartLineStackedMarkersIcon, route: "/grid-demo" },
 ];
 
 interface DrawerComponentProps {
@@ -57,7 +57,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
       className="k-h-full k-flex-1"
     >
       <DrawerContent>
-        <div className="k-overflow-hidden" style={{ height: 'calc(100vh - 57px)' }}>
+        <div style={{ height: 'calc(100vh - 57px)' }}>
           {children}
         </div>
       </DrawerContent>

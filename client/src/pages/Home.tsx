@@ -10,7 +10,7 @@ export default function Home() {
   };
 
   return (
-    <div className="k-min-h-screen" style={{ 
+    <div className="k-h-full" style={{ 
       background: 'linear-gradient(134deg, #2359D4 14.27%, #832ED2 49.62%, #2B39A4 85.65%)'
     }}>
       <div className="k-d-flex k-flex-column k-text-surface k-align-items-center k-gap-14 k-p-30">
