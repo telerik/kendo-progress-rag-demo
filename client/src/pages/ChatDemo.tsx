@@ -2,6 +2,8 @@ import React from "react";
 import { Chat, type Message, type User, type ChatSuggestion } from "@progress/kendo-react-conversational-ui";
 import ChatMessage from "../components/ChatMessage";
 import { buildApiUrl } from '../config/api';
+import { SvgIcon } from "@progress/kendo-react-common";
+import { searchIcon } from "@progress/kendo-svg-icons";
 
 type AskResponse = {
   question: string
@@ -27,7 +29,7 @@ const initialMessages: Message[] = [
         id: 1,
         author: bot,
         timestamp: new Date(),
-        text: 'Hello! I\'m your Nuclia AI assistant. Ask me anything about your knowledge base.'
+        text: 'Hello! I\'m your Nuclia AI assistant. I can help you with KendoReact questions and documentation. Try one of the suggestions below, or ask me anything about KendoReact components, theming, data visualization, and more!'
     }
 ];
 
@@ -86,7 +88,7 @@ const addNewMessage = async (event: AddNewMessageEvent): Promise<void> => {
         id: botMessageId,
         author: bot,
         timestamp: new Date(),
-        text: 'Thinking...'
+        typing: true 
     };
     
     setMessages(prev => [...prev, botMessage]);
@@ -141,7 +143,7 @@ const addNewMessage = async (event: AddNewMessageEvent): Promise<void> => {
                             // Update the bot message with streaming content
                             setMessages(prev => prev.map(msg => 
                                 msg.id === botMessageId 
-                                    ? { ...msg, text: currentAnswer }
+                                    ? { ...msg, text: currentAnswer, typing: false }
                                     : msg
                             ));
                         }
@@ -156,20 +158,26 @@ const addNewMessage = async (event: AddNewMessageEvent): Promise<void> => {
         // Update bot message with error
         setMessages(prev => prev.map(msg => 
             msg.id === botMessageId 
-                ? { ...msg, text: `Sorry, I encountered an error: ${errorMessage}` }
+                ? { ...msg, text: `Sorry, I encountered an error: ${errorMessage}`, typing: false }
                 : msg
         ));
     }
 };
     return (
-        <div className="k-h-full k-bg-surface">
+        <div className="k-h-full k-color-surface k-d-flex k-flex-column k-align-items-center k-justify-content-center k-px-30 k-gap-3" style={{ background: 'linear-gradient(134deg, #23A5D4 14.27%, #2E7BD2 49.62%, #20B4CB 85.65%)'}}>
+            <div className="k-d-flex k-flex-column k-gap-4">
+                <div className="k-d-flex k-gap-2 k-align-items-center">
+                    <SvgIcon icon={searchIcon} size="xxlarge" />
+                    <h1 className="k-h1 !k-mb-0">Nuclia Knowledge Assistant</h1>
+                </div>
+                <p className="!k-mb-0 k-font-size-xl">Explore the comprehensive Nuclia knowledge base with AI-powered intelligent search for precise, contextual results about Nuclia features, capabilities, and best practices</p>
+            </div>
             <Chat
                 messages={messages}
                 authorId={user.id}
                 onSendMessage={addNewMessage}
-                placeholder={'Type a message...'}
-                width={"100%"}
-                height={"100%"}
+                placeholder={'Try a suggestion or ask about KendoReact...'}
+                height={"700px"}
                 className="k-border-transparent"
                 messageTemplate={ChatMessage}
                 suggestions={kendoSuggestions}

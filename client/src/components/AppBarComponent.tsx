@@ -14,7 +14,7 @@ export default function AppBarComponent() {
     <AppBar 
       positionMode="sticky"
       style={{
-        background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #1e40af 100%)",
+        background: "linear-gradient(135deg, #0a5bb8 0%, #0d6edf 50%, #085096 100%)",
         borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
         boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
         backdropFilter: "blur(10px)"
