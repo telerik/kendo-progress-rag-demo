@@ -47,6 +47,13 @@ jobs:
           cd client
           npm ci
 
+      - name: Activate Kendo UI License
+        env: 
+          KENDO_UI_LICENSE: ${{ secrets.KENDO_UI_LICENSE }}
+        run: |
+          cd client
+          npx kendo-ui-license activate
+
       - name: Build application
         env:
           VITE_API_BASE_URL: 'https://nuclea-kendo-demo.azurewebsites.net'

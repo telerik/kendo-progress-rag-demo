@@ -164,10 +164,10 @@ const addNewMessage = async (event: AddNewMessageEvent): Promise<void> => {
     }
 };
     return (
-        <div className="k-h-full k-color-surface k-d-flex k-flex-column k-align-items-center k-justify-content-center k-px-30 k-gap-3" style={{ background: 'linear-gradient(134deg, #23A5D4 14.27%, #2E7BD2 49.62%, #20B4CB 85.65%)'}}>
-            <div className="k-d-flex k-flex-column k-gap-4">
+        <div className="k-h-full k-color-surface k-d-flex k-flex-column k-align-items-center k-justify-content-center k-px-4 k-px-sm-6 k-px-md-8 k-px-lg-12 k-px-xl-30 k-gap-2 k-gap-sm-3 k-gap-md-4" style={{ background: 'linear-gradient(134deg, #23A5D4 14.27%, #2E7BD2 49.62%, #20B4CB 85.65%)'}}>
+            <div className="k-d-flex k-flex-column k-gap-2 k-gap-sm-3 k-gap-md-4">
                 <div className="k-d-flex k-gap-2 k-align-items-center">
-                    <SvgIcon icon={searchIcon} size="xxlarge" />
+                    <SvgIcon icon={searchIcon} size="xxlarge" className="k-flex-shrink-0" />
                     <h1 className="k-h1 !k-mb-0">Nuclia Knowledge Assistant</h1>
                 </div>
                 <p className="!k-mb-0 k-font-size-xl">Explore the comprehensive Nuclia knowledge base with AI-powered intelligent search for precise, contextual results about Nuclia features, capabilities, and best practices</p>
