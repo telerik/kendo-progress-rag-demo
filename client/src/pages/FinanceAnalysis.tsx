@@ -3,7 +3,6 @@ import {
   Chat,
   type ChatSuggestion,
 } from "@progress/kendo-react-conversational-ui";
-import ChatMessage from "../components/ChatMessage";
 import { useChatBot } from "../hooks/useChatBot";
 import { Card } from "@progress/kendo-react-layout";
 import {
@@ -87,7 +86,7 @@ export default function FinanceAnalysis() {
 
   return (
     <div className="k-bg-surface" style={{ minHeight: 'calc(100vh - 53px)' }}>
-      <div className="k-d-grid k-grid-cols-1 k-grid-cols-xl-3 k-gap-lg k-p-lg" style={{ minHeight: 'calc(100vh - 53px - 2rem)' }}>
+      <div className="k-d-grid k-grid-cols-1 k-grid-cols-xl-2 k-gap-lg k-p-lg" style={{ minHeight: 'calc(100vh - 53px - 2rem)' }}>
         {/* Left Panel - Chat */}
         <div className="k-d-flex k-col-span-1 k-col-span-xl-1 k-col-start-xl-1 k-col-end-xl-2" style={{ display: 'flex' }}>
           <Card>
@@ -101,7 +100,6 @@ export default function FinanceAnalysis() {
                 placeholder={"Try a suggestion or ask about a company..."}
                 className="k-border-transparent"
                 height="calc(100vh - 200px)"
-                messageTemplate={ChatMessage}
                 suggestions={chatBot.availableSuggestions}
                 onSuggestionClick={chatBot.handleSuggestionClick}
               />
@@ -110,7 +108,7 @@ export default function FinanceAnalysis() {
         </div>
 
         {/* Right Panel - Financial Charts Analysis */}
-        <div className="k-d-flex k-col-span-1 k-col-span-xl-2 k-col-start-xl-2 k-col-end-xl-4">
+        <div className="k-d-flex k-col-span-1 k-col-span-xl-1 k-col-start-xl-2 k-col-end-xl-3">
           <Card className="k-flex-1">
             <div className="k-p-lg">
               <h2 className="k-font-size-xl k-font-bold k-mb-lg">

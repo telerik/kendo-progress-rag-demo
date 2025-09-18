@@ -156,15 +156,56 @@ export const useChatBot = (config: ChatBotConfig): UseChatBotReturn => {
             try {
               const payload = JSON.parse(dataLine.replace(/^data: /, '')) as StreamingResponse;
               if (payload.answer) {
-                currentAnswer = payload.answer;
-                finalResponse = payload;
+                const previousAnswer = currentAnswer;
+                const newAnswer = payload.answer;
+                const isLargeJump = newAnswer.length > previousAnswer.length + 50; // Detect large jumps
                 
-                // Update the bot message with streaming content
-                setMessages(prev => prev.map(msg => 
-                  msg.id === botMessageId 
-                    ? { ...msg, text: currentAnswer, typing: false }
-                    : msg
-                ));
+                // If it's a large jump (like complete replacement), simulate streaming
+                if (isLargeJump && previousAnswer.length === 0) {
+                  console.log(`[${config.apiEndpoint}] Large jump detected, simulating streaming: ${newAnswer.length} chars`);
+                  
+                  // Simulate streaming by gradually revealing the text
+                  const simulateStreaming = async (fullText: string) => {
+                    const chunkSize = 10; // Characters per chunk
+                    const delay = 30; // Milliseconds between chunks
+                    
+                    for (let i = 0; i < fullText.length; i += chunkSize) {
+                      const partialText = fullText.slice(0, i + chunkSize);
+                      currentAnswer = partialText;
+                      
+                      // Update the UI
+                      setMessages(prev => prev.map(msg => 
+                        msg.id === botMessageId 
+                          ? { ...msg, text: currentAnswer, typing: false }
+                          : msg
+                      ));
+                      
+                      // Small delay to create streaming effect
+                      if (i + chunkSize < fullText.length) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                      }
+                    }
+                  };
+                  
+                  // Start the simulated streaming
+                  simulateStreaming(newAnswer);
+                } else {
+                  // Normal incremental update
+                  currentAnswer = newAnswer;
+                  
+                  // Debug log
+                  if (previousAnswer !== currentAnswer) {
+                    console.log(`[${config.apiEndpoint}] Text updated: ${previousAnswer.length} -> ${currentAnswer.length} chars`);
+                  }
+                  
+                  setMessages(prev => prev.map(msg => 
+                    msg.id === botMessageId 
+                      ? { ...msg, text: currentAnswer, typing: false }
+                      : msg
+                  ));
+                }
+                
+                finalResponse = payload;
               }
             } catch (e) {
               console.warn('Failed to parse SSE chunk', e, part);
