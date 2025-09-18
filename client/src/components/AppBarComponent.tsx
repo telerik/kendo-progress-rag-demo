@@ -1,21 +1,29 @@
 import { AppBar, AppBarSection, AppBarSpacer } from "@progress/kendo-react-layout";
 import { Button } from "@progress/kendo-react-buttons";
-import { Avatar } from "@progress/kendo-react-layout";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { useNavigate } from 'react-router-dom';
 import { 
   searchIcon, 
   homeIcon,
-  gearIcon,
+  chartLineStackedMarkersIcon,
   sparklesIcon
 } from "@progress/kendo-svg-icons";
 
 export default function AppBarComponent() {
   const navigate = useNavigate();
 
-  const handleSparklesClick = () => {
+  const handleHomeClick = () => {
     navigate('/');
   };
+
+  const handleSearchClick = () => {
+    navigate('/knowledge-assistant');
+  }
+
+  const handleChartClick = () => {
+    navigate('/finance-analysis');
+  }
+
   return (
     <AppBar 
       positionMode="sticky"
@@ -28,19 +36,18 @@ export default function AppBarComponent() {
     >
       <AppBarSection>
         <div className="k-d-flex k-align-items-center k-gap-md">
-          <div className="k-d-flex k-align-items-center k-justify-content-center k-rounded-md k-w-8 k-h-8 k-cursor-pointer" 
+          <div className="k-d-flex k-align-items-center k-justify-content-center k-rounded-md k-w-8 k-h-8" 
                style={{
                  background: "rgba(255, 255, 255, 0.2)",
                  border: "1px solid rgba(255, 255, 255, 0.3)"
-               }}
-               onClick={handleSparklesClick}>
+               }}>
             <SvgIcon
 
               className="k-color-warning"
               icon={sparklesIcon}
             />
           </div>
-          <h3 className="k-m-0 k-text-surface k-font-semibold k-font-size-xl" style={{ 
+          <h3 className="k-m-0 k-text-surface k-font-semibold k-font-size-xl k-d-none k-d-sm-block" style={{ 
             textShadow: "0 2px 4px rgba(0, 0, 0, 0.2)"
           }}>
             Kendo + Nuclia Demo
@@ -51,37 +58,28 @@ export default function AppBarComponent() {
       <AppBarSpacer />
 
       <AppBarSection>
-        <div className="k-d-flex k-align-items-center k-gap-sm">
+        <div className="k-d-flex k-d-md-none k-align-items-center k-gap-sm">
           <Button
             svgIcon={homeIcon}
             fillMode="flat"
             themeColor="primary"
             className="k-rounded-sm k-text-surface"
+            onClick={handleHomeClick}
           />
           <Button
             svgIcon={searchIcon}
             fillMode="flat"
             themeColor="primary"
             className="k-rounded-sm k-text-surface"
+            onClick={handleSearchClick}
           />
           <Button
-            svgIcon={gearIcon}
+            svgIcon={chartLineStackedMarkersIcon}
             fillMode="flat"
             themeColor="primary"
             className="k-rounded-sm k-text-surface"
+            onClick={handleChartClick}
           />
-          <div className="k-ml-md k-p-xs">
-            <Avatar 
-              type="text"
-              className="k-text-surface k-font-bold"
-              style={{
-                background: "rgba(255, 255, 255, 0.2)",
-                border: "2px solid rgba(255, 255, 255, 0.3)"
-              }}
-            >
-              U
-            </Avatar>
-          </div>
         </div>
       </AppBarSection>
     </AppBar>
