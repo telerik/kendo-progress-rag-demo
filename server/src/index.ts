@@ -1,8 +1,11 @@
 import 'dotenv/config';
 import express from "express";
 import cors from "cors";
-import { ChatOptions, Nuclia, ResourceProperties } from '@nuclia/core';
+import { ChatOptions, KnowledgeBox, Nuclia, ResourceProperties } from '@nuclia/core';
 import { chartJsonSchema } from './schemas/charts-json-schema';
+
+const requestTimeoutInMilliseconds = 15000; // 15 seconds
+const maxQuestionLength = 1000; // Maximum length for the question in characters
 
 const app = express();
 app.use(cors());
@@ -26,10 +29,8 @@ app.get("/api/health", (_req: express.Request, res: express.Response) => {
   res.json({ status: "ok" });
 });
 
-// Reusable handler supporting both GET (query param) and POST (JSON body) requests.
-const askHandler = (req: express.Request, res: express.Response, use_fin_kb: boolean, chatOptions?: ChatOptions) => {
-  const { question, options } = req.body;
-
+// Reusable extended handler providing SSE streaming for Nuclia ask requests
+const askHandler = (req: express.Request, res: express.Response, kb: KnowledgeBox, question: string, chatOptions?: ChatOptions) => {
   // Set up Server-Sent Events (SSE) headers
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
@@ -43,13 +44,15 @@ const askHandler = (req: express.Request, res: express.Response, use_fin_kb: boo
       res.write(`event: error\ndata: {\"error\":\"Ask request timed out\"}\n\n`);
       res.end();
     }
-  }, 15000);
-
-  const kb = use_fin_kb ? nuclia_fin_charts : nuclia_react_docs;
+  }, requestTimeoutInMilliseconds);
 
   try {
+    if (!question || question.trim() === "" || question.length > maxQuestionLength) {
+      throw new Error("Invalid question");
+    }
+
     // Nuclia SDK emits answer objects with fields: answers, answer, incomplete, sources, etc.
-    const subscription = kb.knowledgeBox.ask(question, [], [], chatOptions).subscribe({
+    const subscription = kb.ask(question, [], [], chatOptions).subscribe({
       next: (result: any) => {
         if (finished) return;
         let answer, sources;
@@ -94,7 +97,7 @@ const askHandler = (req: express.Request, res: express.Response, use_fin_kb: boo
 
     // Clean up subscription on connection close
     res.on('close', () => {
-      if (!subscription.closed) {
+      if (subscription && !subscription.closed) {
         subscription.unsubscribe();
         clearTimeout(timeout);
       }
@@ -110,23 +113,21 @@ const askHandler = (req: express.Request, res: express.Response, use_fin_kb: boo
 };
 
 app.post("/api/ask", (req: express.Request, res: express.Response) => {
-  return askHandler(req, res, false);
+  return askHandler(req, res, nuclia_react_docs.knowledgeBox, req.body.question);
 });
 
 app.post("/api/ask-charts", (req: express.Request, res: express.Response) => {
-  req.body.question = req.body.question.trim();
-
   var chatOptions: ChatOptions =
   {
-    synchronous: false, // asynchronous streaming mode
-    citations: false, // do not include citations in the answer
-    show: [ResourceProperties.BASIC], // include basic metadata in sources
-    answer_json_schema: chartJsonSchema, // request structured JSON output
-    // prompt: { system: finChartSystemPrompt },
-    // autofilter: true // enables automatic filtering of identified NERs
+    synchronous: false, // Asynchronous streaming mode.
+    citations: false, // Do not include citations in the answer to optimize size
+    show: [ResourceProperties.BASIC], // Define what resource properties to include. The BASIC setting optimizes for size.
+    answer_json_schema: chartJsonSchema, // Requests structured JSON output and defines additional constraints.
+    // prompt: { system: finChartSystemPrompt }, // Custom prompts provide another option to guide the model.
+    // autofilter: true // Enables automatic filtering of identified NERs.
   };
 
-  return askHandler(req, res, true, chatOptions);
+  return askHandler(req, res, nuclia_fin_charts.knowledgeBox, req.body.question, chatOptions);
 });
 
 const PORT = process.env.PORT || 5000;
