@@ -6,7 +6,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   const handleExploreClick = () => {
-    navigate('/chat-demo');
+    navigate('/finance-analysis');
   };
 
   return (

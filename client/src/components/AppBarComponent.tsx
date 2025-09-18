@@ -2,6 +2,7 @@ import { AppBar, AppBarSection, AppBarSpacer } from "@progress/kendo-react-layou
 import { Button } from "@progress/kendo-react-buttons";
 import { Avatar } from "@progress/kendo-react-layout";
 import { SvgIcon } from "@progress/kendo-react-common";
+import { useNavigate } from 'react-router-dom';
 import { 
   searchIcon, 
   homeIcon,
@@ -10,6 +11,11 @@ import {
 } from "@progress/kendo-svg-icons";
 
 export default function AppBarComponent() {
+  const navigate = useNavigate();
+
+  const handleSparklesClick = () => {
+    navigate('/');
+  };
   return (
     <AppBar 
       positionMode="sticky"
@@ -22,12 +28,14 @@ export default function AppBarComponent() {
     >
       <AppBarSection>
         <div className="k-d-flex k-align-items-center k-gap-md">
-          <div className="k-d-flex k-align-items-center k-justify-content-center k-rounded-md k-w-8 k-h-8" 
+          <div className="k-d-flex k-align-items-center k-justify-content-center k-rounded-md k-w-8 k-h-8 k-cursor-pointer" 
                style={{
                  background: "rgba(255, 255, 255, 0.2)",
                  border: "1px solid rgba(255, 255, 255, 0.3)"
-               }}>
+               }}
+               onClick={handleSparklesClick}>
             <SvgIcon
+
               className="k-color-warning"
               icon={sparklesIcon}
             />

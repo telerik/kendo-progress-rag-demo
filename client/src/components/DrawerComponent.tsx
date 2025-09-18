@@ -6,8 +6,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
     
 const drawerItems = [
     { text: "Home", svgIcon: folderIcon, route: "/", selected: true },
-    { text: "Knowledge Assistant", svgIcon: searchIcon, route: "/chat-demo" },
-    { text: "Finance Analysis", svgIcon: chartLineStackedMarkersIcon, route: "/grid-demo" },
+    { text: "Knowledge Assistant", svgIcon: searchIcon, route: "/knowledge-assistant" },
+    { text: "Finance Analysis", svgIcon: chartLineStackedMarkersIcon, route: "/finance-analysis" },
 ];
 
 interface DrawerComponentProps {
