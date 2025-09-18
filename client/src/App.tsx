@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import AppBarComponent from "./components/AppBarComponent";
 import DrawerComponent from "./components/DrawerComponent";
 import Home from "./pages/Home";
@@ -9,7 +9,7 @@ export default function App() {
 
   return (
     <>
-      <BrowserRouter basename={`/`}>
+      <HashRouter>
         <AppBarComponent />
         <DrawerComponent>
             <Routes>
@@ -18,7 +18,7 @@ export default function App() {
                 <Route path="/finance-analysis" element={<FinanceAnalysis />} />
             </Routes>
         </DrawerComponent>
-      </BrowserRouter>
+      </HashRouter>
     </>
   )
 }
