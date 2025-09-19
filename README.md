@@ -243,10 +243,6 @@ npm run build
 npm start
 ```
 
-## 📄 License
-
-This project is licensed under the ISC License.
-
 ## 🙋‍♂️ Support
 
 For questions about:
