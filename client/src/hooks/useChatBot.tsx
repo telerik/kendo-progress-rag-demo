@@ -158,7 +158,6 @@ export const useChatBot = (config: ChatBotConfig): UseChatBotReturn => {
               if (payload.answer) {
                 currentAnswer = payload.answer;
                 finalResponse = payload;
-                console.log(`[${config.apiEndpoint}] Received response: ${currentAnswer.length} chars`);
               }
             } catch (e) {
               console.warn('Failed to parse SSE chunk', e, part);
