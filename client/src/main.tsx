@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 
-// Kendo theme (choose one: default/material/bootstrap)
 import '@progress/kendo-theme-bootstrap/dist/all.css'
 import '@progress/kendo-theme-utils/dist/all.css'
 
