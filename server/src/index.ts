@@ -71,7 +71,6 @@ const askHandler = (req: express.Request, res: express.Response, kb: KnowledgeBo
           incomplete: result.incomplete,
           sources: sources || [],
           json: result?.jsonAnswer || null,
-          raw: result,
         })}\n\n`);
         if (!result.incomplete) {
           finished = true;

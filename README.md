@@ -5,7 +5,6 @@ A comprehensive demo application showcasing the powerful integration between [Nu
 ## 🚀 Live Demo
 
 - **Frontend**: [https://telerik.github.io/nuclia-demo/](https://telerik.github.io/nuclia-demo/)
-- **Backend API**: [https://nuclea-kendo-demo.azurewebsites.net](https://nuclea-kendo-demo.azurewebsites.net)
 
 ## 🌟 Features
 

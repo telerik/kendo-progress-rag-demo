@@ -14,7 +14,6 @@ export interface StreamingResponse {
   question: string;
   answer: string | null;
   sources?: unknown[];
-  raw?: unknown;
   json?: Record<string, unknown>; // For chart data or other structured responses
   error?: string;
   incomplete?: boolean;
