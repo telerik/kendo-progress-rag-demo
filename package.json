@@ -15,6 +15,6 @@
     "start": "node server/dist/index.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Progress Software",
+  "license": "Apache-2.0"
 }
