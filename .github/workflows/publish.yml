@@ -1,0 +1,81 @@
+name: Build and deploy
+
+env:
+  AZURE_WEBAPP_NAME: nuclea-kendo-demo
+  WORK_DIR: server   
+  NODE_VERSION: '22.x'  
+
+  
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    permissions:
+      contents: read
+      id-token: write    
+    environment: 'Production'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies and build
+        run: |
+          cd ${{ env.WORK_DIR }}
+          npm ci
+          npm run build
+
+      - name: 'Az CLI login'
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: ${{ env.WORK_DIR }}
+          startup-command: 'npm start'
+          
+      - name: Configure App Settings
+        uses: azure/appservice-settings@v1
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          app-settings-json: |
+            [
+              {
+                "name": "NUCLIA_KB",
+                "value": "${{ secrets.NUCLIA_KB }}"
+              },
+              {
+                "name": "NUCLIA_API_KEY", 
+                "value": "${{ secrets.NUCLIA_API_KEY }}"
+              },
+              {
+                "name": "NUCLIA_FIN_KB",
+                "value": "${{ secrets.NUCLIA_FIN_KB }}"
+              },
+              {
+                "name": "NUCLIA_FIN_API_KEY", 
+                "value": "${{ secrets.NUCLIA_FIN_API_KEY }}"
+              },
+              {
+                "name": "NODE_ENV",
+                "value": "production"
+              }
+            ]
+          
+      - name: logout
+        run: |
+          az logout
+        

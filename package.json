@@ -1,0 +1,20 @@
+{
+  "name": "nuclia-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.0.0"
+  },
+  "scripts": {
+    "dev:server": "cd server && nodemon",
+    "dev:client": "cd client && npm run dev",
+    "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\"",
+    "build": "cd client && npm run build && cd ../server && tsc",
+    "start": "node server/dist/index.js"
+  },
+  "keywords": [],
+  "author": "Progress Software",
+  "license": "Apache-2.0"
+}
