@@ -11,15 +11,15 @@
   },
   "dependencies": {
     "@progress/kendo-licensing": "^1.7.1",
-    "@progress/kendo-react-buttons": "^12.0.1",
-    "@progress/kendo-react-charts": "^12.0.1",
-    "@progress/kendo-react-common": "^12.0.1",
-    "@progress/kendo-react-conversational-ui": "^12.0.1",
-    "@progress/kendo-react-dateinputs": "^12.0.1",
-    "@progress/kendo-react-dialogs": "^12.0.1",
-    "@progress/kendo-react-dropdowns": "^12.0.1",
-    "@progress/kendo-react-grid": "^12.0.1",
-    "@progress/kendo-react-layout": "^12.0.1",
+    "@progress/kendo-react-buttons": "^12.0.2",
+    "@progress/kendo-react-charts": "^12.0.2",
+    "@progress/kendo-react-common": "^12.0.2",
+    "@progress/kendo-react-conversational-ui": "^12.0.2",
+    "@progress/kendo-react-dateinputs": "^12.0.2",
+    "@progress/kendo-react-dialogs": "^12.0.2",
+    "@progress/kendo-react-dropdowns": "^12.0.2",
+    "@progress/kendo-react-grid": "^12.0.2",
+    "@progress/kendo-react-layout": "^12.0.2",
     "@progress/kendo-theme-bootstrap": "^12.0.1",
     "@progress/kendo-theme-default": "^12.0.1",
     "@progress/kendo-theme-utils": "^12.0.1",
@@ -41,5 +41,8 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2"
+  },
+  "overrides": {
+    "prismjs": "^1.30.0"
   }
 }

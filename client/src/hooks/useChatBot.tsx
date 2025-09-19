@@ -98,16 +98,16 @@ export const useChatBot = (config: ChatBotConfig): UseChatBotReturn => {
     setIsLoading(true);
     setLatestResponse(null);
 
-    // Create a placeholder bot message for streaming
-    const botMessageId = Date.now() + 1;
-    const botMessage: Message = {
-      id: botMessageId,
+    // Add typing indicator - this creates better UX
+    const typingMessageId = Date.now() + 1;
+    const typingMessage: Message = {
+      id: typingMessageId,
       author: bot,
       timestamp: new Date(),
-      typing: true 
+      typing: true
     };
     
-    setMessages(prev => [...prev, botMessage]);
+    setMessages(prev => [...prev, typingMessage]);
 
     try {
       const res = await fetch(buildApiUrl(config.apiEndpoint), {
@@ -158,13 +158,7 @@ export const useChatBot = (config: ChatBotConfig): UseChatBotReturn => {
               if (payload.answer) {
                 currentAnswer = payload.answer;
                 finalResponse = payload;
-                
-                // Update the bot message with streaming content
-                setMessages(prev => prev.map(msg => 
-                  msg.id === botMessageId 
-                    ? { ...msg, text: currentAnswer, typing: false }
-                    : msg
-                ));
+                console.log(`[${config.apiEndpoint}] Received response: ${currentAnswer.length} chars`);
               }
             } catch (e) {
               console.warn('Failed to parse SSE chunk', e, part);
@@ -173,18 +167,48 @@ export const useChatBot = (config: ChatBotConfig): UseChatBotReturn => {
         }
       }
       
+      // Add complete bot message after removing typing indicator
+      // Use a small delay to ensure smooth auto-scroll
+      if (currentAnswer) {
+        // First, remove typing indicator
+        setMessages(prev => prev.filter(msg => msg.id !== typingMessageId));
+        
+        // Then add complete response after a tiny delay
+        setTimeout(() => {
+          const botMessage: Message = {
+            id: Date.now() + 2,
+            author: bot,
+            timestamp: new Date(),
+            text: currentAnswer
+          };
+          
+          setMessages(prev => [...prev, botMessage]);
+        }, 10);
+      } else {
+        // If no response, just remove typing indicator
+        setMessages(prev => prev.filter(msg => msg.id !== typingMessageId));
+      }
+      
       // Set the final response for any additional processing
       if (finalResponse) {
         setLatestResponse(finalResponse);
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Network error';
-      // Update bot message with error
-      setMessages(prev => prev.map(msg => 
-        msg.id === botMessageId 
-          ? { ...msg, text: `Sorry, I encountered an error: ${errorMessage}`, typing: false }
-          : msg
-      ));
+      
+      // Remove typing and add error with delay
+      setMessages(prev => prev.filter(msg => msg.id !== typingMessageId));
+      
+      setTimeout(() => {
+        const errorBotMessage: Message = {
+          id: Date.now() + 2,
+          author: bot,
+          timestamp: new Date(),
+          text: `Sorry, I encountered an error: ${errorMessage}`
+        };
+        
+        setMessages(prev => [...prev, errorBotMessage]);
+      }, 10);
     } finally {
       setIsLoading(false);
     }
