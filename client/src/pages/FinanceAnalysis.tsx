@@ -129,10 +129,11 @@ export default function FinanceAnalysis() {
                           <h4 className="k-font-size-md k-font-semibold k-mb-sm">
                             {chart.title}
                           </h4>
-                          <Chart style={{ height: 210, width: "100%" }}>
+                          <Chart style={{ minHeight: "210px", width: "100%" }}>
                             <ChartCategoryAxis>
                               <ChartCategoryAxisItem
                                 categories={chart.categories}
+                                labels={{ rotation: "auto" }}
                               />
                             </ChartCategoryAxis>
                             <ChartValueAxis>
