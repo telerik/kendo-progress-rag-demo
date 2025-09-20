@@ -1,10 +1,10 @@
-# Nuclia + KendoReact Demo
+# Progress Agentic RAG + KendoReact Demo
 
-A comprehensive demo application showcasing the powerful integration between [Nuclia](https://nuclia.com/) AI-powered search capabilities and [KendoReact](https://www.telerik.com/kendo-react-ui) UI components. This application demonstrates how to build intelligent, data-driven interfaces that combine enterprise-grade AI retrieval with beautiful, functional user interfaces.
+A comprehensive demo application showcasing the powerful integration between [Progress Agentic RAG](https://www.progress.com/agentic-rag) AI-powered search capabilities and [KendoReact](https://www.telerik.com/kendo-react-ui) UI components. This application demonstrates how to build intelligent, data-driven interfaces that combine enterprise-grade AI retrieval with beautiful, functional user interfaces.
 
 ## 🚀 Live Demo
 
-- **Frontend**: [https://telerik.github.io/nuclia-demo/](https://telerik.github.io/nuclia-demo/)
+- **Frontend**: [https://telerik.github.io/kendo-progress-rag-demo/](https://telerik.github.io/kendo-progress-rag-demo/)
 
 ## 🌟 Features
 
