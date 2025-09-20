@@ -61,9 +61,9 @@ export default function FinanceAnalysis() {
   ];
 
   const chatBot = useChatBot({
-    botName: "Nuclia Financial Assistant",
+    botName: "Progress Agentic RAG Financial Assistant",
     initialMessage:
-      "Hello! I'm your Nuclia Financial assistant. I can help you by summarizing financial data and answering questions about companies. Try one of the suggestions below, or ask me anything about financial results of Apple, Amazon, Resolute, Exxon Mobil, Johnson&Jonson, Google, NVIDIA or Berkshire Hathaway!",
+      "Hello! I'm your Progress Agentic RAG Financial assistant. I can help you by summarizing financial data and answering questions about companies. Try one of the suggestions below, or ask me anything about financial results of Apple, Amazon, Resolute, Exxon Mobil, Johnson&Jonson, Google, NVIDIA or Berkshire Hathaway!",
     apiEndpoint: "/api/ask-charts",
     placeholder: "Try a suggestion or ask about a company...",
     suggestions: financialSuggestions,
@@ -112,10 +112,10 @@ export default function FinanceAnalysis() {
           <Card className="k-flex-1">
             <div className="k-p-lg">
               <h2 className="k-font-size-xl k-font-bold k-mb-lg">
-                Nuclia Financial Charts Analysis
+                Progress Agentic RAG Financial Charts Analysis
               </h2>
               <div className="k-d-flex k-flex-col k-gap-lg">
-                {/* Dynamic Charts from Nuclia answer (up to 3) */}
+                {/* Dynamic Charts from Progress Agentic RAG answer (up to 3) */}
                 <div>
                   {selectedCharts.length === 0 && (
                     <p className="k-text-secondary">

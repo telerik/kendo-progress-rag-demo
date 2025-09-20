@@ -29,7 +29,7 @@ app.get("/api/health", (_req: express.Request, res: express.Response) => {
   res.json({ status: "ok" });
 });
 
-// Reusable extended handler providing SSE streaming for Nuclia ask requests
+// Reusable extended handler providing SSE streaming for Progress Agentic RAG ask requests
 const askHandler = (req: express.Request, res: express.Response, kb: KnowledgeBox, question: string, chatOptions?: ChatOptions) => {
   // Set up Server-Sent Events (SSE) headers
   res.setHeader('Content-Type', 'text/event-stream');

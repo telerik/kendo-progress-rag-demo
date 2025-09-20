@@ -16,7 +16,7 @@ export default function Home() {
     }}>
       <div className="k-d-flex k-flex-column k-text-surface k-align-items-center k-gap-8 k-gap-sm-10 k-gap-md-12 k-gap-lg-14 k-px-4 k-px-sm-6 k-px-md-8 k-px-lg-12 k-px-xl-30 k-py-4 k-py-sm-6 k-py-md-8 k-py-lg-12 k-py-xl-30">
         <div className="k-d-flex k-flex-column k-gap-2 k-gap-sm-3 k-gap-md-4 k-text-center">
-          <h1 className="k-h1 k-font-weight-bold !k-mb-0">Nuclia + Telerik DevTools</h1>
+          <h1 className="k-h1 k-font-weight-bold !k-mb-0">Progress Agentic RAG + Telerik DevTools</h1>
           <p className="k-font-size-xl !k-mb-0 k-d-none k-d-sm-block">Supercharging AI-Powered Applications</p>
         </div>
         <div className="k-d-flex k-flex-column k-gap-4 k-gap-sm-5 k-gap-md-6">
