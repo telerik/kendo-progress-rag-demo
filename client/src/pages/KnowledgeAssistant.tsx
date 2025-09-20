@@ -33,7 +33,7 @@ const KnowledgeAssistant = () => {
   });
 
   return (
-    <div className="k-d-flex k-flex-column k-overflow-hidden" style={{ height: 'calc(100vh - 53px)', background: 'linear-gradient(134deg, #23A5D4 14.27%, #2E7BD2 49.62%, #20B4CB 85.65%)'}}>
+    <div className="k-d-flex k-flex-column k-overflow-auto k-pb-4" style={{ height: 'calc(100vh - 53px)', background: 'linear-gradient(134deg, #23A5D4 14.27%, #2E7BD2 49.62%, #20B4CB 85.65%)'}}>
       <div className="k-color-surface k-d-flex k-flex-column k-align-items-center k-py-4 k-py-sm-6 k-py-md-4 k-px-4 k-px-sm-6 k-px-md-8 k-px-lg-12 k-px-xl-20 k-gap-2 k-gap-sm-3 k-gap-md-3 k-flex-none">
         <div className="k-d-flex k-flex-column k-gap-2 k-gap-sm-3 k-gap-md-3">
           <div className="k-d-flex k-gap-2 k-align-items-center">

@@ -85,7 +85,7 @@ export default function FinanceAnalysis() {
   }, [chatBot.latestResponse, isBarChartDef]);
 
   return (
-    <div className="k-bg-surface" style={{ minHeight: 'calc(100vh - 53px)' }}>
+    <div className="k-bg-surface">
       <div className="k-d-grid k-grid-cols-1 k-grid-cols-xl-2 k-gap-lg k-p-lg" style={{ minHeight: 'calc(100vh - 53px - 2rem)' }}>
         {/* Left Panel - Chat */}
         <div className="k-d-flex k-col-span-1 k-col-span-xl-1 k-col-start-xl-1 k-col-end-xl-2" style={{ display: 'flex' }}>
