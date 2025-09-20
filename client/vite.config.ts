@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig(() => ({
   plugins: [react()],
-  base: '/nuclia-demo/',
+  base: '/kendo-progress-rag-demo/',
   server: {
     port: 5173,
     proxy: {
