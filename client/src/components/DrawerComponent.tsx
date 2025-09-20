@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Drawer, DrawerContent } from "@progress/kendo-react-layout";
+import { Drawer, DrawerContent, DrawerNavigation } from "@progress/kendo-react-layout";
+import { SvgIcon } from "@progress/kendo-react-common";
 import { folderIcon, searchIcon, chartLineStackedMarkersIcon } from "@progress/kendo-svg-icons";
 import type { To } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
-    
+
+
 const drawerItems = [
     { text: "Home", svgIcon: folderIcon, route: "/", selected: true },
     { text: "Knowledge Assistant", svgIcon: searchIcon, route: "/knowledge-assistant" },
@@ -48,15 +50,21 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
     <Drawer
       expanded={isExpanded}
       mode="push"
-      items={drawerItems.map(item => ({
-        ...item,
-        selected: item.text === selected,
-      }))}
       onSelect={onSelect}
       width={220}
       className="k-h-full"
       drawerClassName="k-border-none"
     >
+      <DrawerNavigation className="k-overflow-y-auto !k-pos-sticky" style={{ height: 'calc(100vh - 53px)', top: 53}}>
+        <ul className="k-drawer-items">
+           {drawerItems.map(item => (
+          <div onClick={() => navigate(item.route)} key={item.text} className={`k-drawer-item ${selected === item.text ? 'k-selected' : ''}`}>
+            <SvgIcon icon={item.svgIcon} />
+            <span className="k-item-text">{item.text}</span>
+          </div>
+        ))}
+        </ul>
+      </DrawerNavigation>
       <DrawerContent>
           {children}
       </DrawerContent>

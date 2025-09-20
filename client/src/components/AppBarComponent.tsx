@@ -2,8 +2,8 @@ import { AppBar, AppBarSection, AppBarSpacer } from "@progress/kendo-react-layou
 import { Button } from "@progress/kendo-react-buttons";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { useNavigate } from 'react-router-dom';
-import { 
-  searchIcon, 
+import {
+  searchIcon,
   homeIcon,
   chartLineStackedMarkersIcon,
   sparklesIcon
@@ -25,7 +25,7 @@ export default function AppBarComponent() {
   }
 
   return (
-    <AppBar 
+    <AppBar
       positionMode="sticky"
       style={{
         background: "linear-gradient(135deg, #0a5bb8 0%, #0d6edf 50%, #085096 100%)",
@@ -36,7 +36,7 @@ export default function AppBarComponent() {
     >
       <AppBarSection>
         <div className="k-d-flex k-align-items-center k-gap-md">
-          <div className="k-d-flex k-align-items-center k-justify-content-center k-rounded-md k-w-8 k-h-8" 
+          <div className="k-d-flex k-align-items-center k-justify-content-center k-rounded-md k-w-8 k-h-8"
                style={{
                  background: "rgba(255, 255, 255, 0.2)",
                  border: "1px solid rgba(255, 255, 255, 0.3)"
@@ -47,10 +47,10 @@ export default function AppBarComponent() {
               icon={sparklesIcon}
             />
           </div>
-          <h3 className="k-m-0 k-text-surface k-font-semibold k-font-size-xl k-d-none k-d-sm-block" style={{ 
+          <h3 className="k-m-0 k-text-surface k-font-semibold k-font-size-xl k-d-none k-d-sm-block" style={{
             textShadow: "0 2px 4px rgba(0, 0, 0, 0.2)"
           }}>
-            Kendo + Nuclia Demo
+            Kendo + Progress Agentic RAG Demo
           </h3>
         </div>
       </AppBarSection>

@@ -35,7 +35,7 @@ This is a full-stack TypeScript application with:
 
 ### Backend (`/server`)
 - **Node.js/Express** API server
-- **Nuclia SDK** for AI-powered search and data extraction
+- **Progress Agentic RAG SDK** for AI-powered search and data extraction
 - **TypeScript** for type safety
 - **JSON Schema validation** for structured responses
 
@@ -48,9 +48,9 @@ This is a full-stack TypeScript application with:
 - React Syntax Highlighter
 - Vite (build tool)
 
-### Backend Technologies  
+### Backend Technologies
 - Node.js + Express
-- Nuclia Core SDK
+- Progress Agentic RAG Core SDK
 - TypeScript
 - CORS middleware
 - dotenv for configuration
@@ -68,25 +68,25 @@ This is a full-stack TypeScript application with:
 
 ### Prerequisites
 - Node.js 18+ and npm
-- Nuclia API keys (for backend functionality)
+- Progress Agentic RAG API keys (for backend functionality)
 - KendoReact license (for UI components)
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/telerik/nuclia-demo.git
-   cd nuclia-demo
+   git clone https://github.com/telerik/kendo-progress-rag-demo.git
+   cd kendo-progress-rag-demo
    ```
 
 2. **Install dependencies**
    ```bash
    # Install root dependencies
    npm install
-   
+
    # Install client dependencies
    cd client && npm install
-   
+
    # Install server dependencies
    cd ../server && npm install
    ```
@@ -98,11 +98,11 @@ This is a full-stack TypeScript application with:
    # React Documentation Knowledge Box
    NUCLIA_KB=your_react_kb_id
    NUCLIA_API_KEY=your_react_api_key
-   
+
    # Financial Data Knowledge Box
    NUCLIA_FIN_KB=your_finance_kb_id
    NUCLIA_FIN_API_KEY=your_finance_api_key
-   
+
    PORT=5000
    ```
 
@@ -131,7 +131,7 @@ npm run dev
 # Start backend server (from /server)
 npm run dev
 
-# Start frontend client (from /client)  
+# Start frontend client (from /client)
 npm run dev
 ```
 
@@ -152,7 +152,7 @@ npm start
 ## 📁 Project Structure
 
 ```
-nuclia-demo/
+kendo-progress-rag-demo/
 ├── client/                 # React frontend application
 │   ├── src/
 │   │   ├── components/     # Reusable UI components
@@ -194,7 +194,7 @@ nuclia-demo/
   }
   ```
 
-### Finance Analysis  
+### Finance Analysis
 - `POST /api/ask-charts` - Query financial data with structured chart responses
   ```json
   {
@@ -237,7 +237,7 @@ npm run build
 
 **Backend (Node.js hosting):**
 ```bash
-cd server  
+cd server
 npm run build
 npm start
 ```
@@ -246,13 +246,13 @@ npm start
 
 For questions about:
 - **KendoReact components**: Visit [KendoReact Documentation](https://www.telerik.com/kendo-react-ui/components/)
-- **Nuclia AI platform**: Visit [Nuclia Documentation](https://docs.nuclia.com/)
+- **Progress Agentic RAG platform**: Visit [Progress Agentic RAG Documentation](https://www.progress.com/agentic-rag)
 - **This demo application**: Open an issue in this repository
 
 ## 🔗 Links
 
 - [KendoReact Documentation](https://www.telerik.com/kendo-react-ui/components/)
-- [Nuclia Platform](https://nuclia.com/)
+- [Progress Agentic RAG Platform](https://www.progress.com/agentic-rag)
 - [Vite Documentation](https://vitejs.dev/)
 - [React Documentation](https://react.dev/)
 
