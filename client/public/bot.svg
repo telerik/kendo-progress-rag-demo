@@ -3,28 +3,18 @@
   <title id="botTitle">AI assistant avatar</title>
   <desc id="botDesc">Minimal professional robot head with a subtle friendly smile.</desc>
 
-  <defs>
-    <style>
-      :root{
-        --white: #ffffff;
-        --stroke: rgba(0,0,0,0.35);
-      }
-    </style>
-  </defs>
-
   <!-- Antenna -->
-  <circle cx="64" cy="22" r="6" fill="var(--white)" stroke="var(--stroke)" stroke-width="1.5"/>
-  <line x1="64" y1="28" x2="64" y2="40" stroke="var(--white)" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="64" cy="22" r="6" fill="#ffffff" stroke="rgba(0,0,0,0.35)" stroke-width="1.5"/>
+  <line x1="64" y1="28" x2="64" y2="40" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
 
   <!-- Head shape -->
   <rect x="28" y="40" width="72" height="56" rx="16"
-        fill="var(--white)" stroke="var(--stroke)" stroke-width="1.5"/>
+        fill="#ffffff" stroke="rgba(0,0,0,0.35)" stroke-width="1.5"/>
 
   <!-- Eyes -->
-  <circle cx="48" cy="66" r="6" fill="var(--stroke)"/>
-  <circle cx="80" cy="66" r="6" fill="var(--stroke)"/>
-
+  <circle cx="48" cy="66" r="6" fill="rgba(0,0,0,0.35)"/>
+  <circle cx="80" cy="66" r="6" fill="rgba(0,0,0,0.35)"/>
   <!-- Friendly, subtle smile -->
   <path d="M50 82 Q64 92 78 82"
-        stroke="var(--stroke)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        stroke="rgba(0,0,0,0.35)" stroke-width="3" fill="none" stroke-linecap="round"/>
 </svg>
