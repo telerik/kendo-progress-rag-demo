@@ -10,6 +10,7 @@ const drawerItems = [
     { text: "Home", svgIcon: folderIcon, route: "/", selected: true },
     { text: "Knowledge Assistant", svgIcon: searchIcon, route: "/knowledge-assistant" },
     { text: "Finance Analysis", svgIcon: chartLineStackedMarkersIcon, route: "/finance-analysis" },
+    { text: "AI Search", svgIcon: searchIcon, route: "/ai-search" }, // either this or the Knowledge Assistant icon has to be changed
 ];
 
 interface DrawerComponentProps {

@@ -4,6 +4,7 @@ import DrawerComponent from "./components/DrawerComponent";
 import Home from "./pages/Home";
 import KnowledgeAssistant from "./pages/KnowledgeAssistant";
 import FinanceAnalysis from "./pages/FinanceAnalysis";
+import AiSearch from "./pages/AiSearch";
 
 export default function App() {
 
@@ -16,6 +17,7 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/knowledge-assistant" element={<KnowledgeAssistant />} />
                 <Route path="/finance-analysis" element={<FinanceAnalysis />} />
+                <Route path="/ai-search" element={<AiSearch />} />
             </Routes>
         </DrawerComponent>
       </HashRouter>
