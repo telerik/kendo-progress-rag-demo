@@ -1,0 +1,24 @@
+<svg width="128" height="128" viewBox="0 0 128 128"
+     xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="userTitle userDesc">
+  <title id="userTitle">User avatar</title>
+  <desc id="userDesc">Simple human silhouette with transparent background and white fill for high contrast on blue</desc>
+
+  <defs>
+    <filter id="shadow2" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.28)"/>
+    </filter>
+    <style>
+      :root{
+        --avatar-white: #ffffff;
+        --stroke-subtle: rgba(0,0,0,0.16);
+      }
+    </style>
+  </defs>
+
+  <!-- white circular head + shoulders, shadow to lift off blue -->
+  <g filter="url(#shadow2)">
+    <circle cx="64" cy="42" r="18" fill="var(--avatar-white)" stroke="var(--stroke-subtle)" stroke-width="0.9"/>
+    <path d="M34 92c0-16 14-28 30-28s30 12 30 28v8H34v-8z"
+          fill="var(--avatar-white)" stroke="var(--stroke-subtle)" stroke-width="0.9"/>
+  </g>
+</svg>
