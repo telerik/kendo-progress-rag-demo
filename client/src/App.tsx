@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import KnowledgeAssistant from "./pages/KnowledgeAssistant";
 import FinanceAnalysis from "./pages/FinanceAnalysis";
 import AiSearch from "./pages/AiSearch";
+import ValueProposition from "./pages/ValueProposition";
 
 export default function App() {
 
@@ -18,6 +19,7 @@ export default function App() {
                 <Route path="/knowledge-assistant" element={<KnowledgeAssistant />} />
                 <Route path="/finance-analysis" element={<FinanceAnalysis />} />
                 <Route path="/ai-search" element={<AiSearch />} />
+                <Route path="/value-proposition" element={<ValueProposition />} />
             </Routes>
         </DrawerComponent>
       </HashRouter>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Drawer, DrawerContent, DrawerNavigation } from "@progress/kendo-react-layout";
 import { SvgIcon } from "@progress/kendo-react-common";
-import { folderIcon, searchIcon, chartLineStackedMarkersIcon } from "@progress/kendo-svg-icons";
+import { folderIcon, searchIcon, chartLineStackedMarkersIcon, sparklesIcon } from "@progress/kendo-svg-icons";
 import type { To } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ const drawerItems = [
     { text: "Knowledge Assistant", svgIcon: searchIcon, route: "/knowledge-assistant" },
     { text: "Finance Analysis", svgIcon: chartLineStackedMarkersIcon, route: "/finance-analysis" },
     { text: "AI Search", svgIcon: searchIcon, route: "/ai-search" }, // either this or the Knowledge Assistant icon has to be changed
+    { text: "Value Proposition", svgIcon: sparklesIcon, route: "/value-proposition" },
 ];
 
 interface DrawerComponentProps {
