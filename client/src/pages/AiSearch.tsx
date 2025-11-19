@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { TextBox, type TextBoxProps, InputSuffix, type TextBoxChangeEvent } from "@progress/kendo-react-inputs";
 import { Button } from "@progress/kendo-react-buttons";
 import { Card, CardHeader, CardTitle, CardBody } from "@progress/kendo-react-layout";
@@ -7,6 +8,7 @@ import { buildApiUrl } from '../config/api';
 import { renderMarkdown } from '../utils/markdownRenderer';
 
 export default function AiSearch() {
+  const location = useLocation();
   const [query, setQuery] = React.useState<TextBoxProps['value']>('');
   const [isLoading, setIsLoading] = React.useState(false);
   const [answer, setAnswer] = React.useState<string>('');
@@ -105,6 +107,17 @@ export default function AiSearch() {
     setQuery(searchText);
     handleSearch(searchText);
   }, [handleSearch]);
+
+  React.useEffect(() => {
+    const state = location.state as { query?: string } | null;
+    if (state?.query) {
+      setQuery(state.query);
+      handleSearch(state.query);
+      // Clear the state to prevent re-triggering
+      window.history.replaceState({}, document.title);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div style={{ minHeight: 'calc(100vh - 53px)', background: 'linear-gradient(135deg, #1F7ACF 20%, #2E7BD2 50%, #2BBACD 85%)', padding: '20px'}}>

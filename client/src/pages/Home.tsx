@@ -1,43 +1,212 @@
-import { Button } from '@progress/kendo-react-buttons';
-import { sparklesIcon } from '@progress/kendo-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Button } from "@progress/kendo-react-buttons";
+import { TextBox, type TextBoxChangeEvent } from "@progress/kendo-react-inputs";
+import { useNavigate } from "react-router-dom";
+import {
+  plusIcon,
+  microphoneOutlineIcon,
+  arrowUpIcon
+} from "@progress/kendo-svg-icons";
+import "./Home.css";
+
+// Figma design asset URLs
+const imgBot = `${import.meta.env.BASE_URL}bot.svg`;
+const imgChartArea = `${import.meta.env.BASE_URL}chart-area.svg`;
+const imgScanSearch = `${import.meta.env.BASE_URL}scan-search.svg`;
+const imgSparkles = `${import.meta.env.BASE_URL}sparkles.svg`;
+const imgBackground = `${import.meta.env.BASE_URL}background.svg`;
 
 export default function Home() {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = React.useState('');
 
-  const handleExploreClick = () => {
-    navigate('/knowledge-assistant');
+  const handleSearchChange = (event: TextBoxChangeEvent) => {
+    setSearchQuery(String(event.target.value || ''));
+  };
+
+  const handleSearchSubmit = () => {
+    if (searchQuery.trim()) {
+      navigate('/ai-search', { state: { query: searchQuery.trim() } });
+    }
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && searchQuery.trim()) {
+      handleSearchSubmit();
+    }
+  };
+
+  const demos = [
+    {
+      name: "Knowledge Assistant",
+      icon: imgBot,
+      path: "/knowledge-assistant",
+    },
+    {
+      name: "Financial Analysis",
+      icon: imgChartArea,
+      path: "/finance-analysis",
+    },
+    {
+      name: "Intelligent Search",
+      icon: imgScanSearch,
+      path: "/ai-search",
+    },
+    {
+      name: "Agentic RAG Value",
+      icon: imgSparkles,
+      path: "/value-proposition",
+    },
+  ];
+
+  const handleDemoClick = (path: string) => {
+    navigate(path);
   };
 
   return (
-    <div className="k-overflow-auto" style={{
-      height: 'calc(100vh - 53px)',
-      background: 'linear-gradient(134deg, #2359D4 14.27%, #832ED2 49.62%, #2B39A4 85.65%)'
-    }}>
-      <div className="k-d-flex k-flex-column k-text-surface k-align-items-center k-gap-8 k-gap-sm-10 k-gap-md-12 k-gap-lg-14 k-px-4 k-px-sm-6 k-px-md-8 k-px-lg-12 k-px-xl-30 k-py-4 k-py-sm-6 k-py-md-8 k-py-lg-12 k-py-xl-30">
-        <div className="k-d-flex k-flex-column k-gap-2 k-gap-sm-3 k-gap-md-4 k-text-center">
-          <h1 className="k-h1 k-font-weight-bold !k-mb-0">Progress Agentic RAG + Telerik DevTools</h1>
-          <p className="k-font-size-xl !k-mb-0 k-d-none k-d-sm-block">Supercharging AI-Powered Applications</p>
-        </div>
-        <div className="k-d-flex k-flex-column k-gap-4 k-gap-sm-5 k-gap-md-6">
-          <p className="k-font-size-lg !k-mb-0 k-px-2 k-px-sm-4 k-px-md-0">Create AI-driven applications that are not only visually compelling and easy to use but also grounded in the most precise, reliable data context - delivering value where it matters most.</p>
-          <ul className="k-font-size-lg k-m-0">
-            <li>Seamlessly embed AI-powered search and generative answers directly into your applications.</li>
-            <li>Enhance user workflows with intuitive UI components paired with context-rich, reliable insights.</li>
-            <li>Accelerate development cycles by combining enterprise-grade UI with enterprise-ready AI retrieval.</li>
-            <li>Unlock business outcomes by transforming unstructured data into meaningful knowledge, surfaced through beautiful and functional interfaces.</li>
-          </ul>
-          <Button
-            className="k-text-surface k-align-self-center"
-            fillMode="outline"
-            themeColor="primary"
-            svgIcon={sparklesIcon}
-            onClick={handleExploreClick}
+    <div className="k-pos-relative k-overflow-auto k-d-flex k-flex-column k-align-items-center k-justify-content-center k-gap-17" style={{ minHeight: "100vh" }}>
+      {/* Gradient background - positioned absolutely behind all content */}
+      <div 
+        className="k-pos-absolute" 
+        style={{ 
+          inset: 0,
+          overflow: "hidden",
+          pointerEvents: "none",
+          zIndex: 0
+        }}
+      >
+        <div 
+          style={{ 
+            position: "absolute",
+            width: "1266px",
+            height: "331px",
+            left: "50%",
+            top: "calc(50% + 139.5px)",
+            transform: "translate(-50%, -50%)",
+            opacity: 0.6
+          }}
+        >
+          <div 
+            style={{
+              position: "absolute",
+              top: "-90.63%",
+              right: "-23.7%",
+              bottom: "-90.63%",
+              left: "-23.7%"
+            }}
           >
-            Explore Demos
-          </Button>
+            <img 
+              src={imgBackground} 
+              alt="" 
+              style={{ 
+                display: "block",
+                maxWidth: "none",
+                width: "100%",
+                height: "100%"
+              }} 
+            />
           </div>
+        </div>
       </div>
+
+      {/* Main heading */}
+      <section style={{ position: "relative", zIndex: 1 }}>
+        <div className="k-d-flex k-align-items-center k-justify-content-center">
+          <div className="k-d-flex k-flex-column k-text-center k-flex-1">
+            <h1
+              className="gradient-heading k-mt-20 k-mb-8"
+              style={{ padding: "10px" }}
+            >
+              Supercharging
+              <br />
+              AI-Powered Applications
+            </h1>
+          </div>
+        </div>
+
+        {/* Subtitle */}
+        <div className="k-d-flex k-align-items-center k-justify-content-center">
+          <p className="k-font-size-xl k-text-center k-flex-1 k-mb-0">
+            Build AI-powered apps that look great, are easy to use, and rely on
+            accurate, trustworthy data— <br />
+            so they deliver real value where it counts.
+          </p>
+        </div>
+      </section>
+
+      {/* Search bar */}
+      <section style={{ position: "relative", zIndex: 1 }}>
+        <div className="k-mt-17 k-d-flex k-flex-column k-align-items-center k-justify-content-between k-gap-25">
+          <TextBox
+            style={{ borderColor: 'rgba(0, 0, 0, 0.5)' }}
+            className="k-p-2 k-elevation-2"
+            rounded="full"
+            size="large"
+            placeholder="Ask about features, deployment, security, integrations..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            onKeyPress={handleKeyPress}
+            prefix={() => (
+              <div className="k-d-flex k-align-items-center k-justify-content-center k-px-2">
+                <Button
+                  rounded="full"
+                  fillMode="flat"
+                  svgIcon={plusIcon}
+                />
+              </div>
+            )}
+            suffix={() => (
+              <div className="k-d-flex k-align-items-center k-justify-content-center k-px-2">
+                <Button
+                  rounded="full"
+                  fillMode="flat" 
+                  svgIcon={microphoneOutlineIcon}
+                />
+                <Button
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff'}}
+                  rounded="full"
+                  svgIcon={arrowUpIcon}
+                  onClick={handleSearchSubmit}
+                />
+              </ div>
+            )}
+          />
+          {/* Explore Demos section */}
+          <div className="k-d-flex k-flex-column k-align-items-center k-w-full">
+            <p className="k-font-size-xl k-font-weight-medium k-text-center k-mb-0 k-mb-4">
+              Explore Demos
+            </p>
+            <div className="k-d-flex k-flex-wrap k-gap-8 k-align-items-center k-justify-content-center">
+              {demos.map((demo) => (
+                <div
+                  key={demo.name}
+                  className="demo-card"
+                  onClick={() => handleDemoClick(demo.path)}
+                >
+                  <div className="demo-card-icon">
+                    <img
+                      src={demo.icon}
+                      alt={demo.name}
+                      style={{ width: "48px", height: "48px" }}
+                    />
+                  </div>
+                  <div className="k-font-size-md">{demo.name}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer
+        className="k-pos-relative k-d-flex k-align-items-center k-justify-content-center k-opacity-50 k-mt-26"
+      >
+        <p className="k-font-size-md k-text-center k-mb-0 k-px-4 k-py-2">
+          Copyright © 2025 Progress Software. All rights reserved. Progress® AI
+          Powered
+        </p>
+      </footer>
     </div>
   );
 }
