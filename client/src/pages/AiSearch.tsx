@@ -1,9 +1,8 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { TextBox, type TextBoxProps, InputSuffix, type TextBoxChangeEvent } from "@progress/kendo-react-inputs";
+import { TextBox, type TextBoxProps, type TextBoxChangeEvent } from "@progress/kendo-react-inputs";
 import { Button } from "@progress/kendo-react-buttons";
-import { Card, CardHeader, CardTitle, CardBody } from "@progress/kendo-react-layout";
-import { searchIcon } from "@progress/kendo-svg-icons";
+import { plusIcon, microphoneOutlineIcon, arrowUpIcon } from "@progress/kendo-svg-icons";
 import { buildApiUrl } from '../config/api';
 import { renderMarkdown } from '../utils/markdownRenderer';
 
@@ -119,67 +118,415 @@ export default function AiSearch() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <div style={{ minHeight: 'calc(100vh - 53px)', background: 'linear-gradient(135deg, #1F7ACF 20%, #2E7BD2 50%, #2BBACD 85%)', padding: '20px'}}>
-      <div className="k-d-flex k-flex-column k-gap-2 k-justify-content-center k-align-items-center k-mb-8">
-        <h1 className="k-h1" style={{ margin: '0', color: 'white' }}>AI Search</h1>
-        <p style={{ color: 'white' }}>Ask questions and get AI-powered answers from our knowledge base.</p>
-      </div>
-      <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-        <TextBox
-          size="large"
-          placeholder="Type your AI search query here..."
-          suffix={() => (
-            <InputSuffix>
-              <Button 
-                size="large" 
-                fillMode="flat" 
-                svgIcon={searchIcon} 
-                onClick={handleSearchClick}
-                disabled={isLoading}
-              />
-            </InputSuffix>
-          )}
-          value={query}
-          onChange={handleQueryChange}
-          onKeyPress={handleKeyPress}
-          disabled={isLoading}
-        />
-      </div>
-      <div className="k-d-flex k-flex-column k-gap-2 k-justify-content-center k-align-items-center k-mt-8">
-        <p style={{ color: 'white' }}>Popular searches:</p>
-        <div className="k-d-grid k-grid-cols-3 k-gap-3">
-          <Button onClick={handleExampleSearch} disabled={isLoading}>What is Nuclia and how does it work?</Button>
-          <Button onClick={handleExampleSearch} disabled={isLoading}>How does AI search work?</Button>
-          <Button onClick={handleExampleSearch} disabled={isLoading}>Tell me about semantic search</Button>
-          <Button onClick={handleExampleSearch} disabled={isLoading}>What are knowledge bases?</Button>
-          <Button onClick={handleExampleSearch} disabled={isLoading}>Explain vector embeddings</Button>
+  const popularSearches = [
+    "What is PARAG and how does it work?",
+    "Deployment options and requirements",
+    "Security features and compliance",
+    "API integration and capabilities",
+    "Pricing and licensing options",
+    "Use cases and customer success stories"
+  ];
+
+  const hasResults = (answer || isLoading || currentQuestion);
+
+  // Reusable search pill component
+  const SearchPill = React.useCallback(({ text }: { text: string }) => (
+    <button
+      onClick={handleExampleSearch}
+      disabled={isLoading}
+      style={{
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+        border: '1px solid white',
+        borderRadius: '16px',
+        padding: '13px',
+        fontSize: '12px',
+        fontWeight: 500,
+        color: '#000000',
+        cursor: isLoading ? 'not-allowed' : 'pointer',
+        whiteSpace: 'nowrap',
+        opacity: isLoading ? 0.6 : 1,
+        transition: 'background-color 0.2s ease',
+        lineHeight: '1.42',
+        boxShadow: 'var(--kendo-elevation-2)'
+      }}
+      onMouseEnter={(e) => {
+        if (!isLoading) {
+          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+        }
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
+      }}
+    >
+      {text}
+    </button>
+  ), [isLoading, handleExampleSearch]);
+
+  // Reusable search input component
+  const SearchInput = React.useCallback(({ bordered = false }: { bordered?: boolean }) => (
+    <TextBox
+      style={{ 
+        borderColor: '#A1B0C7',
+        ...(bordered ? { borderWidth: '2px', backgroundColor: 'white' } : {}),
+        width: '100%'
+      }}
+      className={bordered ? 'k-py-2 k-px-2' : 'k-py-2 k-px-2 k-elevation-2'}
+      rounded="full"
+      size="large"
+      placeholder={hasResults ? "What is PARAG and how does it work?" : "Ask about PARAG features, deployment, security, integrations..."}
+      value={query}
+      onChange={handleQueryChange}
+      onKeyPress={handleKeyPress}
+      disabled={isLoading}
+      prefix={() => (
+        <div className="k-d-flex k-align-items-center k-justify-content-center k-px-2">
+          <Button
+            rounded="full"
+            fillMode="flat"
+            svgIcon={plusIcon}
+          />
         </div>
-      </div>
-      <div style={{maxWidth: '800px'}} className="k-mt-20 k-mx-auto">
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {isLoading ? 'Searching...' : currentQuestion ? 'AI Search Results' : 'AI Search Results'}
-            </CardTitle>
-          </CardHeader>
-          <CardBody>
-            {isLoading && (
-              <div className="k-d-flex k-justify-content-center k-align-items-center k-py-8">
-                <span className="k-icon k-i-loading k-icon-64"></span>
+      )}
+      suffix={() => (
+        <div className="k-d-flex k-align-items-center k-justify-content-center k-px-2">
+          <Button
+            rounded="full"
+            fillMode="flat" 
+            svgIcon={microphoneOutlineIcon}
+          />
+          <Button
+            style={{ backgroundColor: '#A1B0C7', color: '#fff'}}
+            rounded="full"
+            svgIcon={arrowUpIcon}
+            onClick={handleSearchClick}
+            disabled={isLoading}
+          />
+        </div>
+      )}
+    />
+  ), [query, handleQueryChange, handleKeyPress, isLoading, handleSearchClick, hasResults]);
+
+  return (
+    <div 
+      className="k-pos-relative" 
+      style={{ 
+        minHeight: 'calc(100vh - 56px)',
+        backgroundColor: 'rgba(255, 255, 255, 0.6)',
+        overflow: 'hidden'
+      }}
+    >
+      {/* Decorative circle background - only show when no results */}
+      {!hasResults && (
+        <>
+          <div 
+            className="k-pos-absolute"
+            style={{
+              left: '50%',
+              top: '545px',
+              transform: 'translateX(-50%)',
+              width: '930px',
+              height: '169px',
+              opacity: 0.6,
+              pointerEvents: 'none',
+              zIndex: 0
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                inset: '-177.57% -32.26%'
+              }}
+            >
+              <div 
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  background: 'radial-gradient(ellipse at center, rgba(193, 88, 228, 0.15) 0%, rgba(0, 187, 255, 0.1) 50%, transparent 70%)'
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Decorative network visualization image on the right */}
+          <div
+            className="k-pos-absolute"
+            style={{
+              right: '0',
+              top: '0',
+              width: '725px',
+              height: '569px',
+              overflow: 'hidden',
+              pointerEvents: 'none',
+              zIndex: 0
+            }}
+          >
+            <img
+              src={`${import.meta.env.BASE_URL}vectors.svg`}
+              alt=""
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'block',
+                objectFit: 'cover',
+                objectPosition: 'left top'
+              }}
+            />
+          </div>
+        </>
+      )}
+
+      {/* Main content container */}
+      <div className="k-d-flex k-flex-column" style={{ position: 'relative', zIndex: 1 }}>
+        {/* Header section - changes based on hasResults */}
+        {!hasResults ? (
+          // Initial state: Large header with description
+          <>
+            <div 
+              className="k-d-flex k-flex-column k-gap-8"
+              style={{
+                paddingLeft: '128px',
+                paddingRight: '512px',
+                paddingTop: '128px',
+                paddingBottom: '64px'
+              }}
+            >
+              <h1 
+                className="k-mb-0"
+                style={{
+                  fontSize: '56px',
+                  fontWeight: 500,
+                  lineHeight: '1',
+                  letterSpacing: '-1.12px',
+                  background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  paddingBottom: '4px'
+                }}
+              >
+                Discover
+                <br />
+                Progress Agentic RAG Knowledge
+              </h1>
+              <p 
+                className="k-mb-0"
+                style={{
+                  fontSize: '24px',
+                  lineHeight: '1.2',
+                  color: '#535B6A'
+                }}
+              >
+                Search our comprehensive Nuclia knowledge base with AI-powered intelligent search for precise, contextual results about Nuclia features, capabilities, and best practices
+              </p>
+            </div>
+
+            {/* Search input section - centered horizontally */}
+            <div 
+              className="k-d-flex k-flex-column k-gap-8"
+              style={{
+                width: '770px',
+                margin: '0 auto'
+              }}
+            >
+              <SearchInput />
+
+              {/* Popular searches section */}
+              <div className="k-d-flex k-flex-column k-w-full k-gap-3">
+                <p 
+                  className="k-mb-0"
+                  style={{
+                    fontSize: '14px',
+                    lineHeight: '1.5',
+                    color: '#212529',
+                    textAlign: 'left'
+                  }}
+                >
+                  Popular searches:
+                </p>
+                <div 
+                  className="k-d-flex k-flex-wrap k-gap-1"
+                  style={{
+                    justifyContent: 'flex-start'
+                  }}
+                >
+                  {popularSearches.map((searchText, index) => (
+                    <SearchPill key={index} text={searchText} />
+                  ))}
+                </div>
               </div>
-            )}
-            {!isLoading && !answer && (
-              <p>Your AI search results will appear here. Try searching for something or click one of the popular searches above.</p>
-            )}
-            {!isLoading && currentQuestion && (
-              <div>
-                <p style={{ fontWeight: 'bold', marginBottom: '12px' }}>Question: {currentQuestion}</p>
-                <div>{renderMarkdown(answer)}</div>
+            </div>
+          </>
+        ) : (
+          // Results state: Compact header with integrated search
+          <div 
+            className="k-d-flex k-flex-column k-gap-9"
+            style={{
+              borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+              paddingLeft: '32px',
+              paddingRight: '32px',
+              paddingTop: '64px',
+              paddingBottom: '64px',
+              position: 'relative',
+              isolation: 'isolate'
+            }}
+          >
+            {/* Decorative elements container with overflow clipping */}
+            <div 
+              className="k-pos-absolute"
+              style={{
+                inset: 0,
+                overflow: 'hidden',
+                pointerEvents: 'none',
+                zIndex: 0
+              }}
+            >
+              {/* Decorative gradient circle behind title */}
+              <div 
+                className="k-pos-absolute"
+                style={{
+                  left: '50%',
+                  top: '162px',
+                  transform: 'translateX(-50%) rotate(180deg)',
+                  width: '815px',
+                  height: '63px',
+                  opacity: 0.6
+                }}
+              >
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: '-236.8% -18.4%'
+                  }}
+                >
+                  <div 
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      background: 'radial-gradient(ellipse at center, rgba(193, 88, 228, 0.15) 0%, rgba(0, 187, 255, 0.1) 50%, transparent 70%)'
+                    }}
+                  />
+                </div>
               </div>
-            )}
-          </CardBody>
-        </Card>
+
+              {/* Vertical gradient shadow */}
+              <div 
+                className="k-pos-absolute"
+                style={{
+                  left: '50%',
+                  top: '207px',
+                  transform: 'translateX(-50%) rotate(90deg) scaleY(-1)',
+                  width: '32px',
+                  height: '1440px',
+                  opacity: 0.3,
+                  background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0) 100%)'
+                }}
+              />
+            </div>
+
+            <h1 
+              className="k-mb-0"
+              style={{
+                fontSize: '36px',
+                fontWeight: 500,
+                lineHeight: '1.3',
+                textAlign: 'center',
+                background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                maxWidth: '800px',
+                margin: '0 auto',
+                position: 'relative',
+                zIndex: 1,
+                paddingBottom: '4px'
+              }}
+            >
+              Discover Progress Agentic RAG Knowledge
+            </h1>
+
+            {/* Search input - centered and integrated */}
+            <div 
+              style={{
+                width: '770px',
+                margin: '0 auto',
+                position: 'relative',
+                zIndex: 1
+              }}
+            >
+              <SearchInput bordered />
+            </div>
+          </div>
+        )}
+
+        {/* Results section */}
+        {hasResults && (
+          <div 
+            className="k-d-flex k-flex-column k-gap-16"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.7)',
+              paddingLeft: '24px',
+              paddingRight: '24px',
+              paddingTop: '64px',
+              paddingBottom: '64px',
+              width: '100%'
+            }}
+          >
+            <div 
+              className="k-d-flex k-flex-column k-gap-16"
+              style={{
+                maxWidth: '770px',
+                margin: '0 auto',
+                width: '100%'
+              }}
+            >
+              {/* Answer content */}
+              {isLoading && (
+                <div className="k-d-flex k-justify-content-center k-align-items-center k-py-8">
+                  <span className="k-icon k-i-loading k-icon-64"></span>
+                </div>
+              )}
+              
+              {!isLoading && answer && (
+                <div 
+                  style={{
+                    fontSize: '16px',
+                    lineHeight: '1.5',
+                    color: '#000000'
+                  }}
+                >
+                  {renderMarkdown(answer)}
+                </div>
+              )}
+
+              {/* Related searches section */}
+              {!isLoading && answer && (
+                <div className="k-d-flex k-flex-column k-gap-3">
+                  <p 
+                    className="k-mb-0"
+                    style={{
+                      fontSize: '14px',
+                      lineHeight: '1.5',
+                      color: '#212529',
+                      textAlign: 'left'
+                    }}
+                  >
+                    Related searches:
+                  </p>
+                  <div 
+                    className="k-d-flex k-flex-wrap k-gap-1"
+                    style={{
+                      justifyContent: 'flex-start'
+                    }}
+                  >
+                    {popularSearches.map((searchText, index) => (
+                      <SearchPill key={index} text={searchText} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
