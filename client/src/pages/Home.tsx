@@ -2,6 +2,7 @@ import React from "react";
 import { type TextBoxChangeEvent } from "@progress/kendo-react-inputs";
 import { SearchInput } from "../components/SearchInput";
 import { useNavigate } from "react-router-dom";
+import "./Home.css";
 
 // Figma design asset URLs
 const imgBot = `${import.meta.env.BASE_URL}bot.svg`;
