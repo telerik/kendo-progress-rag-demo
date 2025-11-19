@@ -1,85 +1,147 @@
 import { AppBar, AppBarSection, AppBarSpacer } from "@progress/kendo-react-layout";
-import { Button } from "@progress/kendo-react-buttons";
-import { SvgIcon } from "@progress/kendo-react-common";
-import { useNavigate } from 'react-router-dom';
-import {
-  searchIcon,
-  homeIcon,
-  chartLineStackedMarkersIcon,
-  sparklesIcon
-} from "@progress/kendo-svg-icons";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const imgProgressLogo = `${import.meta.env.BASE_URL}progress-logo.svg`;
 
 export default function AppBarComponent() {
+  const location = useLocation();
   const navigate = useNavigate();
+  const isHomePage = location.pathname === "/";
 
-  const handleHomeClick = () => {
-    navigate('/');
+  const navItems = [
+    { label: "Knowledge Assistant", path: "/knowledge-assistant" },
+    { label: "Finance Analysis", path: "/finance-analysis" },
+    { label: "Intelligent Search", path: "/ai-search" },
+    { label: "Agentic RAG Value", path: "/value-proposition" },
+  ];
+
+  const handleNavClick = (path: string) => {
+    navigate(path);
   };
 
-  const handleSearchClick = () => {
-    navigate('/knowledge-assistant');
-  }
+  const handleLogoClick = () => {
+    navigate("/");
+  };
 
-  const handleChartClick = () => {
-    navigate('/finance-analysis');
+  if (isHomePage) {
+    return (
+      <AppBar
+        positionMode="sticky"
+        style={{
+          background: "#ffffff",
+          borderBottom: "none",
+          boxShadow: "0px 2px 7px 0px rgba(0, 0, 0, 0.08)",
+          overflow: "hidden",
+          padding: "15px 32px"
+        }}
+      >
+        <AppBarSection>
+          <div 
+            style={{ height: "24px", width: "102px", position: "relative", cursor: "pointer" }}
+            onClick={handleLogoClick}
+          >
+            <img 
+              src={imgProgressLogo} 
+              alt="Progress Logo" 
+              style={{ 
+                display: "block", 
+                maxWidth: "none", 
+                width: "100%", 
+                height: "100%" 
+              }} 
+            />
+          </div>
+        </AppBarSection>
+
+        <AppBarSection>
+          <p 
+            className="k-m-0 k-font-weight-medium k-text-center" 
+            style={{
+              fontSize: "20px",
+              lineHeight: "1",
+              color: "var(--gray/light/black, #000000)",
+              letterSpacing: "var(--kendo-letter-spacing, 0px)",
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)"
+            }}
+          >
+            Progress Agentic RAG + Telerik DevTools
+          </p>
+        </AppBarSection>
+      </AppBar>
+    );
   }
 
   return (
     <AppBar
       positionMode="sticky"
       style={{
-        background: "linear-gradient(135deg, #0a5bb8 0%, #0d6edf 50%, #085096 100%)",
-        borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-        backdropFilter: "blur(10px)"
+        background: "#ffffff",
+        borderBottom: "none",
+        boxShadow: "0px 2px 7px 0px rgba(0, 0, 0, 0.08)",
+        overflow: "hidden",
+        padding: "15px 32px"
       }}
     >
       <AppBarSection>
-        <div className="k-d-flex k-align-items-center k-gap-md">
-          <div className="k-d-flex k-align-items-center k-justify-content-center k-rounded-md k-w-8 k-h-8"
-               style={{
-                 background: "rgba(255, 255, 255, 0.2)",
-                 border: "1px solid rgba(255, 255, 255, 0.3)"
-               }}>
-            <SvgIcon
-
-              className="k-color-warning"
-              icon={sparklesIcon}
+        <div 
+          style={{ 
+            display: "flex", 
+            alignItems: "center", 
+            gap: "16px",
+            cursor: "pointer"
+          }}
+          onClick={handleLogoClick}
+        >
+          <div style={{ height: "24px", width: "102px", position: "relative" }}>
+            <img 
+              src={imgProgressLogo} 
+              alt="Progress Logo" 
+              style={{ 
+                display: "block", 
+                maxWidth: "none", 
+                width: "100%", 
+                height: "100%" 
+              }} 
             />
           </div>
-          <h3 className="k-m-0 k-text-surface k-font-semibold k-font-size-xl k-d-none k-d-sm-block" style={{
-            textShadow: "0 2px 4px rgba(0, 0, 0, 0.2)"
-          }}>
-            Kendo + Progress Agentic RAG Demo
-          </h3>
+          <span 
+            className="k-font-weight-medium" 
+            style={{
+              fontSize: "20px",
+              lineHeight: "24px",
+              color: "var(--gray/light/black, #000000)",
+              letterSpacing: "var(--kendo-letter-spacing, 0px)"
+            }}
+          >
+            Agentic RAG + Telerik DevTools
+          </span>
         </div>
       </AppBarSection>
 
       <AppBarSpacer />
 
       <AppBarSection>
-        <div className="k-d-flex k-d-md-none k-align-items-center k-gap-sm">
-          <Button
-            svgIcon={homeIcon}
-            fillMode="flat"
-            themeColor="primary"
-            className="k-rounded-sm k-text-surface"
-            onClick={handleHomeClick}
-          />
-          <Button
-            svgIcon={searchIcon}
-            fillMode="flat"
-            themeColor="primary"
-            className="k-rounded-sm k-text-surface"
-            onClick={handleSearchClick}
-          />
-          <Button
-            svgIcon={chartLineStackedMarkersIcon}
-            fillMode="flat"
-            themeColor="primary"
-            className="k-rounded-sm k-text-surface"
-            onClick={handleChartClick}
-          />
+        <div style={{ display: "flex", gap: "24px", alignItems: "center" }}>
+          {navItems.map((item) => (
+            <a
+              key={item.path}
+              onClick={() => handleNavClick(item.path)}
+              style={{
+                fontSize: "16px",
+                lineHeight: "24px",
+                color: location.pathname === item.path ? "var(--kendo-color-primary, #ff6358)" : "var(--gray/light/black, #000000)",
+                fontWeight: location.pathname === item.path ? 600 : 400,
+                cursor: "pointer",
+                textDecoration: "none",
+                whiteSpace: "nowrap"
+              }}
+            >
+              {item.label}
+            </a>
+          ))}
         </div>
       </AppBarSection>
     </AppBar>
