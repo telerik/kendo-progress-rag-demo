@@ -1,10 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { TextBox, type TextBoxProps, type TextBoxChangeEvent } from "@progress/kendo-react-inputs";
-import { Button } from "@progress/kendo-react-buttons";
-import { plusIcon, microphoneOutlineIcon, arrowUpIcon } from "@progress/kendo-svg-icons";
+import { type TextBoxProps, type TextBoxChangeEvent } from "@progress/kendo-react-inputs";
 import { buildApiUrl } from '../config/api';
 import { renderMarkdown } from '../utils/markdownRenderer';
+import { SearchPill } from '../components/SearchPill';
+import { SearchInput } from '../components/SearchInput';
 
 export default function AiSearch() {
   const location = useLocation();
@@ -129,83 +129,6 @@ export default function AiSearch() {
 
   const hasResults = (answer || isLoading || currentQuestion);
 
-  // Reusable search pill component
-  const SearchPill = React.useCallback(({ text }: { text: string }) => (
-    <button
-      onClick={handleExampleSearch}
-      disabled={isLoading}
-      style={{
-        backgroundColor: 'rgba(255, 255, 255, 0.7)',
-        border: '1px solid white',
-        borderRadius: '16px',
-        padding: '13px',
-        fontSize: '12px',
-        fontWeight: 500,
-        color: '#000000',
-        cursor: isLoading ? 'not-allowed' : 'pointer',
-        whiteSpace: 'nowrap',
-        opacity: isLoading ? 0.6 : 1,
-        transition: 'background-color 0.2s ease',
-        lineHeight: '1.42',
-        boxShadow: 'var(--kendo-elevation-2)'
-      }}
-      onMouseEnter={(e) => {
-        if (!isLoading) {
-          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-        }
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
-      }}
-    >
-      {text}
-    </button>
-  ), [isLoading, handleExampleSearch]);
-
-  // Reusable search input component
-  const SearchInput = React.useCallback(({ bordered = false }: { bordered?: boolean }) => (
-    <TextBox
-      style={{ 
-        borderColor: '#A1B0C7',
-        ...(bordered ? { borderWidth: '2px', backgroundColor: 'white' } : {}),
-        width: '100%'
-      }}
-      className={bordered ? 'k-py-2 k-px-2' : 'k-py-2 k-px-2 k-elevation-2'}
-      rounded="full"
-      size="large"
-      placeholder={hasResults ? "What is PARAG and how does it work?" : "Ask about PARAG features, deployment, security, integrations..."}
-      value={query}
-      onChange={handleQueryChange}
-      onKeyPress={handleKeyPress}
-      disabled={isLoading}
-      prefix={() => (
-        <div className="k-d-flex k-align-items-center k-justify-content-center k-px-2">
-          <Button
-            rounded="full"
-            fillMode="flat"
-            svgIcon={plusIcon}
-          />
-        </div>
-      )}
-      suffix={() => (
-        <div className="k-d-flex k-align-items-center k-justify-content-center k-px-2">
-          <Button
-            rounded="full"
-            fillMode="flat" 
-            svgIcon={microphoneOutlineIcon}
-          />
-          <Button
-            style={{ backgroundColor: '#A1B0C7', color: '#fff'}}
-            rounded="full"
-            svgIcon={arrowUpIcon}
-            onClick={handleSearchClick}
-            disabled={isLoading}
-          />
-        </div>
-      )}
-    />
-  ), [query, handleQueryChange, handleKeyPress, isLoading, handleSearchClick, hasResults]);
-
   return (
     <div 
       className="k-pos-relative" 
@@ -328,7 +251,14 @@ export default function AiSearch() {
                 margin: '0 auto'
               }}
             >
-              <SearchInput />
+              <SearchInput
+                query={query}
+                onQueryChange={handleQueryChange}
+                onKeyPress={handleKeyPress}
+                onSearchClick={handleSearchClick}
+                isLoading={isLoading}
+                placeholder="Ask about PARAG features, deployment, security, integrations..."
+              />
 
               {/* Popular searches section */}
               <div className="k-d-flex k-flex-column k-w-full k-gap-3">
@@ -350,7 +280,7 @@ export default function AiSearch() {
                   }}
                 >
                   {popularSearches.map((searchText, index) => (
-                    <SearchPill key={index} text={searchText} />
+                    <SearchPill key={index} text={searchText} onClick={handleExampleSearch} disabled={isLoading} />
                   ))}
                 </div>
               </div>
@@ -453,7 +383,15 @@ export default function AiSearch() {
                 zIndex: 1
               }}
             >
-              <SearchInput bordered />
+              <SearchInput
+                query={query}
+                onQueryChange={handleQueryChange}
+                onKeyPress={handleKeyPress}
+                onSearchClick={handleSearchClick}
+                isLoading={isLoading}
+                placeholder="What is PARAG and how does it work?"
+                bordered
+              />
             </div>
           </div>
         )}
@@ -519,7 +457,7 @@ export default function AiSearch() {
                     }}
                   >
                     {popularSearches.map((searchText, index) => (
-                      <SearchPill key={index} text={searchText} />
+                      <SearchPill key={index} text={searchText} onClick={handleExampleSearch} disabled={isLoading} />
                     ))}
                   </div>
                 </div>

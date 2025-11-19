@@ -1,13 +1,7 @@
 import React from "react";
-import { Button } from "@progress/kendo-react-buttons";
-import { TextBox, type TextBoxChangeEvent } from "@progress/kendo-react-inputs";
+import { type TextBoxChangeEvent } from "@progress/kendo-react-inputs";
+import { SearchInput } from "../components/SearchInput";
 import { useNavigate } from "react-router-dom";
-import {
-  plusIcon,
-  microphoneOutlineIcon,
-  arrowUpIcon
-} from "@progress/kendo-svg-icons";
-import "./Home.css";
 
 // Figma design asset URLs
 const imgBot = `${import.meta.env.BASE_URL}bot.svg`;
@@ -137,39 +131,13 @@ export default function Home() {
       {/* Search bar */}
       <section style={{ position: "relative", zIndex: 1 }}>
         <div className="k-mt-17 k-d-flex k-flex-column k-align-items-center k-justify-content-between k-gap-25">
-          <TextBox
-            style={{ borderColor: 'rgba(0, 0, 0, 0.5)' }}
-            className="k-p-2 k-elevation-2"
-            rounded="full"
-            size="large"
-            placeholder="Ask about features, deployment, security, integrations..."
-            value={searchQuery}
-            onChange={handleSearchChange}
+          <SearchInput
+            query={searchQuery}
+            onQueryChange={handleSearchChange}
             onKeyPress={handleKeyPress}
-            prefix={() => (
-              <div className="k-d-flex k-align-items-center k-justify-content-center k-px-2">
-                <Button
-                  rounded="full"
-                  fillMode="flat"
-                  svgIcon={plusIcon}
-                />
-              </div>
-            )}
-            suffix={() => (
-              <div className="k-d-flex k-align-items-center k-justify-content-center k-px-2">
-                <Button
-                  rounded="full"
-                  fillMode="flat" 
-                  svgIcon={microphoneOutlineIcon}
-                />
-                <Button
-                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff'}}
-                  rounded="full"
-                  svgIcon={arrowUpIcon}
-                  onClick={handleSearchSubmit}
-                />
-              </ div>
-            )}
+            onSearchClick={handleSearchSubmit}
+            isLoading={false}
+            placeholder="Ask about features, deployment, security, integrations..."
           />
           {/* Explore Demos section */}
           <div className="k-d-flex k-flex-column k-align-items-center k-w-full">
