@@ -4,21 +4,19 @@ import {
   DrawerContent,
   DrawerNavigation,
 } from "@progress/kendo-react-layout";
-import { SvgIcon } from "@progress/kendo-react-common";
-import {
-  pencilIcon,
-  searchIcon,
-  folderOpenIcon,
-} from "@progress/kendo-svg-icons";
 import type { To } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Avatar } from "@progress/kendo-react-layout";
-import userImg from "../../public/drawer-user.svg";
+
+const userImg = `${import.meta.env.BASE_URL}drawer-user.svg`;
+const searchImg = `${import.meta.env.BASE_URL}search.svg`;
+const chatImg = `${import.meta.env.BASE_URL}new-chat.svg`;
+const libraryImg = `${import.meta.env.BASE_URL}book-open.svg`;
 
 const drawerItems = [
-  { text: "New chat", svgIcon: pencilIcon, route: "/knowledge-assistant" },
-  { text: "Search chats", svgIcon: searchIcon, route: "/knowledge-assistant" },
-  { text: "Library", svgIcon: folderOpenIcon, route: "/knowledge-assistant" },
+  { text: "New chat", icon: chatImg, route: "/knowledge-assistant" },
+  { text: "Search chats", icon: searchImg, route: "/knowledge-assistant" },
+  { text: "Library", icon: libraryImg, route: "/knowledge-assistant" },
 ];
 
 interface DrawerComponentProps {
@@ -80,7 +78,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
                 selected === item.text ? "k-selected" : ""
               }`}
             >
-              <SvgIcon icon={item.svgIcon} />
+              <img src={item.icon} alt={item.text} />
               <span className="k-item-text">{item.text}</span>
             </div>
           ))}
