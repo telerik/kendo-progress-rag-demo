@@ -68,10 +68,10 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
       drawerClassName="k-border-none"
     >
       <DrawerNavigation
-        className="k-overflow-y-auto !k-pos-sticky"
+        className="k-overflow-y-auto !k-pos-sticky drawer-navigation"
         style={{ height: "calc(100vh - 53px)", top: 53 }}
       >
-        <div className="k-drawer-items">
+        <div className="k-drawer-items k-h-full">
           {drawerItems.map((item) => (
             <div
               onClick={() => navigate(item.route)}
@@ -84,7 +84,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
               <span className="k-item-text">{item.text}</span>
             </div>
           ))}
-          <div className="k-mt-6 k-d-flex k-flex-column k-justify-content-between" style={{ height: '857px' }}>
+          <div className="k-mt-6 k-d-flex k-flex-column k-justify-content-between k-flex-1">
             <div>
               <span className="k-p-4" style={{ color: "#A1B0C7" }}>
                 Chats
