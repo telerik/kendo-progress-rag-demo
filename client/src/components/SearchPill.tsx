@@ -39,3 +39,5 @@ export const SearchPill: React.FC<SearchPillProps> = ({ text, onClick, disabled 
     </button>
   );
 };
+
+export default SearchPill;

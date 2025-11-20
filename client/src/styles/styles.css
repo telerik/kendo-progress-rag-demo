@@ -159,3 +159,11 @@
   background-color: transparent;
   color: currentColor;
 }
+
+.k-chat {
+  background: transparent;
+}
+
+.k-chat .k-message-list-content .k-timestamp:empty {
+  display: none;
+}

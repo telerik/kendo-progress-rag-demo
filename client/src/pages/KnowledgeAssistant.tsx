@@ -1,11 +1,11 @@
 import { Chat, type ChatSuggestion } from "@progress/kendo-react-conversational-ui";
 import ChatMessage from "../components/ChatMessage";
 import { useChatBot } from '../hooks/useChatBot';
-import { SvgIcon } from "@progress/kendo-react-common";
-import { searchIcon } from "@progress/kendo-svg-icons";
 import DrawerComponent from "../components/DrawerComponent";
+import ChatMessageBox from '../components/ChatMessageBox';
 
 const KnowledgeAssistant = () => {
+  
   // Predefined suggestions related to Kendo React
   const kendoSuggestions: ChatSuggestion[] = [
     {
@@ -27,7 +27,7 @@ const KnowledgeAssistant = () => {
 
   const chatBot = useChatBot({
     botName: 'Progress Agentic RAG Assistant',
-    initialMessage: 'Hello! I\'m your Progress Agentic RAG AI assistant. I can help you with KendoReact questions and documentation. Try one of the suggestions below, or ask me anything about KendoReact components, theming, data visualization, and more!',
+    initialMessage: '👋 Hello! I\'m your Progress Agentic RAG AI assistant. I can help you with KendoReact questions and documentation. Try one of the suggestions below, or ask me anything about KendoReact like: components, theming, data visualization, and more!',
     apiEndpoint: '/api/ask',
     placeholder: 'Try a suggestion or ask about KendoReact...',
     suggestions: kendoSuggestions
@@ -35,27 +35,119 @@ const KnowledgeAssistant = () => {
 
   return (
     <DrawerComponent>
-      <div className="k-d-flex k-flex-column k-overflow-auto k-pb-4" style={{ height: 'calc(100vh - 53px)', background: 'linear-gradient(134deg, #23A5D4 14.27%, #2E7BD2 49.62%, #20B4CB 85.65%)'}}>
-        <div className="k-color-surface k-d-flex k-flex-column k-align-items-center k-py-4 k-py-sm-6 k-py-md-4 k-px-4 k-px-sm-6 k-px-md-8 k-px-lg-12 k-px-xl-20 k-gap-2 k-gap-sm-3 k-gap-md-3 k-flex-none">
-          <div className="k-d-flex k-flex-column k-gap-2 k-gap-sm-3 k-gap-md-3">
-            <div className="k-d-flex k-gap-2 k-align-items-center">
-              <SvgIcon icon={searchIcon} size="xxlarge" className="k-flex-shrink-0" />
-              <h1 className="k-h1 !k-mb-0">Progress Agentic RAG Knowledge Assistant</h1>
-            </div>
-            <p className="!k-mb-0 k-font-size-xl k-d-none k-d-sm-block">Explore the comprehensive Progress Agentic RAG knowledge base with AI-powered intelligent search for precise, contextual results about Progress Agentic RAG features, capabilities, and best practices</p>
+      <div 
+        className="k-d-flex k-flex-column" 
+        style={{ 
+          height: 'calc(100vh - 53px)', 
+          backgroundColor: 'rgba(255, 255, 255, 0.6)',
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
+        {/* Background Illustration Blur Ellipse */}
+        <div 
+          style={{
+            position: 'absolute',
+            width: '815px',
+            height: '63.344px',
+            left: '184px',
+            top: '789.66px',
+            opacity: 0.6,
+            pointerEvents: 'none',
+            background: 'conic-gradient(from 270deg at 47.29% 49.93%, rgba(255, 0, 251, 0.60) 0deg, rgba(0, 200, 255, 0.30) 180deg, rgba(0, 119, 255, 0.60) 360deg)',
+            filter: 'blur(75px)',
+            borderRadius: '815px'
+          }}
+        />
+
+        {/* Background Illustration with Vectors */}
+        <div
+          style={{
+            position: 'absolute',
+            right: '0',
+            top: '0',
+            width: '725px',
+            height: '569px',
+            overflow: 'hidden',
+            pointerEvents: 'none',
+            zIndex: 0
+          }}
+        >
+          <img
+            src={`${import.meta.env.BASE_URL}vectors.svg`}
+            alt=""
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'block',
+              objectFit: 'cover',
+              objectPosition: 'left top'
+            }}
+          />
+        </div>
+
+        {/* Hero Section - Always visible */}
+        <div className="k-d-flex k-flex-column" style={{ paddingTop: '96px', paddingLeft: '128px', paddingRight: '128px', paddingBottom: '24px', position: 'relative', zIndex: 1 }}>
+          <div className="k-d-flex k-flex-column" style={{ width: '100%', maxWidth: '770px', gap: '36px' }}>
+            <h1 
+              className="k-mb-0"
+              style={{
+                background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                fontSize: '56px',
+                fontWeight: 500,
+                lineHeight: 1.1,
+                letterSpacing: '-1.12px',
+                fontFamily: '"Metric", sans-serif'
+              }}
+            >
+              Progress Agentic RAG Knowledge Assistant
+            </h1>
+            <p 
+              className="k-mb-0"
+              style={{
+                color: '#535B6A',
+                fontSize: '24px',
+                lineHeight: '1.2',
+                fontFamily: '"Metric", sans-serif'
+              }}
+            >
+              Use AI search to quickly find accurate, relevant information about Progress Agentic RAG—its features, capabilities, and best practices.
+            </p>
           </div>
         </div>
-        <div className="k-d-flex k-flex-column k-px-4 k-px-sm-6 k-px-md-8 k-px-lg-12 k-px-xl-20 k-pb-4 k-flex-1 k-min-h-0">
+        
+        {/* Chat Component */}
+        <div className="k-d-flex k-flex-column k-px-4 k-px-sm-6 k-px-md-8 k-pb-4 k-flex-1 k-min-h-0 k-mx-28">
           <Chat
             messages={chatBot.messages}
             authorId={chatBot.user.id}
             onSendMessage={chatBot.addNewMessage}
-            placeholder={'Try a suggestion or ask about KendoReact...'}
+            placeholder="Try a suggestion or ask about KendoReact"
             className="k-border-transparent"
             height="100%"
             messageTemplate={ChatMessage}
-            suggestions={chatBot.availableSuggestions}
-            onSuggestionClick={chatBot.handleSuggestionClick}
+            timestampTemplate={() => null }
+            messageBox={(props) => (
+              <ChatMessageBox 
+                {...props} 
+                isLoading={chatBot.isLoading}
+                suggestions={chatBot.availableSuggestions}
+                onSuggestionClick={chatBot.handleSuggestionClick}
+                onSendMessage={(text) => {
+                  chatBot.addNewMessage({
+                    message: {
+                      id: Date.now(),
+                      author: chatBot.user,
+                      timestamp: new Date(),
+                      text
+                    }
+                  });
+                }}
+              />
+            )}
           />
         </div>
       </div>
