@@ -41,7 +41,7 @@ const KnowledgeAssistant = () => {
           height: 'calc(100vh - 53px)', 
           backgroundColor: 'rgba(255, 255, 255, 0.6)',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'auto'
         }}
       >
         {/* Background Illustration Blur Ellipse */}
@@ -120,7 +120,7 @@ const KnowledgeAssistant = () => {
         </div>
         
         {/* Chat Component */}
-        <div className="k-d-flex k-flex-column k-px-4 k-px-sm-6 k-px-md-8 k-pb-4 k-flex-1 k-min-h-0 k-mx-28">
+        <div className="k-d-flex k-flex-column k-px-4 k-px-sm-6 k-px-md-8 k-pb-4 k-flex-1 k-mx-28" style={{ minHeight: 0 }}>
           <Chat
             messages={chatBot.messages}
             authorId={chatBot.user.id}

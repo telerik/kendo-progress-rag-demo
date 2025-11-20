@@ -1,6 +1,5 @@
 import React from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import CodeBlockWithCopy from '../components/CodeBlockWithCopy';
 
 /**
  * Simple markdown renderer for basic formatting
@@ -13,7 +12,6 @@ export const renderMarkdown = (text: string): React.ReactNode[] => {
   const elements: React.ReactNode[] = [];
   let currentCodeBlock: string[] = [];
   let inCodeBlock = false;
-  let codeLanguage = 'text';
   let currentList: { content: string; type: 'unordered' | 'ordered' }[] = [];
 
   const flushList = () => {
@@ -28,7 +26,7 @@ export const renderMarkdown = (text: string): React.ReactNode[] => {
         { 
           key: `list-${elements.length}`,
           style: { 
-            marginLeft: '30px',
+            paddingLeft: '24px',
             marginBottom: '8px',
             listStyleType: isOrdered ? 'decimal' : 'disc'
           }
@@ -51,31 +49,17 @@ export const renderMarkdown = (text: string): React.ReactNode[] => {
       if (!inCodeBlock) {
         // Start of code block
         inCodeBlock = true;
-        codeLanguage = line.trim().substring(3) || 'text';
       } else {
         // End of code block
         inCodeBlock = false;
         elements.push(
-          <div key={`code-${lineIndex}`} style={{ marginBottom: '12px' }}>
-            <SyntaxHighlighter
-              language={codeLanguage}
-              style={oneLight}
-              customStyle={{
-                margin: 0,
-                padding: '12px',
-                borderRadius: '4px',
-                fontSize: '0.9em',
-              }}
-              showLineNumbers={false}
-              wrapLines={true}
-              wrapLongLines={true}
-            >
-              {currentCodeBlock.join('\n')}
-            </SyntaxHighlighter>
-          </div>
+          <CodeBlockWithCopy
+            key={`code-${lineIndex}`}
+            code={currentCodeBlock.join('\n')}
+            blockKey={`code-${lineIndex}`}
+          />
         );
         currentCodeBlock = [];
-        codeLanguage = 'text';
       }
       return;
     }
