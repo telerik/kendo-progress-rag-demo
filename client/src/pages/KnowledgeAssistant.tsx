@@ -33,6 +33,9 @@ const KnowledgeAssistant = () => {
     suggestions: kendoSuggestions
   });
 
+  // Check if conversation has started (more than initial message)
+  const hasConversationStarted = chatBot.messages.length > 1;
+
   return (
     <DrawerComponent>
       <div 
@@ -60,96 +63,118 @@ const KnowledgeAssistant = () => {
           }}
         />
 
-        {/* Background Illustration with Vectors */}
-        <div
-          style={{
-            position: 'absolute',
-            right: '0',
-            top: '0',
-            width: '725px',
-            height: '569px',
-            overflow: 'hidden',
-            pointerEvents: 'none',
-            zIndex: 0
-          }}
-        >
-          <img
-            src={`${import.meta.env.BASE_URL}vectors.svg`}
-            alt=""
+        {/* Background Illustration with Vectors - Only show in idle state */}
+        {!hasConversationStarted && (
+          <div
             style={{
-              width: '100%',
-              height: '100%',
-              display: 'block',
-              objectFit: 'cover',
-              objectPosition: 'left top'
+              position: 'absolute',
+              right: '0',
+              top: '0',
+              width: '725px',
+              height: '569px',
+              overflow: 'hidden',
+              pointerEvents: 'none',
+              zIndex: 0
             }}
-          />
-        </div>
-
-        {/* Hero Section - Always visible */}
-        <div className="k-d-flex k-flex-column" style={{ paddingTop: '96px', paddingLeft: '128px', paddingRight: '128px', paddingBottom: '24px', position: 'relative', zIndex: 1 }}>
-          <div className="k-d-flex k-flex-column" style={{ width: '100%', maxWidth: '770px', gap: '36px' }}>
-            <h1 
-              className="k-mb-0"
+          >
+            <img
+              src={`${import.meta.env.BASE_URL}vectors.svg`}
+              alt=""
               style={{
-                background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                fontSize: '56px',
-                fontWeight: 500,
-                lineHeight: 1.1,
-                letterSpacing: '-1.12px',
-                fontFamily: '"Metric", sans-serif'
+                width: '100%',
+                height: '100%',
+                display: 'block',
+                objectFit: 'cover',
+                objectPosition: 'left top'
               }}
-            >
-              Progress Agentic RAG Knowledge Assistant
-            </h1>
-            <p 
-              className="k-mb-0"
-              style={{
-                color: '#535B6A',
-                fontSize: '24px',
-                lineHeight: '1.2',
-                fontFamily: '"Metric", sans-serif'
-              }}
-            >
-              Use AI search to quickly find accurate, relevant information about Progress Agentic RAG—its features, capabilities, and best practices.
-            </p>
+            />
           </div>
-        </div>
+        )}
+
+        {/* Hero Section - Only visible in idle state */}
+        {!hasConversationStarted && (
+          <div className="k-d-flex k-flex-column" style={{ paddingTop: '96px', paddingBottom: '24px', paddingLeft: '128px', paddingRight: '128px', position: 'relative', zIndex: 1 }}>
+            <div className="k-d-flex k-flex-column" style={{ width: '100%', maxWidth: '770px', gap: '36px' }}>
+              <h1 
+                className="k-mb-0"
+                style={{
+                  background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  fontSize: '56px',
+                  fontWeight: 500,
+                  lineHeight: 1.1,
+                  letterSpacing: '-1.12px',
+                  fontFamily: '"Metric", sans-serif'
+                }}
+              >
+                Progress Agentic RAG Knowledge Assistant
+              </h1>
+              <p 
+                className="k-mb-0"
+                style={{
+                  color: '#535B6A',
+                  fontSize: '24px',
+                  lineHeight: '1.2',
+                  fontFamily: '"Metric", sans-serif'
+                }}
+              >
+                Use AI search to quickly find accurate, relevant information about Progress Agentic RAG—its features, capabilities, and best practices.
+              </p>
+            </div>
+          </div>
+        )}
         
         {/* Chat Component */}
-        <div className="k-d-flex k-flex-column k-px-4 k-px-sm-6 k-px-md-8 k-pb-4 k-flex-1 k-mx-28" style={{ minHeight: 0 }}>
-          <Chat
-            messages={chatBot.messages}
-            authorId={chatBot.user.id}
-            onSendMessage={chatBot.addNewMessage}
-            placeholder="Try a suggestion or ask about KendoReact"
-            className="k-border-transparent"
-            height="100%"
-            messageTemplate={ChatMessage}
-            timestampTemplate={() => null }
-            showUsername={false}
-            messageBox={(props) => (
-              <ChatMessageBox 
-                {...props} 
-                isLoading={chatBot.isLoading}
-                suggestions={chatBot.availableSuggestions}
-                onSuggestionClick={chatBot.handleSuggestionClick}
-                onSendMessage={(text) => {
-                  chatBot.addNewMessage({
-                    message: {
-                      id: Date.now(),
-                      author: chatBot.user,
-                      timestamp: new Date(),
-                      text
-                    }
-                  });
-                }}
-              />
-            )}
-          />
+        <div 
+          className="k-d-flex k-flex-column k-flex-1" 
+          style={{ 
+            minHeight: 0,
+            width: '100%',
+            alignItems: hasConversationStarted ? 'stretch' : 'center',
+            boxSizing: 'border-box',
+            padding: hasConversationStarted ? '24px' : '0'
+          }}
+        >
+          <div style={{ 
+            width: '100%',
+            maxWidth: hasConversationStarted ? 'none' : '770px',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            boxSizing: 'border-box'
+          }}>
+            <Chat
+              messages={chatBot.messages}
+              authorId={chatBot.user.id}
+              onSendMessage={chatBot.addNewMessage}
+              placeholder="Try a suggestion or ask about KendoReact"
+              className="k-border-transparent"
+              height="100%"
+              messageTemplate={ChatMessage}
+              timestampTemplate={() => null }
+              showUsername={false}
+              messageBox={(props) => (
+                <ChatMessageBox 
+                  {...props} 
+                  isLoading={chatBot.isLoading}
+                  suggestions={chatBot.availableSuggestions}
+                  onSuggestionClick={chatBot.handleSuggestionClick}
+                  onSendMessage={(text) => {
+                    chatBot.addNewMessage({
+                      message: {
+                        id: Date.now(),
+                        author: chatBot.user,
+                        timestamp: new Date(),
+                        text
+                      }
+                    });
+                  }}
+                />
+              )}
+            />
+          </div>
         </div>
       </div>
     </DrawerComponent>
