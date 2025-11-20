@@ -1,10 +1,6 @@
 import React from "react";
-import {
-  Chat,
-  type ChatSuggestion,
-} from "@progress/kendo-react-conversational-ui";
+import { Chat, type ChatSuggestion } from "@progress/kendo-react-conversational-ui";
 import { useChatBot } from "../hooks/useChatBot";
-import { Card } from "@progress/kendo-react-layout";
 import {
   Chart,
   ChartSeries,
@@ -14,6 +10,9 @@ import {
   ChartValueAxis,
   ChartValueAxisItem,
 } from "@progress/kendo-react-charts";
+import DrawerComponent from "../components/DrawerComponent";
+import ChatMessage from "../components/ChatMessage";
+import ChatMessageBox from "../components/ChatMessageBox";
 
 export default function FinanceAnalysis() {
   interface ChartSeriesDef {
@@ -85,84 +84,170 @@ export default function FinanceAnalysis() {
   }, [chatBot.latestResponse, isBarChartDef]);
 
   return (
-    <div className="k-bg-surface">
-      <div className="k-d-grid k-grid-cols-1 k-grid-cols-xl-2 k-gap-lg k-p-lg" style={{ minHeight: 'calc(100vh - 53px - 2rem)' }}>
-        {/* Left Panel - Chat */}
-        <div className="k-d-flex k-col-span-1 k-col-span-xl-1 k-col-start-xl-1 k-col-end-xl-2" style={{ display: 'flex' }}>
-          <Card>
-            <div className="k-p-lg k-d-flex k-flex-col">
-              <h2 className="k-font-size-xl k-font-bold k-mb-lg">Chat</h2>
+    <DrawerComponent>
+      <div 
+        className="k-d-flex k-flex-column" 
+        style={{ 
+          height: 'calc(100vh - 53px)', 
+          backgroundColor: 'rgba(255, 255, 255, 0.6)',
+          position: 'relative',
+        }}
+      >
+        {/* Background Illustration Blur Ellipse */}
+        <div 
+          style={{
+            position: 'absolute',
+            width: '815px',
+            height: '63.344px',
+            left: '184px',
+            top: '659.66px',
+            opacity: 0.6,
+            pointerEvents: 'none',
+            background: 'conic-gradient(from 270deg at 47.29% 49.93%, rgba(255, 0, 251, 0.60) 0deg, rgba(0, 200, 255, 0.30) 180deg, rgba(0, 119, 255, 0.60) 360deg)',
+            filter: 'blur(75px)',
+            borderRadius: '815px'
+          }}
+        />
 
-              <Chat
-                messages={chatBot.messages}
-                authorId={chatBot.user.id}
-                onSendMessage={chatBot.addNewMessage}
-                placeholder={"Try a suggestion or ask about a company..."}
-                className="k-border-transparent"
-                height="calc(100vh - 200px)"
-                suggestions={chatBot.availableSuggestions}
-                onSuggestionClick={chatBot.handleSuggestionClick}
-              />
-            </div>
-          </Card>
+        {/* Background Illustration with Vectors */}
+        <div
+          style={{
+            position: 'absolute',
+            right: '0',
+            top: '0',
+            width: '725px',
+            height: '569px',
+            overflow: 'hidden',
+            pointerEvents: 'none',
+            zIndex: 0
+          }}
+        >
+          <img
+            src={`${import.meta.env.BASE_URL}vectors.svg`}
+            alt=""
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'block',
+              objectFit: 'cover',
+              objectPosition: 'left top'
+            }}
+          />
         </div>
 
-        {/* Right Panel - Financial Charts Analysis */}
-        <div className="k-d-flex k-col-span-1 k-col-span-xl-1 k-col-start-xl-2 k-col-end-xl-3">
-          <Card className="k-flex-1">
-            <div className="k-p-lg">
-              <h2 className="k-font-size-xl k-font-bold k-mb-lg">
-                Progress Agentic RAG Financial Charts Analysis
-              </h2>
-              <div className="k-d-flex k-flex-col k-gap-lg">
-                {/* Dynamic Charts from Progress Agentic RAG answer (up to 3) */}
-                <div>
-                  {selectedCharts.length === 0 && (
-                    <p className="k-text-secondary">
-                      No charts available for the latest answer.
-                    </p>
-                  )}
-                  {selectedCharts.length > 0 && (
-                    <div className="k-d-flex k-flex-col k-gap-xl">
-                      {selectedCharts.slice(0, 3).map((chart, idx) => (
-                        <div key={idx} className="k-d-flex k-flex-col k-gap-sm">
-                          <h4 className="k-font-size-md k-font-semibold k-mb-sm">
-                            {chart.title}
-                          </h4>
-                          <Chart style={{ minHeight: "210px", width: "100%" }}>
-                            <ChartCategoryAxis>
-                              <ChartCategoryAxisItem
-                                categories={chart.categories}
-                                labels={{ rotation: "auto" }}
-                              />
-                            </ChartCategoryAxis>
-                            <ChartValueAxis>
-                              <ChartValueAxisItem
-                                labels={{ format: "{0:n0}" }}
-                              />
-                            </ChartValueAxis>
-                            <ChartSeries>
-                              {chart.series.map((series) => (
-                                <ChartSeriesItem
-                                  key={series.name}
-                                  type="column"
-                                  name={series.name}
-                                  data={series.data}
-                                  tooltip={{ visible: true, format: "{0:n0}" }}
-                                />
-                              ))}
-                            </ChartSeries>
-                          </Chart>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+        {/* Hero Section */}
+        <div className="k-d-flex k-flex-column" style={{ paddingTop: '96px', paddingLeft: '128px', paddingRight: '512px', paddingBottom: '64px', position: 'relative', zIndex: 1 }}>
+          <div className="k-d-flex k-flex-column" style={{ width: '100%', gap: '32px' }}>
+            <h1 
+              className="k-mb-0"
+              style={{
+                background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                fontSize: '56px',
+                fontWeight: 500,
+                lineHeight: 1,
+                letterSpacing: '-1.12px',
+                fontFamily: '"Metric", sans-serif'
+              }}
+            >
+              Progress Agentic RAG Financial Charts Analysis
+            </h1>
+            <p 
+              className="k-mb-0"
+              style={{
+                color: '#535B6A',
+                fontSize: '24px',
+                lineHeight: '1.2',
+                fontFamily: '"Metric", sans-serif'
+              }}
+            >
+              Use AI search to quickly find accurate, relevant information about Progress Agentic RAG—its features, capabilities, and best practices.
+            </p>
+          </div>
+        </div>
+        
+        {/* Conversation Area */}
+        <div className="k-d-flex k-flex-column" style={{ paddingLeft: '128px', paddingRight: '128px', paddingBottom: '32px', position: 'relative', zIndex: 1, flex: '1', minHeight: 0 }}>
+          <div style={{  display: 'flex', flexDirection: 'column', height: '100%' }}>
+    
+            {/* Chat Component */}
+            <Chat
+              messages={chatBot.messages}
+              authorId={chatBot.user.id}
+              onSendMessage={chatBot.addNewMessage}
+              placeholder="Try a suggestion or ask about a company..."
+              className="k-border-transparent"
+              height="100%"
+              messageTemplate={ChatMessage}
+              timestampTemplate={() => null}
+              messageBox={(props) => (
+                <ChatMessageBox 
+                  {...props} 
+                  isLoading={chatBot.isLoading}
+                  suggestions={chatBot.availableSuggestions}
+                  onSuggestionClick={chatBot.handleSuggestionClick}
+                  onSendMessage={(text) => {
+                    chatBot.addNewMessage({
+                      message: {
+                        id: Date.now(),
+                        author: chatBot.user,
+                        timestamp: new Date(),
+                        text
+                      }
+                    });
+                  }}
+                />
+              )}
+            />
+
+            {/* Charts Display */}
+            {selectedCharts.length > 0 && (
+              <div className="k-d-flex k-flex-col k-gap-6 k-mt-6">
+                {selectedCharts.slice(0, 3).map((chart, idx) => (
+                  <div key={idx} className="k-d-flex k-flex-col">
+                    <h4 
+                      style={{ 
+                        fontSize: '20px',
+                        fontWeight: 600,
+                        marginBottom: '16px',
+                        fontFamily: '"Metric", sans-serif'
+                      }}
+                    >
+                      {chart.title}
+                    </h4>
+                    <Chart style={{ minHeight: "210px", width: "100%" }}>
+                      <ChartCategoryAxis>
+                        <ChartCategoryAxisItem
+                          categories={chart.categories}
+                          labels={{ rotation: "auto" }}
+                        />
+                      </ChartCategoryAxis>
+                      <ChartValueAxis>
+                        <ChartValueAxisItem
+                          labels={{ format: "{0:n0}" }}
+                        />
+                      </ChartValueAxis>
+                      <ChartSeries>
+                        {chart.series.map((series) => (
+                          <ChartSeriesItem
+                            key={series.name}
+                            type="column"
+                            name={series.name}
+                            data={series.data}
+                            tooltip={{ visible: true, format: "{0:n0}" }}
+                          />
+                        ))}
+                      </ChartSeries>
+                    </Chart>
+                  </div>
+                ))}
               </div>
-            </div>
-          </Card>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </DrawerComponent>
   );
 }
