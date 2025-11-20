@@ -14,10 +14,40 @@ export const renderMarkdown = (text: string): React.ReactNode[] => {
   let currentCodeBlock: string[] = [];
   let inCodeBlock = false;
   let codeLanguage = 'text';
+  let currentList: { content: string; type: 'unordered' | 'ordered' }[] = [];
+
+  const flushList = () => {
+    if (currentList.length === 0) return;
+    
+    const isOrdered = currentList[0].type === 'ordered';
+    const ListTag = isOrdered ? 'ol' : 'ul';
+    
+    elements.push(
+      React.createElement(
+        ListTag,
+        { 
+          key: `list-${elements.length}`,
+          style: { 
+            marginLeft: '30px',
+            marginBottom: '8px',
+            listStyleType: isOrdered ? 'decimal' : 'disc'
+          }
+        },
+        currentList.map((item, i) => (
+          <li key={i} style={{ marginBottom: i === currentList.length - 1 ? '0' : '4px' }}>
+            <span style={{ lineHeight: '1.2' }}>{processInlineMarkdown(item.content)}</span>
+          </li>
+        ))
+      )
+    );
+    
+    currentList = [];
+  };
 
   lines.forEach((line, lineIndex) => {
     // Check for code block start/end
     if (line.trim().startsWith('```')) {
+      flushList();
       if (!inCodeBlock) {
         // Start of code block
         inCodeBlock = true;
@@ -61,18 +91,21 @@ export const renderMarkdown = (text: string): React.ReactNode[] => {
     
     // Handle headings
     if (line.startsWith('### ')) {
+      flushList();
       elements.push(
         <h3 key={lineIndex} style={{ marginTop: '16px', marginBottom: '8px', fontSize: '1.2em', fontWeight: 'bold' }}>
           {processInlineMarkdown(line.substring(4))}
         </h3>
       );
     } else if (line.startsWith('## ')) {
+      flushList();
       elements.push(
         <h2 key={lineIndex} style={{ marginTop: '18px', marginBottom: '10px', fontSize: '1.4em', fontWeight: 'bold' }}>
           {processInlineMarkdown(line.substring(3))}
         </h2>
       );
     } else if (line.startsWith('# ')) {
+      flushList();
       elements.push(
         <h1 key={lineIndex} style={{ marginTop: '20px', marginBottom: '12px', fontSize: '1.6em', fontWeight: 'bold' }}>
           {processInlineMarkdown(line.substring(2))}
@@ -82,27 +115,21 @@ export const renderMarkdown = (text: string): React.ReactNode[] => {
     // Handle unordered lists
     else if (line.trim().match(/^[-*+]\s/)) {
       const content = line.trim().substring(2);
-      elements.push(
-        <li key={lineIndex} style={{ marginLeft: '20px', marginBottom: '4px' }}>
-          {processInlineMarkdown(content)}
-        </li>
-      );
+      currentList.push({ content, type: 'unordered' });
     }
     // Handle ordered lists
     else if (line.trim().match(/^\d+\.\s/)) {
       const content = line.trim().replace(/^\d+\.\s/, '');
-      elements.push(
-        <li key={lineIndex} style={{ marginLeft: '20px', marginBottom: '4px', listStyleType: 'decimal' }}>
-          {processInlineMarkdown(content)}
-        </li>
-      );
+      currentList.push({ content, type: 'ordered' });
     }
     // Handle empty lines
     else if (line.trim() === '') {
+      flushList();
       elements.push(<br key={lineIndex} />);
     }
     // Regular paragraph
     else {
+      flushList();
       elements.push(
         <p key={lineIndex} style={{ marginBottom: '8px' }}>
           {processedLine}
@@ -110,6 +137,9 @@ export const renderMarkdown = (text: string): React.ReactNode[] => {
       );
     }
   });
+
+  // Flush any remaining list
+  flushList();
 
   return elements;
 };

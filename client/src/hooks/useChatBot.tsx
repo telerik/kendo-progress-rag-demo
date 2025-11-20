@@ -35,13 +35,12 @@ export const useChatBot = (config: ChatBotConfig): UseChatBotReturn => {
   const user: User = {
     id: 1,
     name: 'Demo User',
-    avatarUrl: `${import.meta.env.BASE_URL}user.svg`
+    avatarUrl: `${import.meta.env.BASE_URL}drawer-user.svg`
   };
 
   const bot: User = {
     id: 0,
     name: config.botName,
-    avatarUrl: `${import.meta.env.BASE_URL}chat-bot.svg`
   };
 
   const initialMessages: Message[] = [

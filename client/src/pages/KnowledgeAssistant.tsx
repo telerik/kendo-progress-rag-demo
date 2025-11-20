@@ -27,7 +27,7 @@ const KnowledgeAssistant = () => {
 
   const chatBot = useChatBot({
     botName: 'Progress Agentic RAG Assistant',
-    initialMessage: '👋 Hello! I\'m your Progress Agentic RAG AI assistant. I can help you with KendoReact questions and documentation. Try one of the suggestions below, or ask me anything about KendoReact like: components, theming, data visualization, and more!',
+    initialMessage: '👋 Hello! I\'m your Progress Agentic RAG AI assistant. I can help you with KendoReact questions and documentation. Try one of the suggestions below, or ask me anything about KendoReact like:\n- components\n- theming\n- data visualization\n- and more!',
     apiEndpoint: '/api/ask',
     placeholder: 'Try a suggestion or ask about KendoReact...',
     suggestions: kendoSuggestions
@@ -130,6 +130,7 @@ const KnowledgeAssistant = () => {
             height="100%"
             messageTemplate={ChatMessage}
             timestampTemplate={() => null }
+            showUsername={false}
             messageBox={(props) => (
               <ChatMessageBox 
                 {...props} 
