@@ -1,6 +1,6 @@
 :root {
   /* Primary Colors */
-  --kendo-color-primary: #0d6efd;
+  --kendo-color-primary: #225EFF;
   --kendo-color-primary-hover: #0b5ed7;
   --kendo-color-primary-active: #0a58ca;
   
@@ -83,6 +83,7 @@
   --kendo-chart-series-5: #dc3545;
   --kendo-chart-series-6: #fd7e14;
   
+
   /* Dark mode support (optional) */
   /* Uncomment and adjust if implementing dark mode */
   /*
@@ -166,4 +167,51 @@
 
 .k-chat .k-message-list-content .k-timestamp:empty {
   display: none;
+}
+/* Agentic RAG Value */
+.value-proposition .k-button {
+  background-color: #fff;
+  color: rgba(0, 0, 0, .6);
+  border-width: 2px;
+  border-color: #BACAE3;
+  border-radius: 12px;
+}
+
+.value-proposition .k-button.k-selected {
+  color: var(--kendo-color-primary);
+  border-color: var(--kendo-color-primary);
+  box-shadow: var(--kendo-elevation-3);
+  font-weight: var(--kendo-font-weight-semibold);
+}
+
+.value-proposition .generate-button {
+  border-radius: 9999px;
+  padding: 16px 24px;
+  box-shadow: 0px 6px 13px 0px rgba(0,0,0,0.13);
+  background: linear-gradient(142deg, #C158E4 0.08%, #001DFF 110.93%);
+  color: #fff;
+  border-width: 0;
+}
+
+.value-proposition .generate-button:hover {
+  background: #000;
+}
+
+.test {
+  position: relative;
+}
+
+.test::after {
+  display: block;
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  width: 110%;
+  height: 60px;
+  left: 0;
+  border-radius: 815px;
+  opacity: 0.6;
+  background: conic-gradient(from 90deg at 47.29% 49.93%, rgba(255, 0, 251, 0.80) 0deg, rgba(0, 200, 255, 0.40) 180deg, rgba(0, 119, 255, 0.80) 360deg);
+  filter: blur(75px);
+
 }
