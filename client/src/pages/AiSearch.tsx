@@ -5,6 +5,7 @@ import { buildApiUrl } from '../config/api';
 import { renderMarkdown } from '../utils/markdownRenderer';
 import { SearchPill } from '../components/SearchPill';
 import { SearchInput } from '../components/SearchInput';
+import { VectorsBackground } from '../components/VectorsBackground';
 
 export default function AiSearch() {
   const location = useLocation();
@@ -170,30 +171,7 @@ export default function AiSearch() {
           </div>
 
           {/* Decorative network visualization image on the right */}
-          <div
-            className="k-pos-absolute"
-            style={{
-              right: '0',
-              top: '0',
-              width: '725px',
-              height: '569px',
-              overflow: 'hidden',
-              pointerEvents: 'none',
-              zIndex: 0
-            }}
-          >
-            <img
-              src={`${import.meta.env.BASE_URL}vectors.svg`}
-              alt=""
-              style={{
-                width: '100%',
-                height: '100%',
-                display: 'block',
-                objectFit: 'cover',
-                objectPosition: 'left top'
-              }}
-            />
-          </div>
+          <VectorsBackground width="569px" height="725px" show={true} />
         </>
       )}
 

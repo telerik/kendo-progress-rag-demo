@@ -3,6 +3,7 @@ import { Button } from "@progress/kendo-react-buttons";
 import { buildApiUrl } from '../config/api';
 import { renderMarkdown } from '../utils/markdownRenderer';
 import { sparklesIcon } from "@progress/kendo-svg-icons";
+import { VectorsBackground } from '../components/VectorsBackground';
 import './Home.css';
 
 export default function ValueProposition() {
@@ -127,30 +128,7 @@ export default function ValueProposition() {
         <div className="k-overflow-y-aut k-overflow-x-hidden value-proposition" style={{ height: 'calc(100vh - 54px)' }}>
             {!hasResults ? (
             <>
-            <div
-            className="k-pos-absolute"
-            style={{
-              right: '0',
-              top: '0',
-              width: '704px',
-              height: '569px',
-              overflow: 'hidden',
-              pointerEvents: 'none',
-              zIndex: 0
-            }}
-          >
-            <img
-              src={`${import.meta.env.BASE_URL}vectors.svg`}
-              alt=""
-              style={{
-                width: '100%',
-                height: '100%',
-                display: 'block',
-                objectFit: 'cover',
-                objectPosition: 'left top'
-              }}
-            />
-          </div>
+            <VectorsBackground width="569px" height="704px" show={true} />
             <section className="k-mx-auto k-d-flex k-flex-col k-align-items-start k-gap-8" style={{ maxWidth: '800px', paddingBlock: "128px", paddingLeft: "128px", paddingRight: "512px" }}>
                 <h1 className="gradient-heading k-h1">Progress Agentic RAG Value </h1>
 

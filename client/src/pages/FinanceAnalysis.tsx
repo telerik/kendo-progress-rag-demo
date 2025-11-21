@@ -1,6 +1,7 @@
 import React from "react";
 import { Chat, type ChatSuggestion, type ChatMessageTemplateProps } from "@progress/kendo-react-conversational-ui";
 import { useChatBot } from "../hooks/useChatBot";
+import { VectorsBackground } from "../components/VectorsBackground";
 import {
   Chart,
   ChartSeries,
@@ -211,32 +212,7 @@ export default function FinanceAnalysis() {
           >
 
         {/* Background Illustration with Vectors - Only show on initial screen */}
-        {chatBot.messages.length <= 1 && (
-          <div
-            style={{
-              position: 'absolute',
-              right: '0',
-              top: '0',
-              width: '704px',
-              height: '569px',
-              overflow: 'hidden',
-              pointerEvents: 'none',
-              zIndex: 1
-            }}
-          >
-            <img
-              src={`${import.meta.env.BASE_URL}vectors.svg`}
-              alt=""
-              style={{
-                width: '100%',
-                height: '100%',
-                display: 'block',
-                objectFit: 'cover',
-                objectPosition: 'left top'
-              }}
-            />
-          </div>
-        )}
+        <VectorsBackground show={chatBot.messages.length <= 1} />
 
         {/* Hero Section - Only show on initial screen */}
         {chatBot.messages.length <= 1 && (

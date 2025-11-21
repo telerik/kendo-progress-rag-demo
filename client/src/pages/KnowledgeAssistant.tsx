@@ -2,6 +2,7 @@ import { Chat, type ChatSuggestion } from "@progress/kendo-react-conversational-
 import ChatMessage from "../components/ChatMessage";
 import { useChatBot } from '../hooks/useChatBot';
 import DrawerComponent from "../components/DrawerComponent";
+import { VectorsBackground } from "../components/VectorsBackground";
 import ChatMessageBox from '../components/ChatMessageBox';
 import ChatHeaderTemplate from '../components/ChatHeader';
 
@@ -64,32 +65,7 @@ const KnowledgeAssistant = () => {
         />
 
         {/* Background Illustration with Vectors - Only show in idle state */}
-        {!hasConversationStarted && (
-          <div
-            style={{
-              position: 'absolute',
-              right: '0',
-              top: '0',
-              width: '725px',
-              height: '569px',
-              overflow: 'hidden',
-              pointerEvents: 'none',
-              zIndex: 0
-            }}
-          >
-            <img
-              src={`${import.meta.env.BASE_URL}vectors.svg`}
-              alt=""
-              style={{
-                width: '100%',
-                height: '100%',
-                display: 'block',
-                objectFit: 'cover',
-                objectPosition: 'left top'
-              }}
-            />
-          </div>
-        )}
+        <VectorsBackground width="569px" height="725px" show={!hasConversationStarted} />
 
         {/* Hero Section - Only visible in idle state */}
         {!hasConversationStarted && (
