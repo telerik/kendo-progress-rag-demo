@@ -145,7 +145,7 @@ export default function FinanceAnalysis() {
   }, [chatBot.latestResponse, isBarChartDef]);
 
   // Custom message template that includes thumbnail when charts are available
-  const customMessageTemplate = (props: ChatMessageTemplateProps) => {
+  const customMessageTemplate = React.useCallback((props: ChatMessageTemplateProps) => {
     const isBot = props.item.author.id !== chatBot.user.id;
     const isLatestBotMessage = isBot && props.item.id === chatBot.messages[chatBot.messages.length - 1]?.id;
     const hasCharts = selectedCharts.length > 0;
@@ -158,7 +158,43 @@ export default function FinanceAnalysis() {
         )}
       </div>
     );
-  };
+  }, [chatBot.user.id, chatBot.messages, selectedCharts]);
+
+  // Memoized callback for sending messages
+  const handleSendMessage = React.useCallback((text: string) => {
+    chatBot.addNewMessage({
+      message: {
+        id: Date.now(),
+        author: chatBot.user,
+        timestamp: new Date(),
+        text
+      }
+    });
+  }, [chatBot]);
+
+  // Render function for the Chat component to avoid duplication
+  const renderChat = () => (
+    <Chat
+      messages={chatBot.messages.length > 1 ? chatBot.messages.slice(1) : chatBot.messages}
+      authorId={chatBot.user.id}
+      onSendMessage={chatBot.addNewMessage}
+      placeholder={isChartsExpanded ? "Ask about a company..." : "Try a suggestion or ask about a company..."}
+      className="k-border-transparent"
+      height="100%"
+      messageTemplate={customMessageTemplate}
+      timestampTemplate={() => null}
+      showUsername={false}
+      messageBox={(props) => (
+        <ChatMessageBox 
+          {...props} 
+          isLoading={chatBot.isLoading}
+          suggestions={chatBot.messages.length <= 1 ? chatBot.availableSuggestions : []}
+          onSuggestionClick={chatBot.handleSuggestionClick}
+          onSendMessage={handleSendMessage}
+        />
+      )}
+    />
+  );
 
   return (
     <>
@@ -239,39 +275,9 @@ export default function FinanceAnalysis() {
         {/* Page Header */}
         {chatBot.messages.length > 1 && <ChatHeaderTemplate messages={chatBot.messages} />}
         {/* Conversation Area */}
-        <div className="k-d-flex k-flex-column" style={{ paddingLeft: '128px', paddingRight: '128px', paddingBottom: '32px', position: 'relative', zIndex: 1, minHeight: 0 }}>
+        <div className="k-d-flex k-flex-column k-flex-1" style={{ paddingLeft: '128px', paddingRight: '128px', paddingBottom: '32px', position: 'relative', zIndex: 1, minHeight: 0 }}>
           <div style={{  display: 'flex', flexDirection: 'column', height: '100%' }}>
-    
-            {/* Chat Component */}
-            <Chat
-              messages={chatBot.messages.length > 1 ? chatBot.messages.slice(1) : chatBot.messages}
-              authorId={chatBot.user.id}
-              onSendMessage={chatBot.addNewMessage}
-              placeholder="Try a suggestion or ask about a company..."
-              className="k-border-transparent"
-              height="100%"
-              messageTemplate={customMessageTemplate}
-              timestampTemplate={() => null}
-              showUsername={false}
-              messageBox={(props) => (
-                <ChatMessageBox 
-                  {...props} 
-                  isLoading={chatBot.isLoading}
-                  suggestions={chatBot.messages.length <= 1 ? chatBot.availableSuggestions : []}
-                  onSuggestionClick={chatBot.handleSuggestionClick}
-                  onSendMessage={(text) => {
-                    chatBot.addNewMessage({
-                      message: {
-                        id: Date.now(),
-                        author: chatBot.user,
-                        timestamp: new Date(),
-                        text
-                      }
-                    });
-                  }}
-                />
-              )}
-            />
+            {renderChat()}
           </div>
         </div>
           </div>
@@ -279,11 +285,10 @@ export default function FinanceAnalysis() {
       ) : (
         // Two-Panel Expanded Layout (No Drawer)
         <div 
-          className="k-d-flex" 
+          className="k-d-flex k-overflow-x-hidden k-overflow-y-auto" 
           style={{ 
             height: 'calc(100vh - 54px)', 
             width: '100%',
-            overflow: 'hidden'
           }}
         >
           {/* Left Panel - Chat (393px) */}
@@ -310,35 +315,7 @@ export default function FinanceAnalysis() {
               </h2>
               
               <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                <ChatHeaderTemplate messages={chatBot.messages} />
-                <Chat
-                  messages={chatBot.messages.length > 1 ? chatBot.messages.slice(1) : chatBot.messages}
-                  authorId={chatBot.user.id}
-                  onSendMessage={chatBot.addNewMessage}
-                  placeholder="Ask about a company..."
-                  className="k-border-transparent"
-                  height="100%"
-                  messageTemplate={customMessageTemplate}
-                  timestampTemplate={() => null}
-                  messageBox={(props) => (
-                    <ChatMessageBox 
-                      {...props} 
-                      isLoading={chatBot.isLoading}
-                      suggestions={chatBot.messages.length <= 1 ? chatBot.availableSuggestions : []}
-                      onSuggestionClick={chatBot.handleSuggestionClick}
-                      onSendMessage={(text) => {
-                        chatBot.addNewMessage({
-                          message: {
-                            id: Date.now(),
-                            author: chatBot.user,
-                            timestamp: new Date(),
-                            text
-                          }
-                        });
-                      }}
-                    />
-                  )}
-                />
+                {renderChat()}
               </div>
             </div>
           </div>
