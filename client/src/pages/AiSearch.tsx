@@ -131,11 +131,10 @@ export default function AiSearch() {
 
   return (
     <div 
-      className="k-pos-relative" 
+      className="k-pos-relative k-overflow-x-hidden k-overflow-y-auto" 
       style={{ 
-        minHeight: 'calc(100vh - 56px)',
+        height: 'calc(100vh - 54px)',
         backgroundColor: 'rgba(255, 255, 255, 0.6)',
-        overflow: 'hidden'
       }}
     >
       {/* Decorative circle background - only show when no results */}

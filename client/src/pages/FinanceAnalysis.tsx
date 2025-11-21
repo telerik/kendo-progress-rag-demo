@@ -165,11 +165,11 @@ export default function FinanceAnalysis() {
         // Default Single-Column Layout with Drawer
         <DrawerComponent>
           <div 
-            className="k-d-flex k-flex-column" 
+            className="k-d-flex k-flex-column k-overflow-x-hidden" 
             style={{ 
-              height: 'calc(100vh - 53px)', 
               backgroundColor: 'rgba(255, 255, 255, 0.6)',
               position: 'relative',
+              height: '100%'
             }}
           >
         {/* Background Illustration Blur Ellipse */}
@@ -334,7 +334,7 @@ export default function FinanceAnalysis() {
         <div 
           className="k-d-flex" 
           style={{ 
-            height: '100vh', 
+            height: 'calc(100vh - 54px)', 
             width: '100%',
             overflow: 'hidden'
           }}

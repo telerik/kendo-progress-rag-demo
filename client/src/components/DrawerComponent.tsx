@@ -62,13 +62,9 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
       mode="push"
       onSelect={onSelect}
       width={220}
-      className="k-h-full"
       drawerClassName="k-border-none"
     >
-      <DrawerNavigation
-        className="k-overflow-y-auto !k-pos-sticky drawer-navigation"
-        style={{ height: "calc(100vh - 53px)", top: 53 }}
-      >
+      <DrawerNavigation className="drawer-navigation">
         <div className="k-drawer-items k-h-full">
           {drawerItems.map((item) => (
             <div
@@ -114,7 +110,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
           </div>
         </div>
       </DrawerNavigation>
-      <DrawerContent>{children}</DrawerContent>
+      <DrawerContent style={{ height: "calc(100vh - 54px)" }}>{children}</DrawerContent>
     </Drawer>
   );
 };

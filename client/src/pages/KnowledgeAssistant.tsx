@@ -39,12 +39,11 @@ const KnowledgeAssistant = () => {
   return (
     <DrawerComponent>
       <div 
-        className="k-d-flex k-flex-column" 
+        className="k-d-flex k-flex-column k-overflow-x-hidden" 
         style={{ 
-          height: 'calc(100vh - 53px)', 
+          height: '100%', 
           backgroundColor: 'rgba(255, 255, 255, 0.6)',
           position: 'relative',
-          overflow: 'auto'
         }}
       >
         {/* Background Illustration Blur Ellipse */}

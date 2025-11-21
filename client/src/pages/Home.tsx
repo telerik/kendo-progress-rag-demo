@@ -59,7 +59,7 @@ export default function Home() {
   };
 
   return (
-    <div className="k-pos-relative k-overflow-auto k-d-flex k-flex-column k-align-items-center k-justify-content-center k-gap-17" style={{ minHeight: "100vh" }}>
+    <div className="k-pos-relative k-overflow-x-hidden k-overflow-y-auto k-d-flex k-flex-column k-align-items-center k-justify-content-center k-gap-17" style={{ height: "calc(100vh - 54px" }}>
       {/* Gradient background - positioned absolutely behind all content */}
       <div 
         className="k-pos-absolute" 

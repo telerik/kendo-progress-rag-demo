@@ -119,6 +119,7 @@
   );
   padding: 8px;
   position: relative;
+  overflow: hidden;
 }
 
 .k-drawer-wrapper::after {

@@ -124,7 +124,7 @@ export default function ValueProposition() {
     const hasResults = (valueProposition || isLoading);
 
     return (
-        <div className="k-overflow-y-auto value-proposition">
+        <div className="k-overflow-y-aut k-overflow-x-hidden value-proposition" style={{ height: 'calc(100vh - 54px)' }}>
             {!hasResults ? (
             <>
             <div
