@@ -5,7 +5,7 @@
   --kendo-color-primary-active: #0a58ca;
 
   /* Secondary Colors */
-  --kendo-color-secondary: #6c757d;
+  --kendo-color-secondary: #535B6A;
   --kendo-color-secondary-hover: #5c636a;
   --kendo-color-secondary-active: #565e64;
 
@@ -32,12 +32,19 @@
   --kendo-color-border-alt: #ced4da;
 
   /* Typography */
-  --kendo-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  --kendo-font-family: Metric, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   --kendo-font-size: 14px;
-  --kendo-font-size-sm: 12px;
-  --kendo-font-size-lg: 16px;
   --kendo-line-height: 1.5;
+
+  --kendo-h1-font-size: 56px;
+  --kendo-h1-line-height: 1;
+  --kendo-h2-font-size: 36px;
+  --kendo-h2-line-height: 1;
+  --kendo-h3-font-size: 24px;
+  --kendo-h3-line-height: 1.2;
+
+  
 
   /* Spacing */
   --kendo-spacing: 8px;
@@ -108,6 +115,11 @@
   }
 }
 */
+
+.gradient-heading {
+  margin: 0;
+  letter-spacing: -1.12px;
+}
 
 .drawer-navigation .k-drawer-wrapper {
   height: 100%;
@@ -200,10 +212,12 @@
   background: linear-gradient(142deg, #c158e4 0.08%, #001dff 110.93%);
   color: #fff;
   border-width: 0;
+  font-weight: var(--kendo-font-weight-semibold);
+  font-size: var(--kendo-font-size-lg);
 }
 
 .value-proposition .generate-button:hover {
-  background: #000;
+  background: linear-gradient(0deg, #000, #000);
 }
 
 .test {

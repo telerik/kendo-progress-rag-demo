@@ -194,11 +194,11 @@ export default function FinanceAnalysis() {
             position: 'absolute',
             right: '0',
             top: '0',
-            width: '725px',
+            width: '704px',
             height: '569px',
             overflow: 'hidden',
             pointerEvents: 'none',
-            zIndex: 0
+            zIndex: 1
           }}
         >
           <img
@@ -306,6 +306,7 @@ export default function FinanceAnalysis() {
               height="100%"
               messageTemplate={customMessageTemplate}
               timestampTemplate={() => null}
+              showUsername={false}
               messageBox={(props) => (
                 <ChatMessageBox 
                   {...props} 
