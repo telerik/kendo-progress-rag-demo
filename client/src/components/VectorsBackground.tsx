@@ -6,11 +6,11 @@ interface VectorsBackgroundProps {
   show?: boolean;
 }
 
-export const VectorsBackground: React.FC<VectorsBackgroundProps> = ({
+export function VectorsBackground({
   width = '569px',
   height = '704px',
   show = true
-}) => {
+}: VectorsBackgroundProps) {
   if (!show) return null;
 
   return (
@@ -40,4 +40,4 @@ export const VectorsBackground: React.FC<VectorsBackgroundProps> = ({
       />
     </div>
   );
-};
+}
