@@ -16,7 +16,7 @@ import { xIcon } from "@progress/kendo-svg-icons";
 import DrawerComponent from "../components/DrawerComponent";
 import ChatMessage from "../components/ChatMessage";
 import ChatMessageBox from "../components/ChatMessageBox";
-import ChatHeaderTemplate from "../components/ChatHeaderTemplate";
+import ChatHeaderTemplate from "../components/ChatHeader";
 
 // Chart Thumbnail Component - Shows mini preview with "Preview" button
 interface ChartThumbnailProps {
@@ -249,7 +249,8 @@ export default function FinanceAnalysis() {
             </div>
           </div>
         )}
-
+        {/* Page Header */}
+        {chatBot.messages.length > 1 && <ChatHeaderTemplate messages={chatBot.messages} />}
         {/* Conversation Area */}
         <div className="k-d-flex k-flex-column" style={{ paddingLeft: '128px', paddingRight: '128px', paddingBottom: '32px', position: 'relative', zIndex: 1, flex: '1', minHeight: 0 }}>
           <div style={{  display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -265,7 +266,6 @@ export default function FinanceAnalysis() {
               messageTemplate={customMessageTemplate}
               timestampTemplate={() => null}
               showUsername={false}
-              headerTemplate={chatBot.messages.length > 1 ? () => <ChatHeaderTemplate messages={chatBot.messages} /> : undefined}
               messageBox={(props) => (
                 <ChatMessageBox 
                   {...props} 
@@ -323,6 +323,7 @@ export default function FinanceAnalysis() {
               </h2>
               
               <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <ChatHeaderTemplate messages={chatBot.messages} />
                 <Chat
                   messages={chatBot.messages.length > 1 ? chatBot.messages.slice(1) : chatBot.messages}
                   authorId={chatBot.user.id}

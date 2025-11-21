@@ -3,7 +3,7 @@ import ChatMessage from "../components/ChatMessage";
 import { useChatBot } from '../hooks/useChatBot';
 import DrawerComponent from "../components/DrawerComponent";
 import ChatMessageBox from '../components/ChatMessageBox';
-import ChatHeaderTemplate from '../components/ChatHeaderTemplate';
+import ChatHeaderTemplate from '../components/ChatHeader';
 
 const KnowledgeAssistant = () => {
   
@@ -125,7 +125,7 @@ const KnowledgeAssistant = () => {
             </div>
           </div>
         )}
-        
+        {hasConversationStarted && <ChatHeaderTemplate messages={chatBot.messages} />}
         {/* Chat Component */}
         <div 
           className="k-d-flex k-flex-column k-flex-1" 
@@ -155,7 +155,6 @@ const KnowledgeAssistant = () => {
               messageTemplate={ChatMessage}
               timestampTemplate={() => null }
               showUsername={false}
-              headerTemplate={chatBot.messages.length > 1 ? () => <ChatHeaderTemplate messages={chatBot.messages} /> : undefined}
               messageBox={(props) => (
                 <ChatMessageBox 
                   {...props} 
