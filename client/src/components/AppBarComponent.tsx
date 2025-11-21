@@ -127,17 +127,9 @@ export default function AppBarComponent() {
         <div style={{ display: "flex", gap: "24px", alignItems: "center" }}>
           {navItems.map((item) => (
             <a
+              className={`nav-link ${location.pathname === item.path ? "k-active" : ""}`}
               key={item.path}
               onClick={() => handleNavClick(item.path)}
-              style={{
-                fontSize: "16px",
-                lineHeight: "24px",
-                color: location.pathname === item.path ? "var(--kendo-color-primary, #ff6358)" : "var(--gray/light/black, #000000)",
-                fontWeight: location.pathname === item.path ? 600 : 400,
-                cursor: "pointer",
-                textDecoration: "none",
-                whiteSpace: "nowrap"
-              }}
             >
               {item.label}
             </a>
