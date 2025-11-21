@@ -166,54 +166,41 @@ export default function FinanceAnalysis() {
         // Default Single-Column Layout with Drawer
         <DrawerComponent>
           <div 
-            className="k-d-flex k-flex-column k-overflow-x-hidden" 
+            className="k-d-flex k-flex-column k-overflow-x-hidden k-justify-content-between" 
             style={{ 
               backgroundColor: 'rgba(255, 255, 255, 0.6)',
               position: 'relative',
               height: '100%'
             }}
           >
-        {/* Background Illustration Blur Ellipse */}
-        <div 
-          style={{
-            position: 'absolute',
-            width: '815px',
-            height: '63.344px',
-            left: '184px',
-            top: '659.66px',
-            opacity: 0.6,
-            pointerEvents: 'none',
-            background: 'conic-gradient(from 270deg at 47.29% 49.93%, rgba(255, 0, 251, 0.60) 0deg, rgba(0, 200, 255, 0.30) 180deg, rgba(0, 119, 255, 0.60) 360deg)',
-            filter: 'blur(75px)',
-            borderRadius: '815px'
-          }}
-        />
 
-        {/* Background Illustration with Vectors */}
-        <div
-          style={{
-            position: 'absolute',
-            right: '0',
-            top: '0',
-            width: '704px',
-            height: '569px',
-            overflow: 'hidden',
-            pointerEvents: 'none',
-            zIndex: 1
-          }}
-        >
-          <img
-            src={`${import.meta.env.BASE_URL}vectors.svg`}
-            alt=""
+        {/* Background Illustration with Vectors - Only show on initial screen */}
+        {chatBot.messages.length <= 1 && (
+          <div
             style={{
-              width: '100%',
-              height: '100%',
-              display: 'block',
-              objectFit: 'cover',
-              objectPosition: 'left top'
+              position: 'absolute',
+              right: '0',
+              top: '0',
+              width: '704px',
+              height: '569px',
+              overflow: 'hidden',
+              pointerEvents: 'none',
+              zIndex: 1
             }}
-          />
-        </div>
+          >
+            <img
+              src={`${import.meta.env.BASE_URL}vectors.svg`}
+              alt=""
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'block',
+                objectFit: 'cover',
+                objectPosition: 'left top'
+              }}
+            />
+          </div>
+        )}
 
         {/* Hero Section - Only show on initial screen */}
         {chatBot.messages.length <= 1 && (
@@ -252,7 +239,7 @@ export default function FinanceAnalysis() {
         {/* Page Header */}
         {chatBot.messages.length > 1 && <ChatHeaderTemplate messages={chatBot.messages} />}
         {/* Conversation Area */}
-        <div className="k-d-flex k-flex-column" style={{ paddingLeft: '128px', paddingRight: '128px', paddingBottom: '32px', position: 'relative', zIndex: 1, flex: '1', minHeight: 0 }}>
+        <div className="k-d-flex k-flex-column" style={{ paddingLeft: '128px', paddingRight: '128px', paddingBottom: '32px', position: 'relative', zIndex: 1, minHeight: 0 }}>
           <div style={{  display: 'flex', flexDirection: 'column', height: '100%' }}>
     
             {/* Chat Component */}
