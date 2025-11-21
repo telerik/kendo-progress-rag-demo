@@ -280,3 +280,12 @@
 .nav-link.k-active::after {
   transform: scaleX(1);
 }
+
+.k-chat .k-message-list {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.k-chat .k-message-list::-webkit-scrollbar {
+  display: none;
+}

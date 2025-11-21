@@ -140,6 +140,7 @@ const KnowledgeAssistant = () => {
           <div style={{ 
             width: '100%',
             maxWidth: hasConversationStarted ? 'none' : '770px',
+            paddingInline: hasConversationStarted ? '128px' : '0',
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
