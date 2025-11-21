@@ -3,6 +3,7 @@ import ChatMessage from "../components/ChatMessage";
 import { useChatBot } from '../hooks/useChatBot';
 import DrawerComponent from "../components/DrawerComponent";
 import ChatMessageBox from '../components/ChatMessageBox';
+import ChatHeaderTemplate from '../components/ChatHeaderTemplate';
 
 const KnowledgeAssistant = () => {
   
@@ -154,6 +155,7 @@ const KnowledgeAssistant = () => {
               messageTemplate={ChatMessage}
               timestampTemplate={() => null }
               showUsername={false}
+              headerTemplate={chatBot.messages.length > 1 ? () => <ChatHeaderTemplate messages={chatBot.messages} /> : undefined}
               messageBox={(props) => (
                 <ChatMessageBox 
                   {...props} 

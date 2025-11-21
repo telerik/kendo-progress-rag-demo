@@ -16,6 +16,7 @@ import { xIcon } from "@progress/kendo-svg-icons";
 import DrawerComponent from "../components/DrawerComponent";
 import ChatMessage from "../components/ChatMessage";
 import ChatMessageBox from "../components/ChatMessageBox";
+import ChatHeaderTemplate from "../components/ChatHeaderTemplate";
 
 // Chart Thumbnail Component - Shows mini preview with "Preview" button
 interface ChartThumbnailProps {
@@ -248,50 +249,7 @@ export default function FinanceAnalysis() {
             </div>
           </div>
         )}
-        
-        {/* Page Header - Show after first user message */}
-        {chatBot.messages.length > 1 && (
-          <div 
-            style={{
-              borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              paddingLeft: '16px',
-              paddingRight: '0',
-              paddingTop: '4px',
-              paddingBottom: '4px',
-              position: 'relative',
-              zIndex: 1
-            }}
-          >
-            <p 
-              style={{
-                fontSize: '20px',
-                lineHeight: '1.2',
-                fontFamily: '"Metric", sans-serif',
-                color: '#212529',
-                textAlign: 'center',
-                margin: 0
-              }}
-            >
-              {chatBot.messages.find(m => m.author.id === chatBot.user.id)?.text || ''}
-            </p>
-            <Button
-              fillMode="flat"
-              style={{
-                height: '40px',
-                borderRadius: '4px',
-                gap: '8px',
-                paddingLeft: '16px',
-                paddingRight: '16px'
-              }}
-            >
-              <span style={{ fontSize: '16px', color: '#3d3d3d', fontFamily: '"Metric", sans-serif' }}>Share</span>
-            </Button>
-          </div>
-        )}
-        
+
         {/* Conversation Area */}
         <div className="k-d-flex k-flex-column" style={{ paddingLeft: '128px', paddingRight: '128px', paddingBottom: '32px', position: 'relative', zIndex: 1, flex: '1', minHeight: 0 }}>
           <div style={{  display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -307,6 +265,7 @@ export default function FinanceAnalysis() {
               messageTemplate={customMessageTemplate}
               timestampTemplate={() => null}
               showUsername={false}
+              headerTemplate={chatBot.messages.length > 1 ? () => <ChatHeaderTemplate messages={chatBot.messages} /> : undefined}
               messageBox={(props) => (
                 <ChatMessageBox 
                   {...props} 
