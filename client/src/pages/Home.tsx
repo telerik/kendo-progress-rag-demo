@@ -33,9 +33,9 @@ export default function Home() {
 
   const demos = [
     {
-      name: "Knowledge Assistant",
-      icon: imgBot,
-      path: "/knowledge-assistant",
+      name: "Intelligent Search",
+      icon: imgScanSearch,
+      path: "/ai-search",
     },
     {
       name: "Financial Analysis",
@@ -43,9 +43,9 @@ export default function Home() {
       path: "/finance-analysis",
     },
     {
-      name: "Intelligent Search",
-      icon: imgScanSearch,
-      path: "/ai-search",
+      name: "Knowledge Assistant",
+      icon: imgBot,
+      path: "/knowledge-assistant",
     },
     {
       name: "Agentic RAG Value",

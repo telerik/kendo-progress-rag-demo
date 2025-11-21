@@ -9,9 +9,9 @@ export default function AppBarComponent() {
   const isHomePage = location.pathname === "/";
 
   const navItems = [
-    { label: "Knowledge Assistant", path: "/knowledge-assistant" },
-    { label: "Finance Analysis", path: "/finance-analysis" },
     { label: "Intelligent Search", path: "/ai-search" },
+    { label: "Finance Analysis", path: "/finance-analysis" },
+    { label: "Knowledge Assistant", path: "/knowledge-assistant" },
     { label: "Agentic RAG Value", path: "/value-proposition" },
   ];
 
