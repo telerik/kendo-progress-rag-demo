@@ -1,5 +1,5 @@
 import React from "react";
-import { Chat, type ChatSuggestion } from "@progress/kendo-react-conversational-ui";
+import { Chat, type ChatSuggestion, type ChatMessageTemplateProps } from "@progress/kendo-react-conversational-ui";
 import { useChatBot } from "../hooks/useChatBot";
 import {
   Chart,
@@ -10,9 +10,68 @@ import {
   ChartValueAxis,
   ChartValueAxisItem,
 } from "@progress/kendo-react-charts";
+import { Button } from "@progress/kendo-react-buttons";
+import { SvgIcon } from "@progress/kendo-react-common";
+import { xIcon } from "@progress/kendo-svg-icons";
 import DrawerComponent from "../components/DrawerComponent";
 import ChatMessage from "../components/ChatMessage";
 import ChatMessageBox from "../components/ChatMessageBox";
+
+// Chart Thumbnail Component - Shows mini preview with "Preview" button
+interface ChartThumbnailProps {
+  onClick: () => void;
+}
+
+function ChartThumbnail({ onClick }: ChartThumbnailProps) {
+  return (
+    <div 
+      onClick={onClick}
+      style={{
+        width: '250px',
+        height: '190px',
+        backgroundColor: 'white',
+        border: '1px solid #e1e3e8',
+        borderRadius: '16px',
+        padding: '8px 0',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+        marginTop: '12px'
+      }}
+    >
+      {/* Mini chart preview */}
+      <div style={{
+        width: '200px',
+        height: '150px',
+        backgroundColor: 'white',
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        {/* Simple placeholder for chart preview */}
+        <div style={{
+          width: '180px',
+          height: '130px',
+          background: 'linear-gradient(135deg, #04bfda 0%, #9b88ed 100%)',
+          opacity: 0.3,
+          borderRadius: '8px'
+        }} />
+      </div>
+      {/* Preview button */}
+      <div style={{
+        color: '#0d6efd',
+        fontSize: '14px',
+        fontFamily: '"Metric", sans-serif',
+        marginTop: '4px'
+      }}>
+        Preview
+      </div>
+    </div>
+  );
+}
 
 export default function FinanceAnalysis() {
   interface ChartSeriesDef {
@@ -37,6 +96,7 @@ export default function FinanceAnalysis() {
   }, []);
 
   const [selectedCharts, setSelectedCharts] = React.useState<BarChartDef[]>([]);
+  const [isChartsExpanded, setIsChartsExpanded] = React.useState(false);
 
   // Predefined suggestions related to financial data
   const financialSuggestions: ChatSuggestion[] = [
@@ -83,16 +143,35 @@ export default function FinanceAnalysis() {
     }
   }, [chatBot.latestResponse, isBarChartDef]);
 
+  // Custom message template that includes thumbnail when charts are available
+  const customMessageTemplate = (props: ChatMessageTemplateProps) => {
+    const isBot = props.item.author.id !== chatBot.user.id;
+    const isLatestBotMessage = isBot && props.item.id === chatBot.messages[chatBot.messages.length - 1]?.id;
+    const hasCharts = selectedCharts.length > 0;
+    
+    return (
+      <div>
+        <ChatMessage {...props} />
+        {isLatestBotMessage && hasCharts && (
+          <ChartThumbnail onClick={() => setIsChartsExpanded(true)} />
+        )}
+      </div>
+    );
+  };
+
   return (
-    <DrawerComponent>
-      <div 
-        className="k-d-flex k-flex-column" 
-        style={{ 
-          height: 'calc(100vh - 53px)', 
-          backgroundColor: 'rgba(255, 255, 255, 0.6)',
-          position: 'relative',
-        }}
-      >
+    <>
+      {!isChartsExpanded ? (
+        // Default Single-Column Layout with Drawer
+        <DrawerComponent>
+          <div 
+            className="k-d-flex k-flex-column" 
+            style={{ 
+              height: 'calc(100vh - 53px)', 
+              backgroundColor: 'rgba(255, 255, 255, 0.6)',
+              position: 'relative',
+            }}
+          >
         {/* Background Illustration Blur Ellipse */}
         <div 
           style={{
@@ -135,38 +214,83 @@ export default function FinanceAnalysis() {
           />
         </div>
 
-        {/* Hero Section */}
-        <div className="k-d-flex k-flex-column" style={{ paddingTop: '96px', paddingLeft: '128px', paddingRight: '512px', paddingBottom: '64px', position: 'relative', zIndex: 1 }}>
-          <div className="k-d-flex k-flex-column" style={{ width: '100%', gap: '32px' }}>
-            <h1 
-              className="k-mb-0"
-              style={{
-                background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                fontSize: '56px',
-                fontWeight: 500,
-                lineHeight: 1,
-                letterSpacing: '-1.12px',
-                fontFamily: '"Metric", sans-serif'
-              }}
-            >
-              Progress Agentic RAG Financial Charts Analysis
-            </h1>
-            <p 
-              className="k-mb-0"
-              style={{
-                color: '#535B6A',
-                fontSize: '24px',
-                lineHeight: '1.2',
-                fontFamily: '"Metric", sans-serif'
-              }}
-            >
-              Use AI search to quickly find accurate, relevant information about Progress Agentic RAG—its features, capabilities, and best practices.
-            </p>
+        {/* Hero Section - Only show on initial screen */}
+        {chatBot.messages.length <= 1 && (
+          <div className="k-d-flex k-flex-column" style={{ paddingTop: '96px', paddingLeft: '128px', paddingRight: '512px', paddingBottom: '64px', position: 'relative', zIndex: 1 }}>
+            <div className="k-d-flex k-flex-column" style={{ width: '100%', gap: '32px' }}>
+              <h1 
+                className="k-mb-0"
+                style={{
+                  background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  fontSize: '56px',
+                  fontWeight: 500,
+                  lineHeight: 1,
+                  letterSpacing: '-1.12px',
+                  fontFamily: '"Metric", sans-serif'
+                }}
+              >
+                Progress Agentic RAG Financial Charts Analysis
+              </h1>
+              <p 
+                className="k-mb-0"
+                style={{
+                  color: '#535B6A',
+                  fontSize: '24px',
+                  lineHeight: '1.2',
+                  fontFamily: '"Metric", sans-serif'
+                }}
+              >
+                Use AI search to quickly find accurate, relevant information about Progress Agentic RAG—its features, capabilities, and best practices.
+              </p>
+            </div>
           </div>
-        </div>
+        )}
+        
+        {/* Page Header - Show after first user message */}
+        {chatBot.messages.length > 1 && (
+          <div 
+            style={{
+              borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingLeft: '16px',
+              paddingRight: '0',
+              paddingTop: '4px',
+              paddingBottom: '4px',
+              position: 'relative',
+              zIndex: 1
+            }}
+          >
+            <p 
+              style={{
+                fontSize: '20px',
+                lineHeight: '1.2',
+                fontFamily: '"Metric", sans-serif',
+                color: '#212529',
+                textAlign: 'center',
+                margin: 0
+              }}
+            >
+              {chatBot.messages.find(m => m.author.id === chatBot.user.id)?.text || ''}
+            </p>
+            <Button
+              fillMode="flat"
+              style={{
+                height: '40px',
+                borderRadius: '4px',
+                gap: '8px',
+                paddingLeft: '16px',
+                paddingRight: '16px'
+              }}
+            >
+              <span style={{ fontSize: '16px', color: '#3d3d3d', fontFamily: '"Metric", sans-serif' }}>Share</span>
+            </Button>
+          </div>
+        )}
         
         {/* Conversation Area */}
         <div className="k-d-flex k-flex-column" style={{ paddingLeft: '128px', paddingRight: '128px', paddingBottom: '32px', position: 'relative', zIndex: 1, flex: '1', minHeight: 0 }}>
@@ -174,19 +298,19 @@ export default function FinanceAnalysis() {
     
             {/* Chat Component */}
             <Chat
-              messages={chatBot.messages}
+              messages={chatBot.messages.length > 1 ? chatBot.messages.slice(1) : chatBot.messages}
               authorId={chatBot.user.id}
               onSendMessage={chatBot.addNewMessage}
               placeholder="Try a suggestion or ask about a company..."
               className="k-border-transparent"
               height="100%"
-              messageTemplate={ChatMessage}
+              messageTemplate={customMessageTemplate}
               timestampTemplate={() => null}
               messageBox={(props) => (
                 <ChatMessageBox 
                   {...props} 
                   isLoading={chatBot.isLoading}
-                  suggestions={chatBot.availableSuggestions}
+                  suggestions={chatBot.messages.length <= 1 ? chatBot.availableSuggestions : []}
                   onSuggestionClick={chatBot.handleSuggestionClick}
                   onSendMessage={(text) => {
                     chatBot.addNewMessage({
@@ -201,10 +325,114 @@ export default function FinanceAnalysis() {
                 />
               )}
             />
+          </div>
+        </div>
+          </div>
+        </DrawerComponent>
+      ) : (
+        // Two-Panel Expanded Layout (No Drawer)
+        <div 
+          className="k-d-flex" 
+          style={{ 
+            height: '100vh', 
+            width: '100%',
+            overflow: 'hidden'
+          }}
+        >
+          {/* Left Panel - Chat (393px) */}
+          <div 
+            style={{ 
+              width: '393px',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              borderRight: '1px solid #e1e3e8',
+              backgroundColor: '#fafafa'
+            }}
+          >
+            <div className="k-d-flex k-flex-column" style={{ padding: '24px', flex: '1', minHeight: 0 }}>
+              <h2 
+                style={{ 
+                  fontSize: '24px',
+                  fontWeight: 700,
+                  marginBottom: '16px',
+                  fontFamily: '"Metric", sans-serif'
+                }}
+              >
+                Finance Analysis
+              </h2>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <Chat
+                  messages={chatBot.messages.length > 1 ? chatBot.messages.slice(1) : chatBot.messages}
+                  authorId={chatBot.user.id}
+                  onSendMessage={chatBot.addNewMessage}
+                  placeholder="Ask about a company..."
+                  className="k-border-transparent"
+                  height="100%"
+                  messageTemplate={customMessageTemplate}
+                  timestampTemplate={() => null}
+                  messageBox={(props) => (
+                    <ChatMessageBox 
+                      {...props} 
+                      isLoading={chatBot.isLoading}
+                      suggestions={chatBot.messages.length <= 1 ? chatBot.availableSuggestions : []}
+                      onSuggestionClick={chatBot.handleSuggestionClick}
+                      onSendMessage={(text) => {
+                        chatBot.addNewMessage({
+                          message: {
+                            id: Date.now(),
+                            author: chatBot.user,
+                            timestamp: new Date(),
+                            text
+                          }
+                        });
+                      }}
+                    />
+                  )}
+                />
+              </div>
+            </div>
+          </div>
 
-            {/* Charts Display */}
-            {selectedCharts.length > 0 && (
-              <div className="k-d-flex k-flex-col k-gap-6 k-mt-6">
+          {/* Right Panel - Charts (flex-1) */}
+          <div 
+            style={{ 
+              flex: 1,
+              height: '100%',
+              overflow: 'auto',
+              padding: '24px',
+              backgroundColor: '#ffffff'
+            }}
+          >
+            {/* Glassmorphism Card */}
+            <div 
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.18)',
+                borderRadius: '16px',
+                padding: '24px',
+                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.1)',
+                position: 'relative'
+              }}
+            >
+              {/* Close Button */}
+              <Button
+                onClick={() => setIsChartsExpanded(false)}
+                fillMode="flat"
+                rounded="full"
+                style={{
+                  position: 'absolute',
+                  top: '16px',
+                  right: '16px'
+                }}
+              >
+                <SvgIcon icon={xIcon} size="medium" />
+              </Button>
+
+              {/* Charts Display */}
+              <div className="k-d-flex k-flex-col k-gap-6">
                 {selectedCharts.slice(0, 3).map((chart, idx) => (
                   <div key={idx} className="k-d-flex k-flex-col">
                     <h4 
@@ -217,7 +445,7 @@ export default function FinanceAnalysis() {
                     >
                       {chart.title}
                     </h4>
-                    <Chart style={{ minHeight: "210px", width: "100%" }}>
+                    <Chart style={{ minHeight: "300px", width: "100%" }}>
                       <ChartCategoryAxis>
                         <ChartCategoryAxisItem
                           categories={chart.categories}
@@ -244,10 +472,10 @@ export default function FinanceAnalysis() {
                   </div>
                 ))}
               </div>
-            )}
+            </div>
           </div>
         </div>
-      </div>
-    </DrawerComponent>
+      )}
+    </>
   );
 }
