@@ -10,7 +10,6 @@ interface SearchInputProps {
   onSearchClick: () => void;
   isLoading: boolean;
   placeholder: string;
-  bordered?: boolean;
 }
 
 export const SearchInput: React.FC<SearchInputProps> = ({
@@ -20,16 +19,13 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   onSearchClick,
   isLoading,
   placeholder,
-  bordered = false
 }) => {
   return (
     <TextBox
       style={{ 
-        borderColor: bordered ? '#A1B0C7' : 'rgba(0, 0, 0, 0.5)',
-        ...(bordered ? { borderWidth: '2px', backgroundColor: 'white' } : {}),
         width: '100%'
       }}
-      className={bordered ? 'k-py-2 k-px-2' : 'k-p-2 k-elevation-2'}
+      className={'search-input'}
       rounded="full"
       size="large"
       placeholder={placeholder}
@@ -54,7 +50,11 @@ export const SearchInput: React.FC<SearchInputProps> = ({
             svgIcon={microphoneOutlineIcon}
           />
           <Button
-            style={{ backgroundColor: bordered ? '#A1B0C7' : 'rgba(0, 0, 0, 0.5)', color: '#fff'}}
+            style={{ 
+              background: 'linear-gradient(143deg, #C158E4 19.85%, #001DFF 83.02%)',
+              color: '#fff',
+              border: 'none'
+            }}
             rounded="full"
             svgIcon={arrowUpIcon}
             onClick={onSearchClick}

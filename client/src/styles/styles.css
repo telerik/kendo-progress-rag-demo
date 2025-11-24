@@ -1,3 +1,6 @@
+@import 'https://fonts.googleapis.com/css2?family=Nunito';
+
+
 :root {
   /* Primary Colors */
   --kendo-color-primary: #225eff;
@@ -115,6 +118,62 @@
   }
 }
 */
+
+/* Search Input */
+.search-input {
+  border-width: 2px;
+  border-color: #A1B0C7;
+  color: #A1B0C7;
+  box-shadow: var(--kendo-elevation-2);
+}
+
+/* Target the input inside the TextBox wrapper */
+.search-input input::placeholder,
+.search-input .k-input-inner::placeholder,
+.search-input.k-textbox input::placeholder {
+  color: #A1B0C7;
+}
+
+.search-input.k-focus {
+  position: relative;
+  border: 2px solid transparent !important;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%) border-box !important;
+  box-shadow: none !important;
+}
+
+/* Search Pills */
+.search-pill {
+  font-family: Nunito;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid white;
+  border-radius: 16px;
+  padding: var(--kendo-spacing-3);
+  font-size: 12px;
+  font-weight: 500;
+  color: #000000;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+  line-height: 1.42;
+  box-shadow: var(--kendo-elevation-2);
+  font-weight: var(--kendo-font-weight-medium);
+}
+
+.search-pill:hover {
+  color: var(--kendo-color-primary);
+  border-color: var(--kendo-color-primary);
+  box-shadow: var(--kendo-elevation-4);
+}
+
+.search-pill:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.search-pill:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
 
 .gradient-heading {
   margin: 0;
