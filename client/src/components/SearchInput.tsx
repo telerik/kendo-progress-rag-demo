@@ -50,11 +50,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
             svgIcon={microphoneOutlineIcon}
           />
           <Button
-            style={{ 
-              background: 'linear-gradient(143deg, #C158E4 19.85%, #001DFF 83.02%)',
-              color: '#fff',
-              border: 'none'
-            }}
+            className="send-button"
             rounded="full"
             svgIcon={arrowUpIcon}
             onClick={onSearchClick}

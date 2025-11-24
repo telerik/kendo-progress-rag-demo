@@ -139,7 +139,20 @@
   border: 2px solid transparent !important;
   background: linear-gradient(white, white) padding-box,
               linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%) border-box !important;
-  box-shadow: none !important;
+  box-shadow: var(--kendo-elevation-4);
+}
+
+.search-input .send-button {
+  border: none;
+
+}
+
+
+.search-input.k-focus .send-button {
+  background: linear-gradient(143deg, #C158E4 19.85%, #001DFF 83.02%);
+  color: #fff;
+  border: none;
+
 }
 
 /* Search Pills */
