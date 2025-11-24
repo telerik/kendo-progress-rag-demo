@@ -124,7 +124,7 @@ export default function FinanceAnalysis() {
   const chatBot = useChatBot({
     botName: "Progress Agentic RAG Financial Assistant",
     initialMessage:
-      "Hello! I'm your Progress Agentic RAG Financial assistant. I can help you by summarizing financial data and answering questions about companies. Try one of the suggestions below, or ask me anything about financial results of Apple, Amazon, Resolute, Exxon Mobil, Johnson&Jonson, Google, NVIDIA or Berkshire Hathaway!",
+      "👋 Hello! I'm your Progress Agentic RAG Financial assistant. I can help you by summarizing financial data and answering questions about companies. Try one of the suggestions below, or ask me anything about financial results of Apple, Amazon, Resolute, Exxon Mobil, Johnson&Jonson, Google, NVIDIA or Berkshire Hathaway!",
     apiEndpoint: "/api/ask-charts",
     placeholder: "Try a suggestion or ask about a company...",
     suggestions: financialSuggestions,
@@ -185,6 +185,7 @@ export default function FinanceAnalysis() {
       messageTemplate={customMessageTemplate}
       timestampTemplate={() => null}
       showUsername={false}
+      messageWidthMode={chatBot.messages.length > 1 ? "full" : "standard"}
       messageBox={(props) => (
         <ChatMessageBox 
           {...props} 
