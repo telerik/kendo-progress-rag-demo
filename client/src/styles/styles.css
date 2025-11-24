@@ -224,6 +224,11 @@
 .k-chat .k-message-list-content .k-timestamp:empty {
   display: none;
 }
+
+.k-chat .k-message-list {
+  justify-content: flex-end;
+}
+
 /* Agentic RAG Value */
 .value-proposition .k-button {
   background-color: #fff;

@@ -132,7 +132,7 @@ const KnowledgeAssistant = () => {
               messageTemplate={ChatMessage}
               timestampTemplate={() => null }
               showUsername={false}
-              messageWidthMode={ hasConversationStarted ? "full" : "standard" }
+              messageWidthMode="full"
               messageBox={(props) => (
                 <ChatMessageBox 
                   {...props} 

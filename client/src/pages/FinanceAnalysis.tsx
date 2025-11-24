@@ -185,7 +185,7 @@ export default function FinanceAnalysis() {
       messageTemplate={customMessageTemplate}
       timestampTemplate={() => null}
       showUsername={false}
-      messageWidthMode={chatBot.messages.length > 1 ? "full" : "standard"}
+      messageWidthMode="full"
       messageBox={(props) => (
         <ChatMessageBox 
           {...props} 
