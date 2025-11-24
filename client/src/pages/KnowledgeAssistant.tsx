@@ -123,7 +123,7 @@ const KnowledgeAssistant = () => {
             boxSizing: 'border-box'
           }}>
             <Chat
-              messages={chatBot.messages}
+              messages={chatBot.messages.length > 1 ? chatBot.messages.slice(1) : chatBot.messages}
               authorId={chatBot.user.id}
               onSendMessage={chatBot.addNewMessage}
               placeholder="Try a suggestion or ask about KendoReact"
