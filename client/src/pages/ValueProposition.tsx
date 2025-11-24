@@ -230,7 +230,7 @@ export default function ValueProposition() {
             ) : (
                 <div className="k-d-flex k-flex-column" style={{ backgroundColor: 'rgba(255, 255, 255, 0.6)', width: '100%' }}>
                     {/* Hero section with title and summary */}
-                    <section className="k-d-flex k-flex-column k-gap-9 k-align-items-center k-px-8 k-py-16" style={{ borderBottom: '1px solid rgba(0, 0, 0, 0.08)', background: 'linear-gradient(180deg, rgba(250, 250, 250, 0.80) 85%, rgba(236, 236, 236, 0.80) 100%)'}}>
+                    <section className={`k-d-flex k-flex-column k-gap-9 k-align-items-center k-px-8 k-py-16 ${!isLoading ? 'hero' : ''}`} style={{ borderBottom: '1px solid rgba(0, 0, 0, 0.08)', background: 'linear-gradient(180deg, rgba(250, 250, 250, 0.80) 85%, rgba(236, 236, 236, 0.80) 100%)'}}>
                         {isLoading && (
                             <div className="k-d-flex k-flex-column k-gap-6 k-align-items-center">
                                 <h2 className="gradient-heading k-text-center k-mb-0" style={{ fontSize: '36px', lineHeight: '1', fontWeight: 500, letterSpacing: 'normal' }}>

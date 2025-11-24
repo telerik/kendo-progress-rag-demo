@@ -266,7 +266,7 @@ export default function AiSearch() {
         ) : (
           // Results state: Compact header with integrated search
           <div 
-            className="k-d-flex k-flex-column k-gap-9"
+            className="k-d-flex k-flex-column k-gap-9 hero"
             style={{
               borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
               paddingLeft: '32px',
