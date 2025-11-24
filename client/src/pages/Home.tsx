@@ -13,20 +13,20 @@ const imgBackground = `${import.meta.env.BASE_URL}background.svg`;
 
 export default function Home() {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = React.useState('');
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   const handleSearchChange = (event: TextBoxChangeEvent) => {
-    setSearchQuery(String(event.target.value || ''));
+    setSearchQuery(String(event.target.value || ""));
   };
 
   const handleSearchSubmit = () => {
     if (searchQuery.trim()) {
-      navigate('/ai-search', { state: { query: searchQuery.trim() } });
+      navigate("/ai-search", { state: { query: searchQuery.trim() } });
     }
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' && searchQuery.trim()) {
+    if (event.key === "Enter" && searchQuery.trim()) {
       handleSearchSubmit();
     }
   };
@@ -59,55 +59,61 @@ export default function Home() {
   };
 
   return (
-    <div className="k-pos-relative k-overflow-x-hidden k-overflow-y-auto k-d-flex k-flex-column k-align-items-center k-justify-content-center k-gap-17" style={{ height: "calc(100vh - 54px" }}>
-      {/* Gradient background - positioned absolutely behind all content */}
-      <div 
-        className="k-pos-absolute" 
-        style={{ 
-          inset: 0,
+    <div
+      className="k-pos-relative k-overflow-x-hidden k-overflow-y-auto k-d-flex k-flex-column k-align-items-center k-justify-content-between k-px-md-9 k-px-xs-3"
+      style={{ height: "calc(100vh - 54px)" }}
+    >
+      {/* Gradient background - positioned fixed to viewport */}
+      <div
+        style={{
+          position: "fixed",
+          top: "54px",
+          left: 0,
+          right: 0,
+          bottom: 0,
           overflow: "hidden",
           pointerEvents: "none",
-          zIndex: 0
+          zIndex: 0,
         }}
       >
-        <div 
-          style={{ 
+        <div
+          style={{
             position: "absolute",
             width: "1266px",
             height: "331px",
             left: "50%",
             top: "calc(50% + 139.5px)",
             transform: "translate(-50%, -50%)",
-            opacity: 0.6
+            opacity: 0.6,
           }}
         >
-          <div 
+          <div
             style={{
               position: "absolute",
               top: "-90.63%",
               right: "-23.7%",
               bottom: "-90.63%",
-              left: "-23.7%"
+              left: "-23.7%",
             }}
           >
-            <img 
-              src={imgBackground} 
-              alt="" 
-              style={{ 
+            <img
+              src={imgBackground}
+              alt=""
+              style={{
                 display: "block",
                 maxWidth: "none",
                 width: "100%",
-                height: "100%"
-              }} 
+                height: "100%",
+              }}
             />
           </div>
         </div>
       </div>
 
-      {/* Main heading */}
+      {/* Main heading + Subtitle */}
       <section style={{ position: "relative", zIndex: 1 }}>
-        <div className="k-d-flex k-align-items-center k-justify-content-center">
-          <div className="k-d-flex k-flex-column k-text-center k-flex-1">
+        <div className="k-d-flex k-align-items-center k-justify-content-center k-mt-26">
+          <div className="k-d-flex k-flex-column k-text-center k-flex-1 k-gap-8">
             <h1
               className="gradient-heading k-mt-20 k-mb-8"
               style={{ padding: "10px" }}
@@ -116,16 +122,12 @@ export default function Home() {
               <br />
               AI-Powered Applications
             </h1>
+            <p className="k-font-size-xl k-text-center k-flex-1 k-mb-0">
+              Build AI-powered apps that look great, are easy to use, and rely
+              on accurate, trustworthy data— <br />
+              so they deliver real value where it counts.
+            </p>
           </div>
-        </div>
-
-        {/* Subtitle */}
-        <div className="k-d-flex k-align-items-center k-justify-content-center">
-          <p className="k-font-size-xl k-text-center k-flex-1 k-mb-0">
-            Build AI-powered apps that look great, are easy to use, and rely on
-            accurate, trustworthy data— <br />
-            so they deliver real value where it counts.
-          </p>
         </div>
       </section>
 
@@ -145,7 +147,7 @@ export default function Home() {
             <p className="k-font-size-xl k-font-weight-medium k-text-center k-mb-0 k-mb-4">
               Explore Demos
             </p>
-            <div className="k-d-flex k-flex-wrap k-gap-8 k-align-items-center k-justify-content-center">
+            <div className="k-d-grid k-grid-cols-lg-4 k-gap-lg-8 k-grid-cols-md-2 k-gap-md-6 k-grid-cols-xs-1 k-gap-xs-3">
               {demos.map((demo) => (
                 <div
                   key={demo.name}
@@ -168,9 +170,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer
-        className="k-pos-relative k-d-flex k-align-items-center k-justify-content-center k-opacity-50 k-mt-26"
-      >
+      <footer className="k-pos-relative k-d-flex k-align-items-center k-justify-content-center k-opacity-50 k-mt-26">
         <p className="k-font-size-md k-text-center k-mb-0 k-px-4 k-py-2">
           Copyright © 2025 Progress Software. All rights reserved. Progress® AI
           Powered

@@ -39,7 +39,7 @@ export default function AppBarComponent() {
           padding: "15px 32px",
         }}
       >
-        <AppBarSection className="k-justify-content-center k-gap-2 k-w-full">
+        <AppBarSection className="k-justify-content-center k-gap-2 k-w-full k-flex-lg-row k-flex-col">
           <div
             style={{
               height: "24px",
