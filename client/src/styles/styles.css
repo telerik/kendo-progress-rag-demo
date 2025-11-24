@@ -1,44 +1,51 @@
 @import 'https://fonts.googleapis.com/css2?family=Nunito';
 
+/* Metric Font Family */
+@font-face {
+  font-family: 'Metric';
+  src: url('/fonts/Metric-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metric';
+  src: url('/fonts/Metric-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metric';
+  src: url('/fonts/Metric-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metric';
+  src: url('/fonts/Metric-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   /* Primary Colors */
   --kendo-color-primary: #225eff;
-  --kendo-color-primary-hover: #0b5ed7;
-  --kendo-color-primary-active: #0a58ca;
-
-  /* Secondary Colors */
-  --kendo-color-secondary: #535B6A;
-  --kendo-color-secondary-hover: #5c636a;
-  --kendo-color-secondary-active: #565e64;
-
-  /* Success, Warning, Error, Info */
-  --kendo-color-success: #198754;
-  --kendo-color-warning: #ffc107;
-  --kendo-color-error: #dc3545;
-  --kendo-color-info: #0dcaf0;
-
-  --kendo-color-base-subtle: rgba(255, 255, 255, 0.7);
-
-  /* Text Colors */
-  --kendo-color-text: #212529;
-  --kendo-color-text-secondary: #6c757d;
-  --kendo-color-text-disabled: #adb5bd;
-
-  /* Background Colors */
-  --kendo-color-background: #ffffff;
-  --kendo-color-background-alt: #f8f9fa;
-  --kendo-color-surface: #ffffff;
 
   /* Border Colors */
   --kendo-color-border: #dee2e6;
   --kendo-color-border-alt: #ced4da;
 
   /* Typography */
-  --kendo-font-family: Metric, "Segoe UI", Roboto,
+  --kendo-font-family: "Metric", "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
-  --kendo-font-size: 14px;
-  --kendo-line-height: 1.5;
+  --kendo-font-size: 16px;
+  --kendo-line-height: 1;
 
   --kendo-h1-font-size: 56px;
   --kendo-h1-line-height: 1;
@@ -46,53 +53,6 @@
   --kendo-h2-line-height: 1;
   --kendo-h3-font-size: 24px;
   --kendo-h3-line-height: 1.2;
-
-  
-
-  /* Spacing */
-  --kendo-spacing: 8px;
-  --kendo-spacing-sm: 4px;
-  --kendo-spacing-lg: 16px;
-  --kendo-spacing-xl: 24px;
-
-  /* Border Radius */
-  --kendo-border-radius: 4px;
-  --kendo-border-radius-sm: 2px;
-  --kendo-border-radius-lg: 8px;
-
-  /* Shadows */
-  --kendo-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --kendo-box-shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.15);
-
-  /* Component Specific */
-  --kendo-drawer-width: 256px;
-  --kendo-appbar-height: 53px;
-
-  /* Button */
-  --kendo-button-padding: 8px 16px;
-  --kendo-button-border-width: 1px;
-
-  /* Input */
-  --kendo-input-padding: 8px 12px;
-  --kendo-input-border-width: 1px;
-
-  /* Drawer Specific */
-  --drawer-bg-gradient-start: rgba(250, 250, 250, 0.8);
-  --drawer-bg-gradient-end: rgba(236, 236, 236, 0.8);
-  --drawer-item-bg-default: rgba(255, 255, 255, 0.8);
-  --drawer-item-bg-hover: rgba(255, 255, 255, 0.9);
-  --drawer-item-bg-selected: rgba(255, 255, 255, 0.9);
-  --drawer-item-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.08);
-  --drawer-item-radius: 12px;
-  --drawer-border-color: rgba(0, 0, 0, 0.08);
-
-  /* Chart Colors */
-  --kendo-chart-series-1: #0d6efd;
-  --kendo-chart-series-2: #6610f2;
-  --kendo-chart-series-3: #6f42c1;
-  --kendo-chart-series-4: #d63384;
-  --kendo-chart-series-5: #dc3545;
-  --kendo-chart-series-6: #fd7e14;
 
   /* Dark mode support (optional) */
   /* Uncomment and adjust if implementing dark mode */
@@ -161,7 +121,6 @@
 
 /* Search Pills */
 .search-pill {
-  font-family: Nunito;
   background-color: rgba(255, 255, 255, 0.7);
   border: 1px solid white;
   border-radius: 16px;
