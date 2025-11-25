@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { type TextBoxProps, type TextBoxChangeEvent } from "@progress/kendo-react-inputs";
+import { type TextAreaProps, type TextAreaChangeEvent } from "@progress/kendo-react-inputs";
 import { buildApiUrl } from '../config/api';
 import { renderMarkdown } from '../utils/markdownRenderer';
 import { SearchPill } from '../components/SearchPill';
@@ -9,12 +9,12 @@ import { VectorsBackground } from '../components/VectorsBackground';
 
 export default function AiSearch() {
   const location = useLocation();
-  const [query, setQuery] = React.useState<TextBoxProps['value']>('');
+  const [query, setQuery] = React.useState<TextAreaProps['value']>('');
   const [isLoading, setIsLoading] = React.useState(false);
   const [answer, setAnswer] = React.useState<string>('');
   const [currentQuestion, setCurrentQuestion] = React.useState<string>('');
 
-  const handleQueryChange = React.useCallback((event: TextBoxChangeEvent) => {
+  const handleQueryChange = React.useCallback((event: TextAreaChangeEvent) => {
     setQuery(event.target.value);
   }, []);
 
@@ -136,6 +136,8 @@ export default function AiSearch() {
       style={{ 
         height: 'calc(100vh - 54px)',
         backgroundColor: 'rgba(255, 255, 255, 0.6)',
+        maxWidth: '100vw',
+        boxSizing: 'border-box'
       }}
     >
       {/* Decorative circle background - only show when no results */}
@@ -176,19 +178,13 @@ export default function AiSearch() {
       )}
 
       {/* Main content container */}
-      <div className="k-d-flex k-flex-column" style={{ position: 'relative', zIndex: 1 }}>
+      <div className="k-d-flex k-flex-column" style={{ position: 'relative', zIndex: 1, maxWidth: '100%', overflow: 'hidden' }}>
         {/* Header section - changes based on hasResults */}
         {!hasResults ? (
           // Initial state: Large header with description
           <>
             <div 
-              className="k-d-flex k-flex-column k-gap-8"
-              style={{
-                paddingLeft: '128px',
-                paddingRight: '512px',
-                paddingTop: '128px',
-                paddingBottom: '64px'
-              }}
+              className="k-d-flex k-flex-column k-gap-8 rag-hero-wrapper"
             >
               <h1 
                 className="k-mb-0"
@@ -222,10 +218,10 @@ export default function AiSearch() {
 
             {/* Search input section - centered horizontally */}
             <div 
-              className="k-d-flex k-flex-column k-gap-8"
+              className="k-d-flex k-flex-column k-gap-8 search-input-wrapper"
               style={{
-                width: '770px',
-                margin: '0 auto'
+                width: '100%',
+                maxWidth: '770px'
               }}
             >
               <SearchInput
@@ -274,7 +270,9 @@ export default function AiSearch() {
               paddingTop: '64px',
               paddingBottom: '64px',
               position: 'relative',
-              isolation: 'isolate'
+              isolation: 'isolate',
+              maxWidth: '100%',
+              boxSizing: 'border-box'
             }}
           >
             {/* Decorative elements container with overflow clipping */}
@@ -354,7 +352,8 @@ export default function AiSearch() {
             {/* Search input - centered and integrated */}
             <div 
               style={{
-                width: '770px',
+                width: '100%',
+                maxWidth: '770px',
                 margin: '0 auto',
                 position: 'relative',
                 zIndex: 1
@@ -367,7 +366,6 @@ export default function AiSearch() {
                 onSearchClick={handleSearchClick}
                 isLoading={isLoading}
                 placeholder="What is PARAG and how does it work?"
-                bordered
               />
             </div>
           </div>
@@ -376,28 +374,32 @@ export default function AiSearch() {
         {/* Results section */}
         {hasResults && (
           <div 
-            className="k-d-flex k-flex-column k-gap-16"
+            className="k-d-flex k-flex-column results-section"
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.7)',
-              paddingLeft: '24px',
-              paddingRight: '24px',
-              paddingTop: '64px',
-              paddingBottom: '64px',
-              width: '100%'
+              width: '100%',
+              overflow: 'hidden'
             }}
           >
             <div 
-              className="k-d-flex k-flex-column k-gap-16"
+              className="k-d-flex k-flex-column k-gap-16 results-content"
               style={{
                 maxWidth: '770px',
                 margin: '0 auto',
-                width: '100%'
+                width: '100%',
+                minWidth: 0
               }}
             >
               {/* Answer content */}
               {isLoading && (
-                <div className="k-d-flex k-justify-content-center k-align-items-center k-py-8">
-                  <span className="k-icon k-i-loading k-icon-64"></span>
+                <div className="k-d-flex k-flex-column k-gap-6 k-align-items-center k-py-8">
+                  <h2 className="gradient-heading k-text-center k-mb-0" style={{ fontSize: '36px', lineHeight: '1', fontWeight: 500, letterSpacing: 'normal' }}>
+                    Searching<br />Knowledge Base
+                  </h2>
+                  <span className="k-icon k-i-loading" style={{ fontSize: '80px', color: '#2359D4' }}></span>
+                  <p className="k-mb-0" style={{ fontSize: '16px', lineHeight: '1.5', color: '#323130' }}>
+                    Analyzing your query...
+                  </p>
                 </div>
               )}
               
@@ -406,7 +408,9 @@ export default function AiSearch() {
                   style={{
                     fontSize: '16px',
                     lineHeight: '1.5',
-                    color: '#000000'
+                    color: '#000000',
+                    overflowWrap: 'break-word',
+                    wordBreak: 'break-word'
                   }}
                 >
                   {renderMarkdown(answer)}

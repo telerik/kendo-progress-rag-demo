@@ -1,5 +1,5 @@
 import React from "react";
-import { type TextBoxChangeEvent } from "@progress/kendo-react-inputs";
+import { type TextAreaChangeEvent } from "@progress/kendo-react-inputs";
 import { SearchInput } from "../components/SearchInput";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +14,7 @@ export default function Home() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = React.useState("");
 
-  const handleSearchChange = (event: TextBoxChangeEvent) => {
+  const handleSearchChange = (event: TextAreaChangeEvent) => {
     setSearchQuery(String(event.target.value || ""));
   };
 

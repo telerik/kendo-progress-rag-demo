@@ -100,6 +100,8 @@ html, body, #root {
   color: #A1B0C7;
   box-shadow: var(--kendo-elevation-2);
   border-radius: 24px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Target the input inside the TextBox wrapper */
@@ -441,6 +443,31 @@ html, body, #root {
   .hero-wrapper {
     margin-block-start: 48px;
   }
+  .rag-hero-wrapper {
+    padding: 48px 32px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .search-input-wrapper {
+    padding: 0 32px;
+    margin: 0 auto;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .results-section {
+    padding: 64px 24px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .results-content {
+    padding: 0 8px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .results-content * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
   .footer {
     margin-block-end: var(--kendo-spacing-20);
   }
@@ -450,11 +477,35 @@ html, body, #root {
   .hero-wrapper {
     margin-block-start: 62px;
   }
+  .rag-hero-wrapper {
+    padding: 64px 32px;
+  }
+  .search-input-wrapper {
+    padding: 0 32px;
+  }
+  .results-section {
+    padding: 64px 24px;
+  }
+  .results-content {
+    padding: 0 8px;
+  }
 }
 
 @media only all and (min-width: 1200px) {
   .hero-wrapper {
     margin-block-start: 120px;
+  }
+  .rag-hero-wrapper {
+    padding: 128px 512px 64px 128px;
+  }
+  .search-input-wrapper {
+    padding: 0;
+  }
+  .results-section {
+    padding: 64px 24px;
+  }
+  .results-content {
+    padding: 0;
   }
   .footer {
     margin-block-end: var(--kendo-spacing-8);
