@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { TextArea, type TextAreaProps, type TextAreaChangeEvent } from "@progress/kendo-react-inputs";
 import { Button } from "@progress/kendo-react-buttons";
 import { plusIcon, microphoneOutlineIcon, arrowUpIcon } from "@progress/kendo-svg-icons";
@@ -20,6 +20,19 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   isLoading,
   placeholder,
 }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <TextArea
       style={{ 
@@ -35,7 +48,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       onChange={onQueryChange}
       onKeyPress={onKeyPress}
       disabled={isLoading}
-      rows={1}
+      rows={isMobile ? 3 : 1}
       autoSize={true}
       resizable={'none'}
       prefix={() => (
