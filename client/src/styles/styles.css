@@ -1,5 +1,11 @@
 @import 'https://fonts.googleapis.com/css2?family=Nunito';
 
+/* Prevent body scroll - only page content should scroll */
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
 /* Metric Font Family */
 @font-face {
   font-family: 'Metric';
