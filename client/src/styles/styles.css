@@ -436,3 +436,26 @@ html, body, #root {
     height: 220px;
   }
 }
+@media only all and (min-width: 0px) {
+  .hero-wrapper {
+    margin-block-start: 48px;
+  }
+  .footer {
+    margin-block-end: var(--kendo-spacing-20);
+  }
+}
+
+@media only all and (min-width: 768px) {
+  .hero-wrapper {
+    margin-block-start: 62px;
+  }
+}
+
+@media only all and (min-width: 1200px) {
+  .hero-wrapper {
+    margin-block-start: 120px;
+  }
+  .footer {
+    margin-block-end: var(--kendo-spacing-8);
+  }
+}

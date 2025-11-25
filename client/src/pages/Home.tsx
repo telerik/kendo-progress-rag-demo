@@ -111,7 +111,7 @@ export default function Home() {
 
       {/* Main heading + Subtitle */}
       <section style={{ position: "relative", zIndex: 1 }}>
-        <div className="k-d-flex k-align-items-center k-justify-content-center k-mt-26">
+        <div className="k-d-flex k-align-items-center k-justify-content-center hero-wrapper">
           <div className="k-d-flex k-flex-column k-text-center k-flex-1 k-gap-8">
             <h1
               className="gradient-heading k-mt-20 k-mb-8"
@@ -146,7 +146,7 @@ export default function Home() {
             <p className="k-font-size-xl k-font-weight-medium k-text-center k-mb-0 k-mb-4">
               Explore Demos
             </p>
-            <div className="k-d-grid k-grid-cols-lg-4 k-gap-lg-8 k-grid-cols-md-2 k-gap-md-6 k-grid-cols-xs-1 k-gap-xs-3">
+            <div className="k-d-flex k-flex-wrap k-justify-content-center k-align-items-center k-gap-lg-8 k-gap-md-6 k-gap-3 k-w-full">
               {demos.map((demo) => (
                 <div
                   key={demo.name}
@@ -169,8 +169,8 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="k-pos-relative k-d-flex k-align-items-center k-justify-content-center k-opacity-50 k-mt-26">
-        <p className="k-font-size-md k-text-center k-mb-0 k-px-4 k-py-2">
+      <footer className="k-pos-relative k-d-flex k-align-items-center k-justify-content-center k-opacity-50 k-mt-26 footer">
+        <p className="k-font-size-md k-text-center !k-mb-0 k-px-4 k-py-2">
           Copyright © 2025 Progress Software. All rights reserved. Progress® AI
           Powered
         </p>
