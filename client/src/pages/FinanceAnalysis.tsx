@@ -190,7 +190,6 @@ export default function FinanceAnalysis() {
         messages={chatBot.messages.length > 1 ? chatBot.messages.slice(1) : chatBot.messages}
         authorId={chatBot.user.id}
         onSendMessage={chatBot.addNewMessage}
-        placeholder={isChartsExpanded ? "Ask about a company..." : "Try a suggestion or ask about a company..."}
         className={chatClassName}
         style={{ minHeight: "auto", width: "100%"}}
         height="100%"
@@ -205,6 +204,7 @@ export default function FinanceAnalysis() {
             suggestions={chatBot.messages.length <= 1 ? chatBot.availableSuggestions : []}
             onSuggestionClick={chatBot.handleSuggestionClick}
             onSendMessage={handleSendMessage}
+            placeholder={chatBot.placeholder}
           />
         )}
       />

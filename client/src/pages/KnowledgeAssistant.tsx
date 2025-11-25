@@ -139,6 +139,7 @@ const KnowledgeAssistant = () => {
                   isLoading={chatBot.isLoading}
                   suggestions={chatBot.availableSuggestions}
                   onSuggestionClick={chatBot.handleSuggestionClick}
+                  placeholder={chatBot.placeholder}
                   onSendMessage={(text) => {
                     chatBot.addNewMessage({
                       message: {

@@ -9,13 +9,15 @@ interface ChatMessageBoxAdapterProps extends ChatMessageBoxProps {
   onSendMessage?: (text: string) => void;
   suggestions?: ChatSuggestion[];
   onSuggestionClick?: (suggestion: ChatSuggestion) => void;
+  placeholder?: string;
 }
 
 export const ChatMessageBox: React.FC<ChatMessageBoxAdapterProps> = ({
   isLoading = false,
   onSendMessage,
   suggestions = [],
-  onSuggestionClick
+  onSuggestionClick,
+  placeholder = 'Type a message...'
 }) => {
   const [inputValue, setInputValue] = React.useState('');
 
@@ -51,8 +53,7 @@ export const ChatMessageBox: React.FC<ChatMessageBoxAdapterProps> = ({
         onKeyPress={handleKeyPress}
         onSearchClick={handleSend}
         isLoading={isLoading}
-        placeholder="Try a suggestion or ask about KendoReact..."
-        bordered={true}
+        placeholder={placeholder}
       />
       
       {suggestions.length > 0 && (
