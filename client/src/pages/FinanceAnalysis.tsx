@@ -192,7 +192,7 @@ export default function FinanceAnalysis() {
         onSendMessage={chatBot.addNewMessage}
         placeholder={isChartsExpanded ? "Ask about a company..." : "Try a suggestion or ask about a company..."}
         className={chatClassName}
-        style={{ minHeight: "auto"}}
+        style={{ minHeight: "auto", width: "100%"}}
         height="100%"
         messageTemplate={customMessageTemplate}
         timestampTemplate={() => null}
