@@ -128,14 +128,37 @@ export default function ValueProposition() {
             {!hasResults ? (
             <>
             <VectorsBackground width="569px" height="704px" show={true} />
-            <section className="k-mx-auto k-d-flex k-flex-col k-align-items-start k-gap-8" style={{ maxWidth: '800px', paddingBlock: "128px", paddingLeft: "128px", paddingRight: "512px" }}>
-                <h1 className="gradient-heading k-h1">Progress Agentic RAG Value </h1>
-
-                {/* Subtitle */}
-                <p className="k-font-size-xl k-text-center k-flex-1 !k-mb-0 k-color-secondary k-line-height-sm">
-                    Generate a customized value proposition showing exactly how Nuclia delivers ROI for your specific industry, company size, and use case.
-                </p>
-            </section>
+            <div className="k-d-flex k-flex-column" style={{ paddingTop: '96px', paddingLeft: '128px', paddingBottom: '96px', position: 'relative', zIndex: 1 }}>
+                <div className="k-d-flex k-flex-column" style={{ width: '100%', gap: '32px', maxWidth: '540px' }}>
+                    <h1 
+                        className="k-mb-0"
+                        style={{
+                            background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                            fontSize: '56px',
+                            fontWeight: 500,
+                            lineHeight: 1,
+                            letterSpacing: '-1.12px',
+                            fontFamily: '"Metric", sans-serif'
+                        }}
+                    >
+                        Progress Agentic RAG Value
+                    </h1>
+                    <p 
+                        className="!k-mb-0"
+                        style={{
+                            color: '#535B6A',
+                            fontSize: '24px',
+                            lineHeight: '1.2',
+                            fontFamily: '"Metric", sans-serif'
+                        }}
+                    >
+                        Generate a customized value proposition showing exactly how Nuclia delivers ROI for your specific industry, company size, and use case.
+                    </p>
+                </div>
+            </div>
             <section className="k-py-16 k-text-center k-mx-auto">
                 <div className="k-mb-16 k-d-flex k-flex-col k-gap-7">
                     <h2 className="k-h2 !k-mb-0">Configure Your Scenario</h2>
@@ -143,9 +166,9 @@ export default function ValueProposition() {
                 </div>
 
                 <div className="k-gap-8 k-d-flex k-flex-col">
-                    <div className="k-d-flex k-flex-column k-gap-5 k-bg-surface k-p-6 k-mx-auto k-w-full" style={{ maxWidth: '900px', borderRadius: '28px', boxShadow: '0 2px 6px 0 rgba(13, 10, 44, 0.08)', backdropFilter: 'blur(2px)', backgroundColor: 'rgba(255, 255, 255, 0.5)', border: '1px solid white' }}>
+                    <div className="k-d-flex k-flex-column k-gap-5 k-bg-surface k-p-6 k-mx-auto k-w-full k-box-sizing-border" style={{ maxWidth: '900px', borderRadius: '28px', boxShadow: '0 2px 6px 0 rgba(13, 10, 44, 0.08)', backdropFilter: 'blur(2px)', backgroundColor: 'rgba(255, 255, 255, 0.5)', border: '1px solid white' }}>
                         <h3 className="k-h3 k-align-self-start !k-mb-0">Industry *</h3>
-                        <div className="k-d-grid k-grid-cols-3 k-gap-3">
+                        <div className="k-d-grid k-grid-cols-md-3 k-gap-3">
                             <Button togglable selected={industry === 'Financial Services'} onClick={() => setIndustry('Financial Services')} className="k-p-6 k-overflow-hidden">Financial Services</Button>
                             <Button togglable selected={industry === 'Healthcare'} onClick={() => setIndustry('Healthcare')} className="k-p-6" >Healthcare</Button>
                             <Button togglable selected={industry === 'Manufacturing'} onClick={() => setIndustry('Manufacturing')} className="k-p-6" >Manufacturing</Button>
@@ -161,18 +184,18 @@ export default function ValueProposition() {
                             <Button togglable selected={industry === 'Other'} onClick={() => setIndustry('Other')} className="k-p-6" >Other</Button>
                         </div>
                     </div>
-                    <div className="k-d-flex k-flex-column k-gap-5 k-bg-surface k-p-5 k-mx-auto k-w-full" style={{ maxWidth: '900px', borderRadius: '28px', boxShadow: '0 2px 6px 0 rgba(13, 10, 44, 0.08)', backdropFilter: 'blur(2px)', backgroundColor: 'rgba(255, 255, 255, 0.5)', border: '1px solid white' }}>
+                    <div className="k-d-flex k-flex-column k-gap-5 k-bg-surface k-p-5 k-mx-auto k-w-full k-box-sizing-border" style={{ maxWidth: '900px', borderRadius: '28px', boxShadow: '0 2px 6px 0 rgba(13, 10, 44, 0.08)', backdropFilter: 'blur(2px)', backgroundColor: 'rgba(255, 255, 255, 0.5)', border: '1px solid white' }}>
                         <h3 className="k-h3 k-align-self-start">Company Size *</h3>
-                        <div className="k-d-grid k-grid-cols-2 k-gap-3">
+                        <div className="k-d-grid k-grid-cols-md-2 k-gap-3">
                             <Button togglable selected={companySize === 'Small Business (1-100 employees)'} onClick={() => setCompanySize('Small Business (1-100 employees)')} className="k-p-6" >Small Business (1-100 employees)</Button>
                             <Button togglable selected={companySize === 'Mid-Market (101-1,000 employees)'} onClick={() => setCompanySize('Mid-Market (101-1,000 employees)')} className="k-p-6" >Mid-Market (101-1,000 employees)</Button>
                             <Button togglable selected={companySize === 'Large Enterprise (1,001-10,000 employees)'} onClick={() => setCompanySize('Large Enterprise (1,001-10,000 employees)')} className="k-p-6" >Large Enterprise (1,001-10,000 employees)</Button>
                             <Button togglable selected={companySize === 'Global Enterprise (10,000+ employees)'} onClick={() => setCompanySize('Global Enterprise (10,000+ employees)')} className="k-p-6" >Global Enterprise (10,000+ employees)</Button>
                         </div>
                     </div>
-                    <div className="k-d-flex k-flex-column k-gap-5 k-bg-surface k-p-5 k-mx-auto k-w-full" style={{ maxWidth: '900px', borderRadius: '28px', boxShadow: '0 2px 6px 0 rgba(13, 10, 44, 0.08)', backdropFilter: 'blur(2px)', backgroundColor: 'rgba(255, 255, 255, 0.5)', border: '1px solid white' }}>
+                    <div className="k-d-flex k-flex-column k-gap-5 k-bg-surface k-p-5 k-mx-auto k-w-full k-box-sizing-border" style={{ maxWidth: '900px', borderRadius: '28px', boxShadow: '0 2px 6px 0 rgba(13, 10, 44, 0.08)', backdropFilter: 'blur(2px)', backgroundColor: 'rgba(255, 255, 255, 0.5)', border: '1px solid white' }}>
                         <h3 className="k-h3 k-align-self-start">Data Types * (Select all that apply)</h3>
-                        <div className="k-d-grid k-grid-cols-3 k-gap-3">
+                        <div className="k-d-grid k-grid-cols-md-3 k-gap-3">
                             <Button togglable selected={dataTypes.includes('Customer Data')} onClick={() => toggleDataType('Customer Data')} className="k-p-6" >Customer Data</Button>
                             <Button togglable selected={dataTypes.includes('Product Documentation')} onClick={() => toggleDataType('Product Documentation')} className="k-p-6" >Product Documentation</Button>
                             <Button togglable selected={dataTypes.includes('Internal Knowledge Base')} onClick={() => toggleDataType('Internal Knowledge Base')} className="k-p-6" >Internal Knowledge Base</Button>
@@ -187,9 +210,9 @@ export default function ValueProposition() {
                             <Button togglable selected={dataTypes.includes('Operational Procedures')} onClick={() => toggleDataType('Operational Procedures')} className="k-p-6" >Operational Procedures</Button>
                         </div>
                     </div>
-                    <div className="k-d-flex k-flex-column k-gap-5 k-bg-surface k-p-5 k-mx-auto k-w-full" style={{ maxWidth: '900px', borderRadius: '28px', boxShadow: '0 2px 6px 0 rgba(13, 10, 44, 0.08)', backdropFilter: 'blur(2px)', backgroundColor: 'rgba(255, 255, 255, 0.5)', border: '1px solid white' }}>
+                    <div className="k-d-flex k-flex-column k-gap-5 k-bg-surface k-p-5 k-mx-auto k-w-full k-box-sizing-border" style={{ maxWidth: '900px', borderRadius: '28px', boxShadow: '0 2px 6px 0 rgba(13, 10, 44, 0.08)', backdropFilter: 'blur(2px)', backgroundColor: 'rgba(255, 255, 255, 0.5)', border: '1px solid white' }}>
                         <h3 className="k-h3 k-align-self-start">Primary Use Case *</h3>
-                        <div className="k-d-grid k-grid-cols-2 k-gap-3">
+                        <div className="k-d-grid k-grid-cols-md-2 k-gap-3">
                             <Button togglable selected={useCase === 'Customer Support Enhancement'} onClick={() => setUseCase('Customer Support Enhancement')} className="k-p-6" >Customer Support Enhancement</Button>
                             <Button togglable selected={useCase === 'Employee Self-Service'} onClick={() => setUseCase('Employee Self-Service')} className="k-p-6" >Employee Self-Service</Button>
                             <Button togglable selected={useCase === 'Sales Enablement'} onClick={() => setUseCase('Sales Enablement')} className="k-p-6" >Sales Enablement</Button>
@@ -202,7 +225,7 @@ export default function ValueProposition() {
                             <Button togglable selected={useCase === 'Other'} onClick={() => setUseCase('Other')} className="k-p-6" >Other</Button>
                         </div>
                     </div>
-                    <div className="k-d-flex k-flex-column k-gap-5 k-bg-surface k-p-5 k-mx-auto k-w-full" style={{ maxWidth: '900px', borderRadius: '28px', boxShadow: '0 2px 6px 0 rgba(13, 10, 44, 0.08)', backdropFilter: 'blur(2px)', backgroundColor: 'rgba(255, 255, 255, 0.5)', border: '1px solid white' }}>
+                    <div className="k-d-flex k-flex-column k-gap-5 k-bg-surface k-p-5 k-mx-auto k-w-full k-box-sizing-border" style={{ maxWidth: '900px', borderRadius: '28px', boxShadow: '0 2px 6px 0 rgba(13, 10, 44, 0.08)', backdropFilter: 'blur(2px)', backgroundColor: 'rgba(255, 255, 255, 0.5)', border: '1px solid white' }}>
                         <h3 className="k-h3 k-align-self-start">Additional Details (Optional)</h3>
                         <textarea 
                             className="k-textarea"
@@ -229,14 +252,14 @@ export default function ValueProposition() {
             ) : (
                 <div className="k-d-flex k-flex-column" style={{ backgroundColor: 'rgba(255, 255, 255, 0.6)', width: '100%' }}>
                     {/* Hero section with title and summary */}
-                    <section className={`k-d-flex k-flex-column k-gap-9 k-align-items-center k-px-8 k-py-16 ${!isLoading ? 'hero' : ''}`} style={{ borderBottom: '1px solid rgba(0, 0, 0, 0.08)', background: 'linear-gradient(180deg, rgba(250, 250, 250, 0.80) 85%, rgba(236, 236, 236, 0.80) 100%)'}}>
+                    <section className={`k-d-flex k-flex-column k-gap-9 k-align-items-center k-py-12 k-px-6 k-gap-8 ${!isLoading ? 'hero' : ''}`} style={{ borderBottom: '1px solid rgba(0, 0, 0, 0.08)', background: 'linear-gradient(180deg, rgba(250, 250, 250, 0.80) 85%, rgba(236, 236, 236, 0.80) 100%)'}}>
                         {isLoading && (
                             <div className="k-d-flex k-flex-column k-gap-6 k-align-items-center">
                                 <h2 className="gradient-heading k-text-center k-mb-0" style={{ fontSize: '36px', lineHeight: '1', fontWeight: 500, letterSpacing: 'normal' }}>
                                     Generating<br />Custom Value Proposition
                                 </h2>
-                                <span className="k-icon k-i-loading" style={{ fontSize: '80px', color: '#2359D4' }}></span>
-                                <p className="k-mb-0" style={{ fontSize: '16px', lineHeight: '1.5', color: '#323130' }}>
+                                <div className="gradient-loader"></div>
+                                <p className="!k-mb-0" style={{ fontSize: '16px', lineHeight: '1.5', color: '#323130' }}>
                                     Analyzing industry requirements...
                                 </p>
                             </div>
@@ -248,7 +271,7 @@ export default function ValueProposition() {
                             </h2>
                         )}
                         
-                        <div className="k-p-6 k-d-flex k-gap-6 test" style={{ 
+                        <div className="k-p-6 k-d-flex k-flex-col k-flex-md-row k-gap-6 k-p-4 k-box-sizing-border user-selection-wrapper" style={{ 
                             maxWidth: '770px', 
                             width: '100%',
                             borderRadius: '20px', 
@@ -259,18 +282,18 @@ export default function ValueProposition() {
                         }}>
                             <div className="k-d-flex k-flex-column k-gap-6 k-flex-1">
                                 <div className="k-d-flex k-flex-column">
-                                    <div style={{ fontSize: '16px', opacity: 0.5, marginBottom: '4px' }}>Industry & Size:</div>
+                                    <div style={{ fontSize: '16px', opacity: 0.5, lineHeight: '1.5' }}>Industry & Size:</div>
                                     <div style={{ fontSize: '20px', fontWeight: 600, lineHeight: '1.5' }}>{industry}</div>
                                     <div style={{ fontSize: '20px', fontWeight: 600, lineHeight: '1.5' }}>{companySize}</div>
                                 </div>
                                 <div className="k-d-flex k-flex-column">
-                                    <div style={{ fontSize: '16px', opacity: 0.5, marginBottom: '4px' }}>Primary Use Case:</div>
+                                    <div style={{ fontSize: '16px', opacity: 0.5, lineHeight: '1.5' }}>Primary Use Case:</div>
                                     <div style={{ fontSize: '20px', fontWeight: 600, lineHeight: '1.5' }}>{useCase}</div>
                                 </div>
                             </div>
                             <div className="k-d-flex k-flex-column k-gap-6 k-flex-1">
                                 <div className="k-d-flex k-flex-column">
-                                    <div style={{ fontSize: '16px', opacity: 0.5, marginBottom: '4px' }}>Data Types:</div>
+                                    <div style={{ fontSize: '16px', opacity: 0.5, lineHeight: '1.5' }}>Data Types:</div>
                                     <div style={{ fontSize: '20px', fontWeight: 600, lineHeight: '1.2' }}>{dataTypes.join(', ')}</div>
                                 </div>
                                 {additionalDetails && (

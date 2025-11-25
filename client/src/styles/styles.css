@@ -297,6 +297,23 @@ html, body, #root {
   font-weight: var(--kendo-font-weight-semibold);
 }
 
+/* Loader gradient styling */
+.gradient-loader {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: relative;
+  background: conic-gradient(from 0deg, #96E5FF 0deg, #82DCFF 30deg, #70C8FF 60deg, #5DBDFF 90deg, #4AABFF 120deg, #4798FF 150deg, #4580FF 180deg, #4570FF 210deg, #4860FF 240deg, #4C50FF 270deg, #5845FF 300deg, #6840FF 330deg, #96E5FF 360deg);
+  -webkit-mask: radial-gradient(circle, transparent 0, transparent 34px, black 34px, black 40px);
+  mask: radial-gradient(circle, transparent 0, transparent 34px, black 34px, black 40px);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .value-proposition .generate-button {
   border-radius: 9999px;
   padding: 16px 24px;
@@ -512,6 +529,10 @@ html, body, #root {
   }
 }
 
+ .heading-wrapper > .k-flex-column {
+    max-width: 100%;
+  }
+
 /* Kendo UI Breakpoints */
 /* Small (sm) - 576px and up */
 @media (min-width: 576px) {
@@ -524,6 +545,21 @@ html, body, #root {
   /* Add md breakpoint styles here */
   .search-input {
     border-radius: var(--kendo-border-radius-full);
+  }
+
+  .heading-wrapper {
+    padding-block: 128px;
+    padding-left: 128px;
+    padding-right: 512px;
+  }
+
+  .heading-wrapper > .k-flex-column {
+    max-width: 800px;
+  }
+
+  .value-proposition > .k-d-flex > section {
+    padding-block: 64px;
+    padding-inline: 32px;
   }
 }
 
