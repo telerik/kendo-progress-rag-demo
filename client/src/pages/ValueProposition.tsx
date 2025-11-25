@@ -4,7 +4,6 @@ import { buildApiUrl } from '../config/api';
 import { renderMarkdown } from '../utils/markdownRenderer';
 import { sparklesIcon } from "@progress/kendo-svg-icons";
 import { VectorsBackground } from '../components/VectorsBackground';
-import './Home.css';
 
 export default function ValueProposition() {
     const [industry, setIndustry] = React.useState<string>('');
