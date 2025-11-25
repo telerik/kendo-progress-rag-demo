@@ -1,6 +1,6 @@
 import React from "react";
 import type { ChatMessageBoxProps, ChatSuggestion } from "@progress/kendo-react-conversational-ui";
-import type { TextBoxChangeEvent } from "@progress/kendo-react-inputs";
+import type { TextAreaChangeEvent } from "@progress/kendo-react-inputs";
 import SearchInput from "./SearchInput";
 import SearchPill from "./SearchPill";
 
@@ -21,7 +21,7 @@ export const ChatMessageBox: React.FC<ChatMessageBoxAdapterProps> = ({
 }) => {
   const [inputValue, setInputValue] = React.useState('');
 
-  const handleChange = (event: TextBoxChangeEvent) => {
+  const handleChange = (event: TextAreaChangeEvent) => {
     setInputValue(String(event.value || ''));
   };
 

@@ -308,10 +308,9 @@ export default function FinanceAnalysis() {
             style={{ 
               flex: 1,
               height: '100%',
-              overflow: 'auto',
+              overflow: 'hidden',
               padding: '24px',
-              backgroundColor: '#ffffff',
-              overflow: "hidden"
+              backgroundColor: '#ffffff'
             }}
           >
             {/* Glassmorphism Card */}

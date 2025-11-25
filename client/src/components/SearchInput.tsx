@@ -36,6 +36,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       onKeyPress={onKeyPress}
       disabled={isLoading}
       rows={1}
+      autoSize={true}
       resizable={'none'}
       prefix={() => (
         <Button
@@ -83,7 +84,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
             size="large"
             style={{ padding: "14px"}}
           />
-          <div class="k-spacer"></div>
+          <div className="k-spacer"></div>
           <Button
             className="send-button"
             rounded="full"
