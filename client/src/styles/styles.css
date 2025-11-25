@@ -124,14 +124,14 @@
   background-color: rgba(255, 255, 255, 0.7);
   border: 1px solid white;
   border-radius: 16px;
-  padding: var(--kendo-spacing-3);
-  font-size: 12px;
+  padding: var(--kendo-spacing-2\.5);
+  font-size: 14px;
   font-weight: 500;
   color: #000000;
   cursor: pointer;
   white-space: nowrap;
   transition: background-color 0.2s ease;
-  line-height: 1.42;
+  line-height: 1;
   box-shadow: var(--kendo-elevation-2);
   font-weight: var(--kendo-font-weight-medium);
 }
@@ -219,6 +219,7 @@
 
 .k-chat {
   background: transparent;
+  max-width: 770px;
 }
 
 .k-chat .k-message-list-content .k-timestamp:empty {
@@ -227,6 +228,24 @@
 
 .k-chat .k-message-list {
   justify-content: flex-end;
+
+}
+
+.k-chat .k-message-list,
+.k-chat .k-message-list-content {
+  /* padding: 0; */
+}
+
+.finance-analysis-chat-default .k-message-list {
+  padding-block: 64px;
+}
+
+.finance-analysis-chat-conversation .k-message-list {
+  padding-block: 32px;
+}
+
+.k-message-box-wrapper {
+ /*  padding: 0; */
 }
 
 /* Agentic RAG Value */
@@ -258,29 +277,6 @@
 
 .value-proposition .generate-button:hover {
   background: linear-gradient(0deg, #000, #000);
-}
-
-.test {
-  position: relative;
-}
-
-.test::after {
-  display: block;
-  content: "";
-  position: absolute;
-  bottom: -40px;
-  width: 110%;
-  height: 60px;
-  left: 0;
-  border-radius: 815px;
-  opacity: 0.6;
-  background: conic-gradient(
-    from 90deg at 47.29% 49.93%,
-    rgba(255, 0, 251, 0.8) 0deg,
-    rgba(0, 200, 255, 0.4) 180deg,
-    rgba(0, 119, 255, 0.8) 360deg
-  );
-  filter: blur(75px);
 }
 
 .nav-link {

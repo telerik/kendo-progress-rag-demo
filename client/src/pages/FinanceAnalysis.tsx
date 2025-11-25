@@ -174,29 +174,42 @@ export default function FinanceAnalysis() {
   }, [chatBot]);
 
   // Render function for the Chat component to avoid duplication
-  const renderChat = () => (
-    <Chat
-      messages={chatBot.messages.length > 1 ? chatBot.messages.slice(1) : chatBot.messages}
-      authorId={chatBot.user.id}
-      onSendMessage={chatBot.addNewMessage}
-      placeholder={isChartsExpanded ? "Ask about a company..." : "Try a suggestion or ask about a company..."}
-      className="k-border-transparent"
-      height="100%"
-      messageTemplate={customMessageTemplate}
-      timestampTemplate={() => null}
-      showUsername={false}
-      messageWidthMode="full"
-      messageBox={(props) => (
-        <ChatMessageBox 
-          {...props} 
-          isLoading={chatBot.isLoading}
-          suggestions={chatBot.messages.length <= 1 ? chatBot.availableSuggestions : []}
-          onSuggestionClick={chatBot.handleSuggestionClick}
-          onSendMessage={handleSendMessage}
-        />
-      )}
-    />
-  );
+  const renderChat = () => {
+    let chatClassName = "k-border-transparent";
+    
+    if (isChartsExpanded) {
+      chatClassName += " finance-analysis-chat-expanded";
+    } else if (chatBot.messages.length > 1) {
+      chatClassName += " finance-analysis-chat-conversation";
+    } else {
+      chatClassName += " finance-analysis-chat-initial";
+    }
+    
+    return (
+      <Chat
+        messages={chatBot.messages.length > 1 ? chatBot.messages.slice(1) : chatBot.messages}
+        authorId={chatBot.user.id}
+        onSendMessage={chatBot.addNewMessage}
+        placeholder={isChartsExpanded ? "Ask about a company..." : "Try a suggestion or ask about a company..."}
+        className={chatClassName}
+        style={{ minHeight: "auto"}}
+        height="100%"
+        messageTemplate={customMessageTemplate}
+        timestampTemplate={() => null}
+        showUsername={false}
+        messageWidthMode="full"
+        messageBox={(props) => (
+          <ChatMessageBox 
+            {...props} 
+            isLoading={chatBot.isLoading}
+            suggestions={chatBot.messages.length <= 1 ? chatBot.availableSuggestions : []}
+            onSuggestionClick={chatBot.handleSuggestionClick}
+            onSendMessage={handleSendMessage}
+          />
+        )}
+      />
+    );
+  };
 
   return (
     <>
@@ -217,8 +230,8 @@ export default function FinanceAnalysis() {
 
         {/* Hero Section - Only show on initial screen */}
         {chatBot.messages.length <= 1 && (
-          <div className="k-d-flex k-flex-column" style={{ paddingTop: '96px', paddingLeft: '128px', paddingRight: '512px', paddingBottom: '64px', position: 'relative', zIndex: 1 }}>
-            <div className="k-d-flex k-flex-column" style={{ width: '100%', gap: '32px' }}>
+          <div className="k-d-flex k-flex-column" style={{ paddingTop: '96px', paddingLeft: '128px', paddingBottom: '96px', position: 'relative', zIndex: 1 }}>
+            <div className="k-d-flex k-flex-column" style={{ width: '100%', gap: '32px', maxWidth: '540px' }}>
               <h1 
                 className="k-mb-0"
                 style={{
@@ -236,7 +249,7 @@ export default function FinanceAnalysis() {
                 Progress Agentic RAG Financial Charts Analysis
               </h1>
               <p 
-                className="k-mb-0"
+                className="!k-mb-0"
                 style={{
                   color: '#535B6A',
                   fontSize: '24px',
@@ -252,8 +265,11 @@ export default function FinanceAnalysis() {
         {/* Page Header */}
         {chatBot.messages.length > 1 && <ChatHeaderTemplate messages={chatBot.messages} />}
         {/* Conversation Area */}
-        <div className="k-d-flex k-flex-column k-flex-1" style={{ paddingLeft: '128px', paddingRight: '128px', paddingBottom: '32px', position: 'relative', zIndex: 1, minHeight: 0 }}>
-          <div style={{  display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <div className="k-d-flex k-flex-column k-flex-1" style={{ paddingLeft: '128px', paddingRight: '128px', paddingBottom: '32px', position: 'relative', zIndex: 1 }}>
+          <div 
+            className={chatBot.messages.length > 1 ? "finance-analysis-chat-wrapper-conversation" : ""}
+            style={{  display: 'flex', flexDirection: 'column', height: '100%', alignItems: "center", justifyContent: "flex-end", padding: "24px", paddingBottom: "8px"}}
+          >
             {renderChat()}
           </div>
         </div>
@@ -266,6 +282,7 @@ export default function FinanceAnalysis() {
           style={{ 
             height: 'calc(100vh - 54px)', 
             width: '100%',
+            alignItems: 'stretch'
           }}
         >
           {/* Left Panel - Chat (393px) */}
@@ -276,21 +293,11 @@ export default function FinanceAnalysis() {
               display: 'flex',
               flexDirection: 'column',
               borderRight: '1px solid #e1e3e8',
-              backgroundColor: '#fafafa'
+              backgroundColor: '#fafafa',
+              border: "1px solid red"
             }}
           >
             <div className="k-d-flex k-flex-column" style={{ padding: '24px', flex: '1', minHeight: 0 }}>
-              <h2 
-                style={{ 
-                  fontSize: '24px',
-                  fontWeight: 700,
-                  marginBottom: '16px',
-                  fontFamily: '"Metric", sans-serif'
-                }}
-              >
-                Finance Analysis
-              </h2>
-              
               <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                 {renderChat()}
               </div>
@@ -304,7 +311,9 @@ export default function FinanceAnalysis() {
               height: '100%',
               overflow: 'auto',
               padding: '24px',
-              backgroundColor: '#ffffff'
+              backgroundColor: '#ffffff',
+              border: "1px solid blue",
+              overflow: "hidden"
             }}
           >
             {/* Glassmorphism Card */}
