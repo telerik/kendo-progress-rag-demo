@@ -1,16 +1,58 @@
+import { useState, useRef, useEffect } from "react";
 import {
   AppBar,
   AppBarSection,
   AppBarSpacer,
 } from "@progress/kendo-react-layout";
+import { Popup } from "@progress/kendo-react-popup";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const imgProgressLogo = `${import.meta.env.BASE_URL}progress-logo.svg`;
+const imgProgressLogoCompact = `${import.meta.env.BASE_URL}progress-logo-compact.svg`;
 
 export default function AppBarComponent() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
+  const [showMenu, setShowMenu] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const menuButtonRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+      if (window.innerWidth >= 1024) {
+        setShowMenu(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        showMenu &&
+        menuButtonRef.current &&
+        !menuButtonRef.current.contains(event.target as Node)
+      ) {
+        const popup = document.querySelector(".mobile-menu-popup");
+        if (popup && !popup.contains(event.target as Node)) {
+          setShowMenu(false);
+        }
+      }
+    };
+
+    if (showMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showMenu]);
 
   const navItems = [
     { label: "Intelligent Search", path: "/ai-search" },
@@ -21,10 +63,15 @@ export default function AppBarComponent() {
 
   const handleNavClick = (path: string) => {
     navigate(path);
+    setShowMenu(false);
   };
 
   const handleLogoClick = () => {
     navigate("/");
+  };
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
   };
 
   if (isHomePage) {
@@ -84,7 +131,7 @@ export default function AppBarComponent() {
         borderBottom: "none",
         boxShadow: "0px 2px 7px 0px rgba(0, 0, 0, 0.08)",
         overflow: "hidden",
-        padding: "15px 32px",
+        padding: isMobile ? "15px 12px" : "15px 32px",
       }}
     >
       <AppBarSection>
@@ -97,9 +144,9 @@ export default function AppBarComponent() {
           }}
           onClick={handleLogoClick}
         >
-          <div style={{ height: "24px", width: "102px", position: "relative" }}>
+          <div style={{ height: "24px", width: isMobile ? "24px" : "102px", position: "relative" }}>
             <img
-              src={imgProgressLogo}
+              src={isMobile ? imgProgressLogoCompact : imgProgressLogo}
               alt="Progress Logo"
               style={{
                 display: "block",
@@ -112,8 +159,8 @@ export default function AppBarComponent() {
           <span
             className="k-font-weight-medium"
             style={{
-              fontSize: "20px",
-              lineHeight: "24px",
+              fontSize: isMobile ? "14px" : "20px",
+              lineHeight: isMobile ? "1" : "24px",
               color: "var(--gray/light/black, #000000)",
               letterSpacing: "var(--kendo-letter-spacing, 0px)",
             }}
@@ -126,19 +173,120 @@ export default function AppBarComponent() {
       <AppBarSpacer />
 
       <AppBarSection>
-        <div style={{ display: "flex", gap: "24px", alignItems: "center" }}>
-          {navItems.map((item) => (
-            <a
-              className={`nav-link ${
-                location.pathname === item.path ? "k-active" : ""
-              }`}
-              key={item.path}
-              onClick={() => handleNavClick(item.path)}
+        {!isMobile ? (
+          <div style={{ display: "flex", gap: "24px", alignItems: "center" }}>
+            {navItems.map((item) => (
+              <a
+                className={`nav-link ${
+                  location.pathname === item.path ? "k-active" : ""
+                }`}
+                key={item.path}
+                onClick={() => handleNavClick(item.path)}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        ) : (
+          <>
+            <div
+              ref={menuButtonRef}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                cursor: "pointer",
+                fontSize: "16px",
+                fontWeight: 400,
+                color: "#000000",
+              }}
+              onClick={toggleMenu}
             >
-              {item.label}
-            </a>
-          ))}
-        </div>
+              MENU
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 18L20 18"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M4 12L20 12"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M4 6L20 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <Popup
+              anchor={menuButtonRef.current}
+              show={showMenu}
+              popupClass="mobile-menu-popup"
+              anchorAlign={{ horizontal: "right", vertical: "bottom" }}
+              popupAlign={{ horizontal: "right", vertical: "top" }}
+            >
+              <div
+                style={{
+                  backgroundColor: "#ffffff",
+                  boxShadow: "0px 4px 10px 0px rgba(0, 0, 0, 0.1)",
+                  borderRadius: "8px",
+                  padding: "8px",
+                  minWidth: "200px",
+                  marginTop: "8px",
+                }}
+              >
+                {navItems.map((item) => (
+                  <div
+                    key={item.path}
+                    style={{
+                      padding: "12px 16px",
+                      cursor: "pointer",
+                      borderRadius: "4px",
+                      fontSize: "16px",
+                      fontWeight:
+                        location.pathname === item.path ? 600 : 400,
+                      color:
+                        location.pathname === item.path
+                          ? "#000000"
+                          : "#A1B0C7",
+                      transition: "all 0.2s ease",
+                    }}
+                    onClick={() => handleNavClick(item.path)}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = "#f5f5f5";
+                      if (location.pathname !== item.path) {
+                        e.currentTarget.style.color = "#000000";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "transparent";
+                      if (location.pathname !== item.path) {
+                        e.currentTarget.style.color = "#A1B0C7";
+                      }
+                    }}
+                  >
+                    {item.label}
+                  </div>
+                ))}
+              </div>
+            </Popup>
+          </>
+        )}
       </AppBarSection>
     </AppBar>
   );
