@@ -64,7 +64,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
       width={220}
       drawerClassName="k-border-none"
     >
-      <DrawerNavigation className="drawer-navigation">
+      <DrawerNavigation className="drawer-navigation k-d-none k-d-lg-flex">
         <div className="k-drawer-items k-h-full">
           {drawerItems.map((item) => (
             <div

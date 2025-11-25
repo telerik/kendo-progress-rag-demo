@@ -293,8 +293,7 @@ export default function FinanceAnalysis() {
               display: 'flex',
               flexDirection: 'column',
               borderRight: '1px solid #e1e3e8',
-              backgroundColor: '#fafafa',
-              border: "1px solid red"
+              backgroundColor: '#fafafa'
             }}
           >
             <div className="k-d-flex k-flex-column" style={{ padding: '24px', flex: '1', minHeight: 0 }}>
@@ -312,7 +311,6 @@ export default function FinanceAnalysis() {
               overflow: 'auto',
               padding: '24px',
               backgroundColor: '#ffffff',
-              border: "1px solid blue",
               overflow: "hidden"
             }}
           >

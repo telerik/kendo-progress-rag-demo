@@ -99,6 +99,7 @@ html, body, #root {
   border-color: #A1B0C7;
   color: #A1B0C7;
   box-shadow: var(--kendo-elevation-2);
+  border-radius: 24px;
 }
 
 /* Target the input inside the TextBox wrapper */
@@ -458,4 +459,34 @@ html, body, #root {
   .footer {
     margin-block-end: var(--kendo-spacing-8);
   }
+}
+
+/* Kendo UI Breakpoints */
+/* Small (sm) - 576px and up */
+@media (min-width: 576px) {
+  /* Add sm breakpoint styles here */
+  
+}
+
+/* Medium (md) - 768px and up */
+@media (min-width: 768px) {
+  /* Add md breakpoint styles here */
+  .search-input {
+    border-radius: var(--kendo-border-radius-full);
+  }
+}
+
+/* Large (lg) - 992px and up */
+@media (min-width: 992px) {
+  /* Add lg breakpoint styles here */
+}
+
+/* Extra Large (xl) - 1200px and up */
+@media (min-width: 1200px) {
+  /* Add xl breakpoint styles here */
+}
+
+/* Extra Extra Large (xxl) - 1400px and up */
+@media (min-width: 1400px) {
+  /* Add xxl breakpoint styles here */
 }
