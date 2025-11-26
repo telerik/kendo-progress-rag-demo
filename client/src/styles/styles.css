@@ -435,7 +435,6 @@ html, body, #root {
 
 .nav-link.k-active {
   color: #000000;
-  font-weight: 600;
 }
 
 .nav-link.k-active::after {
@@ -806,9 +805,14 @@ html, body, #root {
 }
 
 /* Chat Message */
-.chat-message-bot-content {
+.finance-analysis-chat-initial .chat-message-bot-content {
   font-size: 20px;
   line-height: 1.2;
+}
+
+.chat-message-bot-content {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .chat-message-user-bubble {

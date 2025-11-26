@@ -144,7 +144,7 @@ export default function ValueProposition() {
             <section className="k-py-16 k-text-center k-mx-auto k-justify-self-center">
                 <div className="k-mb-16 k-d-flex k-flex-col k-gap-7 gradient-wrapper k-pos-relative">
                     <h2 className="k-h2 !k-mb-0">Configure Your Scenario</h2>
-                    <p className="k-font-size-sm k-line-height-sm !k-mb-0">Tell us about your organization and we'll create a tailored value proposition</p>
+                    <p className="k-font-size-lg !k-mb-0">Tell us about your organization and we'll create a tailored value proposition</p>
                 </div>
 
                 <div className="k-gap-8 k-d-flex k-flex-col">
