@@ -214,20 +214,14 @@ html, body, #root {
 .preview .chat-preview:after {
   content: "";
   display: block;
-  width: 815px;
-  height: 63.344px;
+  height: 100%;
+  width: 63.344px;
   position: absolute;
-  background: conic-gradient(
-    from 270deg at 47.29% 49.93%,
-    rgba(255, 0, 251, 0.6) 0deg,
-    rgba(0, 200, 255, 0.3) 180deg,
-    rgba(0, 119, 255, 0.6) 360deg
-  );
+  background: conic-gradient(from 180deg at 49.93% 47.29%, rgba(255, 0, 251, 0.6) 0deg, rgba(0, 200, 255, 0.3) 180deg, rgba(0, 119, 255, 0.6) 360deg);
   filter: blur(75px);
   opacity: 0.6;
-  top: 50%;
-  right: -400px;
-  transform: translateY(-50%) rotate(270deg);
+  bottom: 0;
+  right: 0;
   transform-origin: center;
   border-radius: 815px;
   pointer-events: none;
