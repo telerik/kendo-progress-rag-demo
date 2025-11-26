@@ -805,7 +805,8 @@ html, body, #root {
 }
 
 /* Chat Message */
-.finance-analysis-chat-initial .chat-message-bot-content {
+.finance-analysis-chat-initial .chat-message-bot-content,
+.knowledge-assistant-chat-wrapper .k-chat .chat-message-bot-content {
   font-size: 20px;
   line-height: 1.2;
 }
