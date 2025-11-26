@@ -271,7 +271,7 @@ export default function ValueProposition() {
                             </h2>
                         )}
                         
-                        <div className={`k-p-6 k-d-flex k-flex-col k-flex-md-row k-gap-6 k-p-4 k-box-sizing-border ${isLoading ? 'user-selection-wrapper-loading' : 'user-selection-wrapper'}`} style={{ 
+                        <div className={`k-p-6 k-d-flex k-flex-col k-flex-md-row k-gap-6 k-p-4 k-box-sizing-border k-w-full ${isLoading ? 'user-selection-wrapper-loading' : 'user-selection-wrapper'}`} style={{ 
                             maxWidth: '770px', 
                             borderRadius: '20px', 
                             backgroundColor: 'rgba(255, 255, 255, 0.5)', 
