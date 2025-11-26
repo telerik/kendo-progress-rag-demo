@@ -22,44 +22,20 @@ const CodeBlockWithCopy: React.FC<CodeBlockWithCopyProps> = ({ code, blockKey })
   };
 
   return (
-    <div key={blockKey} style={{ marginBottom: '12px' }}>
-      <div
-        className="k-d-flex k-align-items-center k-justify-content-space-between k-p-2 k-overflow-x-auto"
-        style={{
-          backgroundColor: 'rgba(250, 250, 250, 0.8)',
-          border: '1px solid #e2e8f0',
-          borderRadius: '6px',
-        }}
-      >
-        <pre 
-          style={{
-            margin: 0,
-            fontFamily: 'Menlo, Monaco, "Courier New", monospace',
-            fontSize: '14px',
-            lineHeight: '20px',
-            color: '#495057',
-            whiteSpace: 'pre'
-          }}
-        >
+    <div key={blockKey} className="code-block-wrapper">
+      <div className="code-block-container k-d-flex k-align-items-center k-justify-content-space-between k-p-2 k-overflow-x-auto">
+        <pre className="code-block-pre">
           {code}
         </pre>
         <Button
           onClick={handleCopy}
           fillMode="flat"
           size="small"
-          style={{
-            minHeight: '24px',
-            minWidth: copied ? 'auto' : '24px',
-            width: copied ? 'auto' : '24px',
-            height: '24px',
-            padding: copied ? '4px 8px' : '4px',
-            flexShrink: 0,
-            marginLeft: '8px'
-          }}
+          className={`code-copy-button ${copied ? 'copied' : ''}`}
           title={copied ? "Copied!" : "Copy code"}
         >
           <SvgIcon icon={copyIcon} size="small" />
-          {copied && <span style={{ marginLeft: '4px', fontSize: '12px' }}>Copied!</span>}
+          {copied && <span className="code-copy-text">Copied!</span>}
         </Button>
       </div>
     </div>

@@ -58,63 +58,29 @@ export default function Home() {
   };
 
   return (
-    <div
-      className="k-pos-relative k-overflow-x-hidden k-overflow-y-auto k-d-flex k-flex-column k-align-items-center k-justify-content-between k-px-md-9 k-px-xs-3"
-      style={{ height: "calc(100vh - 54px)" }}
-    >
+    <div className="home-container k-pos-relative k-overflow-x-hidden k-overflow-y-auto k-d-flex k-flex-column k-align-items-center k-justify-content-between k-px-md-9 k-px-xs-3">
       {/* Gradient background - positioned fixed to viewport */}
-      <div className="k-pos-fixed k-overflow-hidden"
-        style={{
-          top: "54px",
-          left: 0,
-          right: 0,
-          bottom: 0,
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-      >
-        <div className="k-pos-absolute"
-          style={{
-            width: "1266px",
-            height: "331px",
-            left: "50%",
-            top: "calc(50% + 139.5px)",
-            transform: "translate(-50%, -50%)",
-            opacity: 0.6,
-          }}
-        >
-          <div className="k-pos-absolute"
-            style={{
-              top: "-90.63%",
-              right: "-23.7%",
-              bottom: "-90.63%",
-              left: "-23.7%",
-            }}
-          >
-            <img className="k-d-block k-w-full k-h-full"
+      <div className="home-background-fixed k-pos-fixed k-overflow-hidden">
+        <div className="home-background-gradient k-pos-absolute">
+          <div className="home-background-gradient-inner k-pos-absolute">
+            <img className="home-background-image k-d-block k-w-full k-h-full"
               src={imgBackground}
               alt=""
-              style={{
-                maxWidth: "none",
-              }}
             />
           </div>
         </div>
       </div>
 
       {/* Main heading + Subtitle */}
-      <section className="k-pos-relative" style={{ zIndex: 1 }}>
+      <section className="home-section k-pos-relative">
         <div className="k-d-flex k-align-items-center k-justify-content-center hero-wrapper">
           <div className="k-d-flex k-flex-column k-text-center k-flex-1 k-gap-8">
-            <h1
-              className="gradient-heading k-mt-20 k-mb-8"
-              style={{ padding: "10px" }}
-            >
+            <h1 className="gradient-heading home-heading-padding k-mt-20 k-mb-8">
               Supercharging
               <br />
               AI-Powered Applications
             </h1>
-            <p className="k-font-size-xl k-text-center k-flex-1 k-mb-0">
+            <p className="k-font-size-xl k-text-center k-flex-1 !k-mb-0">
               Build AI-powered apps that look great, are easy to use, and rely
               on accurate, trustworthy data— <br />
               so they deliver real value where it counts.
@@ -124,7 +90,7 @@ export default function Home() {
       </section>
 
       {/* Search bar */}
-      <section className="k-pos-relative" style={{ zIndex: 1 }}>
+      <section className="home-section k-pos-relative">
         <div className="k-mt-17 k-d-flex k-flex-column k-align-items-center k-justify-content-between k-gap-25">
           <SearchInput
             query={searchQuery}
@@ -136,7 +102,7 @@ export default function Home() {
           />
           {/* Explore Demos section */}
           <div className="k-d-flex k-flex-column k-align-items-center k-w-full">
-            <p className="k-font-size-xl k-font-weight-medium k-text-center k-mb-0 k-mb-4">
+            <p className="k-font-size-xl k-font-weight-medium k-text-center !k-mb-0 k-mb-4">
               Explore Demos
             </p>
             <div className="k-d-flex k-flex-wrap k-justify-content-center k-align-items-center k-gap-lg-8 k-gap-md-6 k-gap-3 k-w-full">
@@ -148,9 +114,9 @@ export default function Home() {
                 >
                   <div className="demo-card-icon">
                     <img
+                      className="home-demo-icon"
                       src={demo.icon}
                       alt={demo.name}
-                      style={{ width: "48px", height: "48px" }}
                     />
                   </div>
                   <div className="k-font-size-md">{demo.name}</div>

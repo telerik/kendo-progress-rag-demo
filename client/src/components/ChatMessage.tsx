@@ -13,7 +13,7 @@ const ChatMessage: React.FC<ChatMessageTemplateProps> = ({ item }) => {
     if (!isSenderMessage) {
       const markdownElements = renderMarkdown(item.text);
       return (
-        <div style={{ fontSize: '20px', lineHeight: '1.2' }}>
+        <div className="chat-message-bot-content">
           {markdownElements}
         </div>
       );
@@ -21,13 +21,7 @@ const ChatMessage: React.FC<ChatMessageTemplateProps> = ({ item }) => {
 
     // For user messages, render with design styling
     return (
-      <p style={{ 
-        margin: 0,
-        fontSize: '16px',
-        lineHeight: '1.5',
-        fontFamily: '"Metric", sans-serif',
-        color: '#ffffff'
-      }}>
+      <p className="chat-message-user-text !k-mb-0">
         {item.text}
       </p>
     );
@@ -37,17 +31,7 @@ const ChatMessage: React.FC<ChatMessageTemplateProps> = ({ item }) => {
   if (isSenderMessage) {
     return (
       <div className="k-chat-message-content">
-        <div
-          className=" k-py-3 k-px-4"
-          style={{
-            backgroundColor: '#A1B0C7',
-            color: '#ffffff',
-            borderRadius: '12px 12px 2px 12px',
-            maxWidth: '284px',
-            fontSize: '16px',
-            lineHeight: '1.5'
-          }}
-        >
+        <div className="chat-message-user-bubble k-py-3 k-px-4">
           {renderContent()}
         </div>
       </div>

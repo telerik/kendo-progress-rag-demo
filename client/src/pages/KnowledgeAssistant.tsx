@@ -40,40 +40,19 @@ const KnowledgeAssistant = () => {
 
   return (
     <DrawerComponent>
-      <div 
-        className="k-d-flex k-flex-column k-overflow-x-hidden k-pos-relative k-h-full" 
-        style={{ 
-          backgroundColor: 'rgba(255, 255, 255, 0.6)',
-        }}
-      >
+      <div className="knowledge-assistant-container k-d-flex k-flex-column k-overflow-x-hidden k-pos-relative k-h-full">
 
         {/* Background Illustration with Vectors - Only show in idle state */}
         <VectorsBackground show={!hasConversationStarted} />
 
         {/* Hero Section - Only visible in idle state */}
         {!hasConversationStarted && (
-          <div className="k-d-flex k-flex-column knowledge-assistant-hero-wrapper k-pos-relative" style={{ zIndex: 1 }}>
-            <div className="k-d-flex k-flex-column k-w-full k-gap-9" style={{ maxWidth: '770px' }}>
-              <h1 
-                className="k-mb-0 k-h1"
-                style={{
-                  background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
+          <div className="knowledge-assistant-hero k-d-flex k-flex-column knowledge-assistant-hero-wrapper k-pos-relative">
+            <div className="knowledge-assistant-hero-content k-d-flex k-flex-column k-w-full k-gap-9">
+              <h1 className="knowledge-assistant-title !k-mb-0 k-h1">
                 Progress Agentic RAG Knowledge Assistant
               </h1>
-              <p 
-                className="k-mb-0"
-                style={{
-                  color: '#535B6A',
-                  fontSize: '24px',
-                  lineHeight: '1.2',
-                  fontFamily: '"Metric", sans-serif'
-                }}
-              >
+              <p className="knowledge-assistant-description !k-mb-0">
                 Use AI search to quickly find accurate, relevant information about Progress Agentic RAG—its features, capabilities, and best practices.
               </p>
             </div>
@@ -81,20 +60,8 @@ const KnowledgeAssistant = () => {
         )}
         {hasConversationStarted && <ChatHeaderTemplate messages={chatBot.messages} />}
         {/* Chat Component */}
-        <div 
-          className="k-d-flex k-flex-column k-flex-1 k-align-items-center k-w-full conversation-container"
-          style={{ 
-            boxSizing: 'border-box',
-            padding: hasConversationStarted ? '24px' : '',
-          }}
-        >
-          <div 
-            className={`chat-content-wrapper k-w-full k-d-flex k-flex-column k-pos-relative ${!hasConversationStarted ? 'show-gradient' : ''}`}
-            style={{ 
-            maxWidth: '770px',
-            boxSizing: 'border-box',
-            flex: hasConversationStarted ? '1' : 'none',
-          }}>
+        <div className={`knowledge-assistant-conversation k-d-flex k-flex-column k-flex-1 k-align-items-center k-w-full conversation-container ${hasConversationStarted ? 'knowledge-assistant-conversation-started' : ''}`}>
+          <div className={`knowledge-assistant-chat-wrapper chat-content-wrapper k-w-full k-d-flex k-flex-column k-pos-relative ${!hasConversationStarted ? 'show-gradient' : ''} ${hasConversationStarted ? 'knowledge-assistant-chat-flex-full' : 'knowledge-assistant-chat-flex-none'}`}>
             <Chat
               messages={hasConversationStarted ? chatBot.messages.slice(1) : chatBot.messages}
               authorId={chatBot.user.id}

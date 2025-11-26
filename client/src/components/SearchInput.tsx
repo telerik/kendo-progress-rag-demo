@@ -37,10 +37,6 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 
   return (
     <TextArea
-      style={{ 
-        padding: "2px",
-        whiteSpace: 'nowrap'
-      }}
       className={'search-input k-white-space-none k-align-items-center k-flex-col k-flex-md-row k-w-full k-p-0.5'}
       rounded="full"
       size="large"
@@ -54,23 +50,21 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       resizable={'none'}
       prefix={() => (
         <Button
-          className="k-d-none k-d-md-inline-flex"
+          className="search-input-button k-d-none k-d-md-inline-flex"
           rounded="full"
           svgIcon={plusIcon}
           size="large"
           fillMode="clear"
-          style={{ padding: "11px"}}
         />
       )}
       suffix={() => (
         <>
           <Button
-            className="k-d-none k-d-md-inline-flex"
+            className="search-input-button k-d-none k-d-md-inline-flex"
             rounded="full"
             svgIcon={microphoneOutlineIcon}
             fillMode="clear"
             size="large"
-            style={{ padding: "11px"}}
           />
           <Button
             className="send-button k-d-none k-d-md-inline-flex"
@@ -79,34 +73,31 @@ export const SearchInput: React.FC<SearchInputProps> = ({
             onClick={onSearchClick}
             disabled={isLoading}
             size="large"
-            style={{ padding: "11px", color: '#fff', backgroundColor: '#A1B0C7'}}
           />
           <div className="k-d-flex k-d-md-none k-align-items-stretch k-w-full">
             <Button
+              className="search-input-button"
               rounded="full"
               svgIcon={plusIcon}
               size="large"
               fillMode="clear"
-              style={{ padding: "11px"}}
             />
             <Button
-            rounded="full"
-            svgIcon={microphoneOutlineIcon}
-            fillMode="clear"
-            size="large"
-            style={{ padding: "11px"}}
-          />
-          <div className="k-spacer"></div>
-          <Button
-            className="send-button"
-            rounded="full"
-            svgIcon={arrowUpIcon}
-            onClick={onSearchClick}
-            disabled={isLoading}
-            size="large"
-            style={{ padding: "11px", color: '#fff', backgroundColor: '#A1B0C7'}}
-          />
-
+              className="search-input-button"
+              rounded="full"
+              svgIcon={microphoneOutlineIcon}
+              fillMode="clear"
+              size="large"
+            />
+            <div className="k-spacer"></div>
+            <Button
+              className="send-button"
+              rounded="full"
+              svgIcon={arrowUpIcon}
+              onClick={onSearchClick}
+              disabled={isLoading}
+              size="large"
+            />
           </div>
         </>
       )}

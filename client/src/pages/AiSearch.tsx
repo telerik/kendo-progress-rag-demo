@@ -132,41 +132,13 @@ export default function AiSearch() {
   const hasResults = (answer || isLoading || currentQuestion);
 
   return (
-    <div 
-      className="k-pos-relative k-overflow-x-hidden k-overflow-y-auto" 
-      style={{ 
-        height: 'calc(100vh - 54px)',
-        backgroundColor: 'rgba(255, 255, 255, 0.6)',
-        maxWidth: '100vw',
-        boxSizing: 'border-box'
-      }}
-    >
+    <div className="ai-search-container k-pos-relative k-overflow-x-hidden k-overflow-y-auto">
       {/* Decorative circle background - only show when no results */}
       {!hasResults && (
         <>
-          <div 
-            className="k-pos-absolute"
-            style={{
-              left: '50%',
-              top: '545px',
-              transform: 'translateX(-50%)',
-              width: '930px',
-              height: '169px',
-              opacity: 0.6,
-              pointerEvents: 'none',
-              zIndex: 0
-            }}
-          >
-            <div className="k-pos-absolute"
-              style={{
-                inset: '-177.57% -32.26%'
-              }}
-            >
-              <div className="k-w-full k-h-full"
-                style={{
-                  background: 'radial-gradient(ellipse at center, rgba(193, 88, 228, 0.15) 0%, rgba(0, 187, 255, 0.1) 50%, transparent 70%)'
-                }}
-              />
+          <div className="ai-search-decorative-circle k-pos-absolute">
+            <div className="ai-search-decorative-inner k-pos-absolute">
+              <div className="ai-search-gradient-bg k-w-full k-h-full" />
             </div>
           </div>
 
@@ -176,46 +148,24 @@ export default function AiSearch() {
       )}
 
       {/* Main content container */}
-      <div className="k-d-flex k-flex-column k-pos-relative k-overflow-hidden" style={{ zIndex: 1, maxWidth: '100%' }}>
+      <div className="ai-search-content k-d-flex k-flex-column k-pos-relative k-overflow-hidden">
         {/* Header section - changes based on hasResults */}
         {!hasResults ? (
           // Initial state: Large header with description
           <>
-            <div 
-              className="k-d-flex k-flex-column k-gap-8 rag-hero-wrapper"
-            >
-              <h1 
-                className="k-mb-0 k-h1"
-                style={{
-                  background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
+            <div className="k-d-flex k-flex-column k-gap-8 rag-hero-wrapper">
+              <h1 className="ai-search-title !k-mb-0 k-h1">
                 Discover
                 <br />
                 Progress Agentic RAG Knowledge
               </h1>
-              <p 
-                className="k-mb-0"
-                style={{
-                  fontSize: '24px',
-                  lineHeight: '1.2',
-                  color: '#535B6A'
-                }}
-              >
+              <p className="ai-search-description !k-mb-0">
                 Search our comprehensive Nuclia knowledge base with AI-powered intelligent search for precise, contextual results about Nuclia features, capabilities, and best practices
               </p>
             </div>
 
             {/* Search input section - centered horizontally */}
-            <div 
-              className="k-d-flex k-flex-column k-gap-8 search-input-wrapper k-w-full"
-              style={{
-                maxWidth: '770px'
-              }}
-            >
+            <div className="ai-search-input-wrapper k-d-flex k-flex-column k-gap-8 search-input-wrapper k-w-full">
               <SearchInput
                 query={query}
                 onQueryChange={handleQueryChange}
@@ -227,20 +177,10 @@ export default function AiSearch() {
 
               {/* Popular searches section */}
               <div className="k-d-flex k-flex-column k-w-full k-gap-3">
-                <p 
-                  className="k-mb-0"
-                  style={{
-                    fontSize: '14px',
-                    lineHeight: '1.5',
-                    color: '#212529',
-                    textAlign: 'left'
-                  }}
-                >
+                <p className="ai-search-popular-label !k-mb-0">
                   Popular searches:
                 </p>
-                <div 
-                  className="k-d-flex k-flex-wrap k-gap-1.5 k-justify-content-flex-start"
-                >
+                <div className="k-d-flex k-flex-wrap k-gap-1.5 k-justify-content-flex-start">
                   {popularSearches.map((searchText, index) => (
                     <SearchPill key={index} text={searchText} onClick={handleExampleSearch} disabled={isLoading} />
                   ))}
@@ -250,95 +190,26 @@ export default function AiSearch() {
           </>
         ) : (
           // Results state: Compact header with integrated search
-          <div 
-            className="k-d-flex k-flex-column k-gap-9 k-pos-relative hero"
-            style={{
-              borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
-              paddingLeft: '32px',
-              paddingRight: '32px',
-              paddingTop: '64px',
-              paddingBottom: '64px',
-              isolation: 'isolate',
-              maxWidth: '100%',
-              boxSizing: 'border-box'
-            }}
-          >
+          <div className="ai-search-results-hero k-d-flex k-flex-column k-gap-9 k-pos-relative hero">
             {/* Decorative elements container with overflow clipping */}
-            <div 
-              className="k-pos-absolute k-overflow-hidden"
-              style={{
-                inset: 0,
-                pointerEvents: 'none',
-                zIndex: 0
-              }}
-            >
+            <div className="ai-search-results-decorative-container k-pos-absolute k-overflow-hidden">
               {/* Decorative gradient circle behind title */}
-              <div 
-                className="k-pos-absolute"
-                style={{
-                  left: '50%',
-                  top: '162px',
-                  transform: 'translateX(-50%) rotate(180deg)',
-                  width: '815px',
-                  height: '63px',
-                  opacity: 0.6
-                }}
-              >
-                <div className="k-pos-absolute"
-                  style={{
-                    inset: '-236.8% -18.4%'
-                  }}
-                >
-                  <div className="k-w-full k-h-full"
-                    style={{
-                      background: 'radial-gradient(ellipse at center, rgba(193, 88, 228, 0.15) 0%, rgba(0, 187, 255, 0.1) 50%, transparent 70%)'
-                    }}
-                  />
+              <div className="ai-search-results-gradient-circle k-pos-absolute">
+                <div className="ai-search-results-gradient-inner k-pos-absolute">
+                  <div className="ai-search-gradient-bg k-w-full k-h-full" />
                 </div>
               </div>
 
               {/* Vertical gradient shadow */}
-              <div 
-                className="k-pos-absolute"
-                style={{
-                  left: '50%',
-                  top: '207px',
-                  transform: 'translateX(-50%) rotate(90deg) scaleY(-1)',
-                  width: '32px',
-                  height: '1440px',
-                  opacity: 0.3,
-                  background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0) 100%)'
-                }}
-              />
+              <div className="ai-search-results-shadow k-pos-absolute" />
             </div>
 
-            <h1 
-              className="k-mb-0 k-text-center k-pos-relative"
-              style={{
-                fontSize: '36px',
-                fontWeight: 500,
-                lineHeight: '1.3',
-                background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                maxWidth: '800px',
-                margin: '0 auto',
-                zIndex: 1,
-                paddingBottom: '4px'
-              }}
-            >
+            <h1 className="ai-search-results-title !k-mb-0 k-text-center k-pos-relative">
               Discover Progress Agentic RAG Knowledge
             </h1>
 
             {/* Search input - centered and integrated */}
-            <div className="k-w-full k-pos-relative"
-              style={{
-                maxWidth: '770px',
-                margin: '0 auto',
-                zIndex: 1
-              }}
-            >
+            <div className="ai-search-results-input-wrapper k-w-full k-pos-relative">
               <SearchInput
                 query={query}
                 onQueryChange={handleQueryChange}
@@ -353,20 +224,8 @@ export default function AiSearch() {
 
         {/* Results section */}
         {hasResults && (
-          <div 
-            className="k-d-flex k-flex-column k-overflow-hidden k-w-full results-section"
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.7)'
-            }}
-          >
-            <div 
-              className="k-d-flex k-flex-column k-gap-16 k-w-full results-content"
-              style={{
-                maxWidth: '770px',
-                margin: '0 auto',
-                minWidth: 0
-              }}
-            >
+          <div className="ai-search-results-section k-d-flex k-flex-column k-overflow-hidden k-w-full results-section">
+            <div className="ai-search-results-content-wrapper k-d-flex k-flex-column k-gap-16 k-w-full results-content">
               {/* Answer content */}
               {isLoading && (
                 <GradientLoader 
@@ -376,15 +235,7 @@ export default function AiSearch() {
               )}
               
               {!isLoading && answer && (
-                <div 
-                  style={{
-                    fontSize: '16px',
-                    lineHeight: '1.5',
-                    color: '#000000',
-                    overflowWrap: 'break-word',
-                    wordBreak: 'break-word'
-                  }}
-                >
+                <div className="ai-search-answer-text">
                   {renderMarkdown(answer)}
                 </div>
               )}
@@ -392,20 +243,10 @@ export default function AiSearch() {
               {/* Related searches section */}
               {!isLoading && answer && (
                 <div className="k-d-flex k-flex-column k-gap-3">
-                  <p 
-                    className="k-mb-0"
-                    style={{
-                      fontSize: '14px',
-                      lineHeight: '1.5',
-                      color: '#212529',
-                      textAlign: 'left'
-                    }}
-                  >
+                  <p className="ai-search-popular-label !k-mb-0">
                     Related searches:
                   </p>
-                  <div 
-                    className="k-d-flex k-flex-wrap k-justify-content-flex-start k-gap-1"
-                  >
+                  <div className="k-d-flex k-flex-wrap k-justify-content-flex-start k-gap-1">
                     {popularSearches.map((searchText, index) => (
                       <SearchPill key={index} text={searchText} onClick={handleExampleSearch} disabled={isLoading} />
                     ))}

@@ -28,9 +28,7 @@ function ChartThumbnail({ onClick }: ChartThumbnailProps) {
   return (
     <div 
       onClick={onClick}
-      style={{
-        cursor: 'pointer'
-      }}
+      className="chart-thumbnail"
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="250" height="200" viewBox="0 0 262 202" fill="none">
         <g filter="url(#filter0_d_550_2324)">
@@ -240,8 +238,7 @@ export default function FinanceAnalysis() {
         messages={chatBot.messages.length > 1 ? chatBot.messages.slice(1) : chatBot.messages}
         authorId={chatBot.user.id}
         onSendMessage={chatBot.addNewMessage}
-        className={chatClassName}
-        style={{ minHeight: "auto", width: "100%"}}
+        className={`${chatClassName} finance-analysis-chat`}
         height="100%"
         messageTemplate={customMessageTemplate}
         timestampTemplate={() => null}
@@ -267,12 +264,7 @@ export default function FinanceAnalysis() {
       {!isChartsExpanded ? (
         // Default Single-Column Layout with Drawer
         <DrawerComponent>
-          <div 
-            className="k-d-flex k-flex-column k-overflow-x-hidden k-justify-content-between k-pos-relative k-h-full financial-analysis" 
-            style={{ 
-              backgroundColor: 'rgba(255, 255, 255, 0.6)',
-            }}
-          >
+          <div className="finance-analysis-container k-d-flex k-flex-column k-overflow-x-hidden k-justify-content-between k-pos-relative k-h-full financial-analysis">
 
         {/* Background Illustration with Vectors - Only show on initial screen */}
         <VectorsBackground show={chatBot.messages.length <= 1} />
@@ -281,26 +273,10 @@ export default function FinanceAnalysis() {
         {chatBot.messages.length <= 1 && (
           <div className="k-d-flex k-flex-column k-pos-relative k-p-12 hero">
             <div className="k-d-flex k-flex-column k-w-full k-gap-8">
-              <h1 
-                className="k-mb-0 k-h1"
-                style={{
-                  background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
+              <h1 className="finance-analysis-title !k-mb-0 k-h1">
                 Progress Agentic RAG Financial Charts Analysis
               </h1>
-              <p 
-                className="!k-mb-0"
-                style={{
-                  color: '#535B6A',
-                  fontSize: '24px',
-                  lineHeight: '1.2',
-                  fontFamily: '"Metric", sans-serif'
-                }}
-              >
+              <p className="finance-analysis-description !k-mb-0">
                 Use AI search to quickly find accurate, relevant information about Progress Agentic RAG—its features, capabilities, and best practices.
               </p>
             </div>
@@ -309,7 +285,7 @@ export default function FinanceAnalysis() {
         {/* Page Header */}
         {chatBot.messages.length > 1 && <ChatHeaderTemplate messages={chatBot.messages} />}
         {/* Conversation Area */}
-        <div className={`k-d-flex k-flex-column k-flex-1 k-p-6 k-gap-8 chat-wrapper ${chatBot.messages.length <= 1 ? 'show-gradient' : ''}`} style={{ position: 'relative' }}>
+        <div className={`finance-analysis-chat-wrapper k-d-flex k-flex-column k-flex-1 k-p-6 k-gap-8 chat-wrapper ${chatBot.messages.length <= 1 ? 'show-gradient' : ''}`}>
           <div 
             className={`k-d-flex k-flex-column k-align-items-center k-justify-content-flex-end k-h-full ${chatBot.messages.length > 1 ? "finance-analysis-chat-wrapper-conversation" : ""}`}
           >
@@ -320,10 +296,7 @@ export default function FinanceAnalysis() {
         </DrawerComponent>
       ) : (
         // Two-Panel Expanded Layout (No Drawer)
-        <div className="k-overflow-auto preview-wrapper k-d-flex k-flex-col"
-          
-          style={{ height: 'calc(100vh - 54px)'}}
-        >
+        <div className="finance-preview-wrapper k-overflow-auto preview-wrapper k-d-flex k-flex-col">
           {/* Page Header */}
           <ChatHeaderTemplate messages={chatBot.messages} />
           <div className="k-d-grid k-grid-cols-1 k-grid-cols-xl-2 preview k-flex-1">
@@ -333,33 +306,15 @@ export default function FinanceAnalysis() {
           </div>
 
           {/* Right Panel - Charts (flex-1) */}
-          <div className="k-d-flex k-flex-col k-py-4 k-align-content-center charts-preview" style={{ 
-              
-              border: "1px solid #FFF",
-              background: "rgba(255, 255, 255, 0.50)",
-              boxShadow: "0 4px 12px 0 rgba(13, 10, 44, 0.08)",
-              backdropFilter: "blur(2px)"
-
-
-
-          }}>
+          <div className="finance-charts-preview k-d-flex k-flex-col k-py-4 k-align-content-center charts-preview">
             {/* Glassmorphism Card */}
-            <div className="k-d-flex k-flex-column k-text-center k-align-self-center k-w-full"
-              style={{
-                maxWidth: "679px",
-                gap: "20px",
-              }}
-            >
+            <div className="finance-charts-container k-d-flex k-flex-column k-text-center k-align-self-center k-w-full">
               {/* Close Button */}
               <Button
-                className="k-pos-absolute"
+                className="finance-close-button k-pos-absolute"
                 onClick={() => setIsChartsExpanded(false)}
                 fillMode="flat"
                 rounded="full"
-                style={{
-                  top: '16px',
-                  right: '16px'
-                }}
               >
                 <SvgIcon icon={xIcon} size="medium" />
               </Button>

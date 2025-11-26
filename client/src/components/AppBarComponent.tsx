@@ -77,42 +77,21 @@ export default function AppBarComponent() {
   if (isHomePage) {
     return (
       <AppBar
-        className="k-overflow-hidden"
+        className="app-bar k-overflow-hidden"
         positionMode="sticky"
-        style={{
-          background: "#ffffff",
-          borderBottom: "none",
-          boxShadow: "0px 2px 7px 0px rgba(0, 0, 0, 0.08)",
-          padding: "15px 32px",
-        }}
       >
         <AppBarSection className="k-justify-content-center k-gap-2 k-w-full k-flex-lg-row k-flex-col k-pos-relative">
           <div
-            style={{
-              height: "24px",
-              width: "102px",
-              cursor: "pointer",
-            }}
+            className="app-bar-logo-container"
             onClick={handleLogoClick}
           >
             <img
-              className="k-d-block k-h-full k-w-full"
+              className="app-bar-logo-image k-d-block k-h-full k-w-full"
               src={imgProgressLogo}
               alt="Progress Logo"
-              style={{
-                maxWidth: "none",
-              }}
             />
           </div>
-          <p
-            className="!k-m-0 k-font-weight-medium k-text-center"
-            style={{
-              fontSize: "20px",
-              lineHeight: "1",
-              color: "#000000",
-              letterSpacing: "var(--kendo-letter-spacing, 0px)",
-            }}
-          >
+          <p className="app-bar-title !k-m-0 k-font-weight-medium k-text-center">
             Progress Agentic RAG + Telerik DevTools
           </p>
         </AppBarSection>
@@ -122,42 +101,22 @@ export default function AppBarComponent() {
 
   return (
     <AppBar
-      className="k-overflow-hidden"
+      className={`app-bar ${isMobile ? 'app-bar-mobile' : ''} k-overflow-hidden`}
       positionMode="sticky"
-      style={{
-        background: "#ffffff",
-        borderBottom: "none",
-        boxShadow: "0px 2px 7px 0px rgba(0, 0, 0, 0.08)",
-        padding: isMobile ? "15px 12px" : "15px 32px",
-      }}
     >
       <AppBarSection>
         <div
-          className="k-d-flex k-align-items-center k-gap-2"
-          style={{
-            cursor: "pointer",
-          }}
+          className="app-bar-logo-wrapper k-d-flex k-align-items-center k-gap-2"
           onClick={handleLogoClick}
         >
-          <div className="k-pos-relative" style={{ height: "24px", width: isMobile ? "24px" : "102px" }}>
+          <div className={`k-pos-relative ${isMobile ? 'app-bar-logo-compact-container' : 'app-bar-logo-full-container'}`}>
             <img
-              className="k-d-block k-h-full k-w-full"
+              className="app-bar-logo-image k-d-block k-h-full k-w-full"
               src={isMobile ? imgProgressLogoCompact : imgProgressLogo}
               alt="Progress Logo"
-              style={{
-                maxWidth: "none",
-              }}
             />
           </div>
-          <span
-            className="k-font-weight-medium"
-            style={{
-              fontSize: isMobile ? "14px" : "20px",
-              lineHeight: isMobile ? "1" : "24px",
-              color: "#000000",
-              letterSpacing: "var(--kendo-letter-spacing, 0px)",
-            }}
-          >
+          <span className={`k-font-weight-medium ${isMobile ? 'app-bar-title-mobile' : 'app-bar-title-desktop'}`}>
             Agentic RAG + Telerik DevTools
           </span>
         </div>
@@ -183,14 +142,8 @@ export default function AppBarComponent() {
         ) : (
           <>
             <div
-              className="k-d-flex k-align-items-center k-gap-2"
+              className="app-bar-menu-button k-d-flex k-align-items-center k-gap-2"
               ref={menuButtonRef}
-              style={{
-                cursor: "pointer",
-                fontSize: "16px",
-                fontWeight: 400,
-                color: "#000000",
-              }}
               onClick={toggleMenu}
             >
               MENU
@@ -231,45 +184,12 @@ export default function AppBarComponent() {
               anchorAlign={{ horizontal: "right", vertical: "bottom" }}
               popupAlign={{ horizontal: "right", vertical: "top" }}
             >
-              <div
-                style={{
-                  backgroundColor: "#ffffff",
-                  boxShadow: "0px 4px 10px 0px rgba(0, 0, 0, 0.1)",
-                  borderRadius: "8px",
-                  padding: "8px",
-                  minWidth: "200px",
-                  marginTop: "8px",
-                }}
-              >
+              <div className="mobile-menu-popup-content">
                 {navItems.map((item) => (
                   <div
                     key={item.path}
-                    style={{
-                      padding: "12px 16px",
-                      cursor: "pointer",
-                      borderRadius: "4px",
-                      fontSize: "16px",
-                      fontWeight:
-                        location.pathname === item.path ? 600 : 400,
-                      color:
-                        location.pathname === item.path
-                          ? "#000000"
-                          : "#A1B0C7",
-                      transition: "all 0.2s ease",
-                    }}
+                    className={`mobile-menu-item ${location.pathname === item.path ? 'active' : ''}`}
                     onClick={() => handleNavClick(item.path)}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = "#f5f5f5";
-                      if (location.pathname !== item.path) {
-                        e.currentTarget.style.color = "#000000";
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "transparent";
-                      if (location.pathname !== item.path) {
-                        e.currentTarget.style.color = "#A1B0C7";
-                      }
-                    }}
                   >
                     {item.label}
                   </div>

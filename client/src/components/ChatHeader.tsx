@@ -25,18 +25,7 @@ const ChatHeaderTemplate: React.FC<ChatHeaderTemplateProps> = ({
   }
 
   return (
-    <div
-      className="k-d-flex k-justify-content-space-between k-align-items-center k-px-4 k-py-2"
-      style={{
-        fontSize: "16px",
-        lineHeight: "1.5",
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
-        backdropFilter: "blur(10px)",
-        WebkitBackdropFilter: "blur(10px)",
-        borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
-        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
-      }}
-    >
+    <div className="chat-header k-d-flex k-justify-content-space-between k-align-items-center k-px-4 k-py-2">
       <span>{firstUserMessage.text}</span>
       <Button imageUrl={shareIcon} fillMode="flat">
         Share
