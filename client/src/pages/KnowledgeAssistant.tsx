@@ -50,7 +50,7 @@ const KnowledgeAssistant = () => {
       >
 
         {/* Background Illustration with Vectors - Only show in idle state */}
-        <VectorsBackground width="569px" height="725px" show={!hasConversationStarted} />
+        <VectorsBackground show={!hasConversationStarted} />
 
         {/* Hero Section - Only visible in idle state */}
         {!hasConversationStarted && (

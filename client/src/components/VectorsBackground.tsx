@@ -7,8 +7,8 @@ interface VectorsBackgroundProps {
 }
 
 export function VectorsBackground({
-  width = '569px',
-  height = '704px',
+  width = '472px',
+  height = '523px',
   show = true
 }: VectorsBackgroundProps) {
   if (!show) return null;

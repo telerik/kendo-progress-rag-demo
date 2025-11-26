@@ -173,7 +173,7 @@ export default function AiSearch() {
           </div>
 
           {/* Decorative network visualization image on the right */}
-          <VectorsBackground width="569px" height="725px" show={true} />
+          <VectorsBackground show={true} />
         </>
       )}
 

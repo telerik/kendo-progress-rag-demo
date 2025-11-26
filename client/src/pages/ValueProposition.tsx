@@ -127,7 +127,7 @@ export default function ValueProposition() {
         <div className="k-overflow-y-aut k-overflow-x-hidden value-proposition k-pos-relative" style={{ height: 'calc(100vh - 54px)' }}>
             {!hasResults ? (
             <>
-            <VectorsBackground width="569px" height="704px" show={true} />
+            <VectorsBackground show={true} />
             <div className="k-d-flex k-flex-column" style={{ paddingTop: '96px', paddingLeft: '128px', paddingBottom: '96px', position: 'relative', zIndex: 1 }}>
                 <div className="k-d-flex k-flex-column" style={{ width: '100%', gap: '32px', maxWidth: '540px' }}>
                     <h1 
