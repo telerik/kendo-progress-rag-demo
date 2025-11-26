@@ -506,6 +506,10 @@ html, body, #root {
     width: 100%;
     white-space: normal;
   }
+
+  .demo-card {
+    flex: 1;
+  }
 }
 
 /* Kendo UI Breakpoints */
