@@ -213,6 +213,7 @@ export default function ValueProposition() {
                             className="value-proposition-textarea k-textarea"
                             placeholder="Provide any additional context about your organization, specific challenges, or requirements that would help create a more targeted value proposition..."
                             rows={4}
+                            resizable={'none'}
                             value={additionalDetails}
                             onChange={(e) => setAdditionalDetails(e.value || '')}
                         />

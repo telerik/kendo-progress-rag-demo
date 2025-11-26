@@ -25,7 +25,7 @@ const ChatHeaderTemplate: React.FC<ChatHeaderTemplateProps> = ({
   }
 
   return (
-    <div className="chat-header k-d-flex k-justify-content-space-between k-align-items-center k-px-4 k-py-2">
+    <div className="chat-header k-d-flex k-justify-content-between k-align-items-center k-px-4 k-py-2">
       <span>{firstUserMessage.text}</span>
       <Button imageUrl={shareIcon} fillMode="flat">
         Share

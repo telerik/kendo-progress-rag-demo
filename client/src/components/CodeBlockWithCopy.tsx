@@ -23,7 +23,7 @@ const CodeBlockWithCopy: React.FC<CodeBlockWithCopyProps> = ({ code, blockKey })
 
   return (
     <div key={blockKey} className="code-block-wrapper">
-      <div className="code-block-container k-d-flex k-align-items-center k-justify-content-space-between k-p-2 k-overflow-x-auto">
+      <div className="code-block-container k-d-flex k-align-items-center k-justify-content-between k-p-2 k-overflow-x-auto">
         <pre className="code-block-pre">
           {code}
         </pre>
