@@ -277,52 +277,39 @@ export default function FinanceAnalysis() {
         </DrawerComponent>
       ) : (
         // Two-Panel Expanded Layout (No Drawer)
-        <div 
-          className="k-d-flex k-overflow-x-hidden k-overflow-y-auto" 
-          style={{ 
-            height: 'calc(100vh - 54px)', 
-            width: '100%',
-            alignItems: 'stretch'
-          }}
+        <div className="k-overflow-auto preview-wrapper"
+          
+          style={{ height: 'calc(100vh - 54px)'}}
         >
+          {/* Page Header */}
+          <ChatHeaderTemplate messages={chatBot.messages} />
+          <div className="k-d-grid k-grid-cols-1 k-grid-cols-xl-2 k-overflow-auto preview">
           {/* Left Panel - Chat (393px) */}
-          <div 
-            style={{ 
-              width: '393px',
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              borderRight: '1px solid #e1e3e8',
-              backgroundColor: '#fafafa'
-            }}
-          >
-            <div className="k-d-flex k-flex-column" style={{ padding: '24px', flex: '1', minHeight: 0 }}>
-              <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                {renderChat()}
-              </div>
-            </div>
+          <div className="k-align-self-end k-d-none k-d-xl-flex chat-preview k-pos-relative">
+            {renderChat()}
           </div>
 
           {/* Right Panel - Charts (flex-1) */}
-          <div 
-            style={{ 
-              flex: 1,
-              height: '100%',
-              overflow: 'hidden',
-              padding: '24px',
-              backgroundColor: '#ffffff'
-            }}
-          >
+          <div className="k-d-flex k-flex-col k-py-4 k-align-content-center charts-preview" style={{ 
+              
+              border: "1px solid #FFF",
+              background: "rgba(255, 255, 255, 0.50)",
+              boxShadow: "0 4px 12px 0 rgba(13, 10, 44, 0.08)",
+              backdropFilter: "blur(2px)"
+
+
+
+          }}>
             {/* Glassmorphism Card */}
-            <div 
+            <div className="k-align-self-center k-gap-9 "
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.18)',
-                borderRadius: '16px',
-                padding: '24px',
-                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.1)',
-                position: 'relative'
+                
+                maxWidth: "679px",
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                    gap: "20px",
+                    textAlign: "center"
               }}
             >
               {/* Close Button */}
@@ -340,19 +327,13 @@ export default function FinanceAnalysis() {
               </Button>
 
               {/* Charts Display */}
-              <div className="k-d-flex k-flex-col k-gap-6">
+              <div className="k-d-flex k-flex-col k-gap-2.5">
                 {selectedCharts.slice(0, 3).map((chart, idx) => (
                   <div key={idx} className="k-d-flex k-flex-col">
-                    <h4 
-                      style={{ 
-                        fontSize: '20px',
-                        fontWeight: 600,
-                        marginBottom: '16px',
-                        fontFamily: '"Metric", sans-serif'
-                      }}
+                    <p className="!k-mb-0 k-font-weight-medium k-color-subtle"
                     >
                       {chart.title}
-                    </h4>
+                    </p>
                     <Chart style={{ minHeight: "300px", width: "100%" }}>
                       <ChartCategoryAxis>
                         <ChartCategoryAxisItem
@@ -381,6 +362,7 @@ export default function FinanceAnalysis() {
                 ))}
               </div>
             </div>
+          </div>
           </div>
         </div>
       )}

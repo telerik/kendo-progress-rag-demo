@@ -42,10 +42,12 @@ html, body, #root {
 :root {
   /* Primary Colors */
   --kendo-color-primary: #225eff;
+  --kendo-color-subtle: #515C7C;
 
   /* Border Colors */
   --kendo-color-border: #dee2e6;
   --kendo-color-border-alt: #ced4da;
+
 
   /* Custom colors for gradient and accents (from Home.css) */
   --overlay-30: rgba(255, 255, 255, 0.3);
@@ -194,7 +196,8 @@ html, body, #root {
   overflow: hidden;
 }
 
-.k-drawer-wrapper::after {
+.k-drawer-wrapper::after,
+.preview .chat-preview:after {
   content: "";
   display: block;
   width: 815px;
@@ -608,6 +611,20 @@ html, body, #root {
   
   .gradient-heading {
     font-size: 72px;
+  }
+  /* Add xl breakpoint styles here */
+  .chat-preview {
+    padding: 32px;
+  }
+
+  .preview-wrapper > .preview {
+    grid-template-columns: 393px 1fr;
+    padding: 32px;
+    gap: 36px;
+  }
+
+  .charts-preview {
+    border-radius: 20px;
   }
 }
 
