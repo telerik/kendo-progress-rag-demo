@@ -55,17 +55,12 @@ const KnowledgeAssistant = () => {
           <div className="k-d-flex k-flex-column knowledge-assistant-hero-wrapper k-pos-relative" style={{ zIndex: 1 }}>
             <div className="k-d-flex k-flex-column k-w-full k-gap-9" style={{ maxWidth: '770px' }}>
               <h1 
-                className="k-mb-0"
+                className="k-mb-0 k-h1"
                 style={{
                   background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
-                  fontSize: '56px',
-                  fontWeight: 500,
-                  lineHeight: 1.1,
-                  letterSpacing: '-1.12px',
-                  fontFamily: '"Metric", sans-serif'
                 }}
               >
                 Progress Agentic RAG Knowledge Assistant

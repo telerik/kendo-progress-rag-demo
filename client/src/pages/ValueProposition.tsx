@@ -130,19 +130,16 @@ export default function ValueProposition() {
             {!hasResults ? (
             <>
             <VectorsBackground show={true} />
-            <div className="k-d-flex k-flex-column" style={{ paddingTop: '96px', paddingLeft: '128px', paddingBottom: '96px', position: 'relative', zIndex: 1 }}>
-                <div className="k-d-flex k-flex-column" style={{ width: '100%', gap: '32px', maxWidth: '540px' }}>
+            {/* Hero Section */}
+            <div className="k-d-flex k-flex-column k-pos-relative k-p-12 hero">
+                <div className="k-d-flex k-flex-column k-w-full k-gap-8">
                     <h1 
-                        className="k-mb-0"
+                        className="k-mb-0 k-h1"
                         style={{
                             background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             backgroundClip: 'text',
-                            fontSize: '56px',
-                            fontWeight: 500,
-                            lineHeight: 1,
-                            letterSpacing: '-1.12px',
                         }}
                     >
                         Progress Agentic RAG Value
@@ -160,8 +157,8 @@ export default function ValueProposition() {
                     </p>
                 </div>
             </div>
-            <section className="k-py-16 k-text-center k-mx-auto">
-                <div className="k-mb-16 k-d-flex k-flex-col k-gap-7 gradient-wrapper">
+            <section className="k-py-16 k-text-center k-mx-auto k-justify-self-center">
+                <div className="k-mb-16 k-d-flex k-flex-col k-gap-7 gradient-wrapper k-pos-relative">
                     <h2 className="k-h2 !k-mb-0">Configure Your Scenario</h2>
                     <p className="k-font-size-sm k-line-height-sm !k-mb-0">Tell us about your organization and we'll create a tailored value proposition</p>
                 </div>

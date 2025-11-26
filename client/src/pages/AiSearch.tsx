@@ -185,17 +185,12 @@ export default function AiSearch() {
               className="k-d-flex k-flex-column k-gap-8 rag-hero-wrapper"
             >
               <h1 
-                className="k-mb-0"
+                className="k-mb-0 k-h1"
                 style={{
-                  fontSize: '56px',
-                  fontWeight: 500,
-                  lineHeight: '1',
-                  letterSpacing: '-1.12px',
                   background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
-                  paddingBottom: '4px'
                 }}
               >
                 Discover
