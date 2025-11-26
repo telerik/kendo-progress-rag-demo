@@ -323,13 +323,13 @@ export default function FinanceAnalysis() {
         </DrawerComponent>
       ) : (
         // Two-Panel Expanded Layout (No Drawer)
-        <div className="k-overflow-auto preview-wrapper"
+        <div className="k-overflow-auto preview-wrapper k-d-flex k-flex-col"
           
           style={{ height: 'calc(100vh - 54px)'}}
         >
           {/* Page Header */}
           <ChatHeaderTemplate messages={chatBot.messages} />
-          <div className="k-d-grid k-grid-cols-1 k-grid-cols-xl-2 preview">
+          <div className="k-d-grid k-grid-cols-1 k-grid-cols-xl-2 preview k-flex-1">
           {/* Left Panel - Chat (393px) */}
           <div className="k-align-self-end k-d-none k-d-xl-flex chat-preview k-pos-relative">
             {renderChat()}
