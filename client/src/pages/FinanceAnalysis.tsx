@@ -311,7 +311,7 @@ export default function FinanceAnalysis() {
         {/* Page Header */}
         {chatBot.messages.length > 1 && <ChatHeaderTemplate messages={chatBot.messages} />}
         {/* Conversation Area */}
-        <div className="k-d-flex k-flex-column k-flex-1 k-p-6 k-gap-8 chat-wrapper">
+        <div className={`k-d-flex k-flex-column k-flex-1 k-p-6 k-gap-8 chat-wrapper ${chatBot.messages.length <= 1 ? 'show-gradient' : ''}`} style={{ position: 'relative' }}>
           <div 
             className={chatBot.messages.length > 1 ? "finance-analysis-chat-wrapper-conversation" : ""}
             style={{  display: 'flex', flexDirection: 'column', height: '100%', alignItems: "center", justifyContent: "flex-end"}}

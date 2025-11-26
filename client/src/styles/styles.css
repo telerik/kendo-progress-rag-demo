@@ -233,6 +233,51 @@ html, body, #root {
   pointer-events: none;
 }
 
+/* Financial Analysis gradient - positioned higher in the content, only shown before conversation starts */
+.financial-analysis .chat-wrapper.show-gradient::after {
+  content: "";
+  display: block;
+  width: 815px;
+  height: 63.344px;
+  position: absolute;
+  background: conic-gradient(
+    from 270deg at 47.29% 49.93%,
+    rgba(255, 0, 251, 0.6) 0deg,
+    rgba(0, 200, 255, 0.3) 180deg,
+    rgba(0, 119, 255, 0.6) 360deg
+  );
+  filter: blur(75px);
+  opacity: 0.6;
+  left: 184px;
+  bottom: 115px;
+  border-radius: 815px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Knowledge Assistant gradient - positioned lower in the content, only shown before conversation starts */
+.chat-content-wrapper.show-gradient::after {
+  content: "";
+  display: block;
+  width: 815px;
+  height: 63.344px;
+  position: absolute;
+  background: conic-gradient(
+    from 270deg at 47.29% 49.93%,
+    rgba(255, 0, 251, 0.6) 0deg,
+    rgba(0, 200, 255, 0.3) 180deg,
+    rgba(0, 119, 255, 0.6) 360deg
+  );
+  filter: blur(75px);
+  opacity: 0.6;
+  left: 50%;
+  bottom: 115px;
+  transform: translateX(-50%);
+  border-radius: 815px;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .k-drawer-item {
   border-radius: 12px;
   border: 1px solid transparent;

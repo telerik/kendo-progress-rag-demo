@@ -48,21 +48,6 @@ const KnowledgeAssistant = () => {
           position: 'relative',
         }}
       >
-        {/* Background Illustration Blur Ellipse */}
-        <div 
-          style={{
-            position: 'absolute',
-            width: '815px',
-            height: '63.344px',
-            left: '184px',
-            top: '789.66px',
-            opacity: 0.6,
-            pointerEvents: 'none',
-            background: 'conic-gradient(from 270deg at 47.29% 49.93%, rgba(255, 0, 251, 0.60) 0deg, rgba(0, 200, 255, 0.30) 180deg, rgba(0, 119, 255, 0.60) 360deg)',
-            filter: 'blur(75px)',
-            borderRadius: '815px'
-          }}
-        />
 
         {/* Background Illustration with Vectors - Only show in idle state */}
         <VectorsBackground width="569px" height="725px" show={!hasConversationStarted} />
@@ -104,21 +89,24 @@ const KnowledgeAssistant = () => {
         {hasConversationStarted && <ChatHeaderTemplate messages={chatBot.messages} />}
         {/* Chat Component */}
         <div 
-          className="k-d-flex k-flex-column k-flex-1 conversation-container" 
+          className="k-d-flex k-flex-column k-flex-1 conversation-container"
           style={{ 
             width: '100%',
             alignItems: 'center',
             boxSizing: 'border-box',
-            padding: hasConversationStarted ? '24px' : ''
+            padding: hasConversationStarted ? '24px' : '',
           }}
         >
-          <div style={{ 
+          <div 
+            className={`chat-content-wrapper ${!hasConversationStarted ? 'show-gradient' : ''}`}
+            style={{ 
             width: '100%',
             maxWidth: '770px',
             display: 'flex',
             flexDirection: 'column',
             boxSizing: 'border-box',
-            flex: hasConversationStarted ? '1' : 'none'
+            flex: hasConversationStarted ? '1' : 'none',
+            position: 'relative'
           }}>
             <Chat
               messages={hasConversationStarted ? chatBot.messages.slice(1) : chatBot.messages}
