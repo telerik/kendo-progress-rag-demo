@@ -26,11 +26,8 @@ const ChatHeaderTemplate: React.FC<ChatHeaderTemplateProps> = ({
 
   return (
     <div
+      className="k-d-flex k-justify-content-space-between k-align-items-center k-px-4 k-py-2"
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "4px 16px",
         fontSize: "16px",
         lineHeight: "1.5",
         backgroundColor: "rgba(255, 255, 255, 0.8)",

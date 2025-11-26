@@ -23,16 +23,12 @@ const CodeBlockWithCopy: React.FC<CodeBlockWithCopyProps> = ({ code, blockKey })
 
   return (
     <div key={blockKey} style={{ marginBottom: '12px' }}>
-      <div 
+      <div
+        className="k-d-flex k-align-items-center k-justify-content-space-between k-p-2 k-overflow-x-auto"
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
           backgroundColor: 'rgba(250, 250, 250, 0.8)',
           border: '1px solid #e2e8f0',
           borderRadius: '6px',
-          padding: '8px',
-          overflowX: 'auto'
         }}
       >
         <pre 

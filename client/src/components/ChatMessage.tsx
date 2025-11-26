@@ -37,11 +37,11 @@ const ChatMessage: React.FC<ChatMessageTemplateProps> = ({ item }) => {
   if (isSenderMessage) {
     return (
       <div className="k-chat-message-content">
-        <div 
+        <div
+          className=" k-py-3 k-px-4"
           style={{
             backgroundColor: '#A1B0C7',
             color: '#ffffff',
-            padding: '12px 16px',
             borderRadius: '12px 12px 2px 12px',
             maxWidth: '284px',
             fontSize: '16px',

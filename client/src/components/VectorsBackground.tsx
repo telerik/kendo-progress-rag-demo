@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface VectorsBackgroundProps {
   width?: string;
   height?: string;
@@ -15,25 +13,21 @@ export function VectorsBackground({
 
   return (
     <div
+      className="k-pos-absolute k-overflow-visible"
       style={{
-        position: 'absolute',
         right: '0',
         top: '0',
         width,
         height,
-        overflow: 'visible',
         pointerEvents: 'none',
         zIndex: 1
       }}
     >
       <img
+        className="k-h-full k-w-full k-d-block k-pos-absolute"
         src={`${import.meta.env.BASE_URL}vectors.svg`}
         alt=""
         style={{
-          width: '100%',
-          height: '100%',
-          display: 'block',
-          position: 'absolute',
           right: '0',
           top: '0'
         }}

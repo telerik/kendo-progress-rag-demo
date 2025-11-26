@@ -77,33 +77,30 @@ export default function AppBarComponent() {
   if (isHomePage) {
     return (
       <AppBar
+        className="k-overflow-hidden"
         positionMode="sticky"
         style={{
           background: "#ffffff",
           borderBottom: "none",
           boxShadow: "0px 2px 7px 0px rgba(0, 0, 0, 0.08)",
-          overflow: "hidden",
           padding: "15px 32px",
         }}
       >
-        <AppBarSection className="k-justify-content-center k-gap-2 k-w-full k-flex-lg-row k-flex-col">
+        <AppBarSection className="k-justify-content-center k-gap-2 k-w-full k-flex-lg-row k-flex-col k-pos-relative">
           <div
             style={{
               height: "24px",
               width: "102px",
-              position: "relative",
               cursor: "pointer",
             }}
             onClick={handleLogoClick}
           >
             <img
+              className="k-d-block k-h-full k-w-full"
               src={imgProgressLogo}
               alt="Progress Logo"
               style={{
-                display: "block",
                 maxWidth: "none",
-                width: "100%",
-                height: "100%",
               }}
             />
           </div>
@@ -112,7 +109,7 @@ export default function AppBarComponent() {
             style={{
               fontSize: "20px",
               lineHeight: "1",
-              color: "var(--gray/light/black, #000000)",
+              color: "#000000",
               letterSpacing: "var(--kendo-letter-spacing, 0px)",
             }}
           >
@@ -125,34 +122,30 @@ export default function AppBarComponent() {
 
   return (
     <AppBar
+      className="k-overflow-hidden"
       positionMode="sticky"
       style={{
         background: "#ffffff",
         borderBottom: "none",
         boxShadow: "0px 2px 7px 0px rgba(0, 0, 0, 0.08)",
-        overflow: "hidden",
         padding: isMobile ? "15px 12px" : "15px 32px",
       }}
     >
       <AppBarSection>
         <div
+          className="k-d-flex k-align-items-center k-gap-2"
           style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
             cursor: "pointer",
           }}
           onClick={handleLogoClick}
         >
-          <div style={{ height: "24px", width: isMobile ? "24px" : "102px", position: "relative" }}>
+          <div className="k-pos-relative" style={{ height: "24px", width: isMobile ? "24px" : "102px" }}>
             <img
+              className="k-d-block k-h-full k-w-full"
               src={isMobile ? imgProgressLogoCompact : imgProgressLogo}
               alt="Progress Logo"
               style={{
-                display: "block",
                 maxWidth: "none",
-                width: "100%",
-                height: "100%",
               }}
             />
           </div>
@@ -161,7 +154,7 @@ export default function AppBarComponent() {
             style={{
               fontSize: isMobile ? "14px" : "20px",
               lineHeight: isMobile ? "1" : "24px",
-              color: "var(--gray/light/black, #000000)",
+              color: "#000000",
               letterSpacing: "var(--kendo-letter-spacing, 0px)",
             }}
           >
@@ -174,7 +167,7 @@ export default function AppBarComponent() {
 
       <AppBarSection>
         {!isMobile ? (
-          <div style={{ display: "flex", gap: "24px", alignItems: "center" }}>
+          <div className="k-d-flex k-gap-6 k-align-items-center">
             {navItems.map((item) => (
               <a
                 className={`nav-link ${
@@ -190,11 +183,9 @@ export default function AppBarComponent() {
         ) : (
           <>
             <div
+              className="k-d-flex k-align-items-center k-gap-2"
               ref={menuButtonRef}
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
                 cursor: "pointer",
                 fontSize: "16px",
                 fontWeight: 400,

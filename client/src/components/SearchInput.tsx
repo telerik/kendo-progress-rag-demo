@@ -38,11 +38,10 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   return (
     <TextArea
       style={{ 
-        width: '100%',
         padding: "2px",
         whiteSpace: 'nowrap'
       }}
-      className={'search-input k-white-space-none k-align-items-center k-flex-col k-flex-md-row'}
+      className={'search-input k-white-space-none k-align-items-center k-flex-col k-flex-md-row k-w-full k-p-0.5'}
       rounded="full"
       size="large"
       placeholder={placeholder}
