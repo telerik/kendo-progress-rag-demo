@@ -29,12 +29,14 @@ export interface UseChatBotReturn {
   latestResponse: StreamingResponse | null;
   availableSuggestions: ChatSuggestion[];
   resetSuggestions: () => void;
+  placeholder: string;
 }
 
 export const useChatBot = (config: ChatBotConfig): UseChatBotReturn => {
   const user: User = {
     id: 1,
     name: 'Demo User',
+    avatarUrl: `${import.meta.env.BASE_URL}drawer-user.svg`
   };
 
   const bot: User = {
@@ -226,6 +228,7 @@ export const useChatBot = (config: ChatBotConfig): UseChatBotReturn => {
     isLoading,
     latestResponse,
     availableSuggestions,
-    resetSuggestions
+    resetSuggestions,
+    placeholder: config.placeholder || 'Type a message...'
   };
 };

@@ -25,6 +25,13 @@ const nuclia_fin_charts: Nuclia = new Nuclia({
   apiKey: process.env.NUCLIA_FIN_API_KEY,
 });
 
+const nuclia_verse: Nuclia = new Nuclia({
+  backend: 'https://nuclia.cloud/api',
+  zone: 'aws-us-east-2-1',
+  knowledgeBox: process.env.NUCLIA_VERSE_KB,
+  apiKey: process.env.NUCLIA_VERSE_API_KEY,
+});
+
 app.get("/api/health", (_req: express.Request, res: express.Response) => {
   res.json({ status: "ok" });
 });
@@ -127,6 +134,10 @@ app.post("/api/ask-charts", (req: express.Request, res: express.Response) => {
   };
 
   return askHandler(req, res, nuclia_fin_charts.knowledgeBox, req.body.question, chatOptions);
+});
+
+app.post("/api/ask-nuclia", (req: express.Request, res: express.Response) => {
+  return askHandler(req, res, nuclia_verse.knowledgeBox, req.body.question);
 });
 
 const PORT = process.env.PORT || 5000;

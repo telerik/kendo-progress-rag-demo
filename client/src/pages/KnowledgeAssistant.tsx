@@ -1,10 +1,13 @@
 import { Chat, type ChatSuggestion } from "@progress/kendo-react-conversational-ui";
 import ChatMessage from "../components/ChatMessage";
 import { useChatBot } from '../hooks/useChatBot';
-import { SvgIcon } from "@progress/kendo-react-common";
-import { searchIcon } from "@progress/kendo-svg-icons";
+import DrawerComponent from "../components/DrawerComponent";
+import { VectorsBackground } from "../components/VectorsBackground";
+import ChatMessageBox from '../components/ChatMessageBox';
+import ChatHeaderTemplate from '../components/ChatHeader';
 
 const KnowledgeAssistant = () => {
+  
   // Predefined suggestions related to Kendo React
   const kendoSuggestions: ChatSuggestion[] = [
     {
@@ -26,37 +29,74 @@ const KnowledgeAssistant = () => {
 
   const chatBot = useChatBot({
     botName: 'Progress Agentic RAG Assistant',
-    initialMessage: 'Hello! I\'m your Progress Agentic RAG AI assistant. I can help you with KendoReact questions and documentation. Try one of the suggestions below, or ask me anything about KendoReact components, theming, data visualization, and more!',
+    initialMessage: '👋 Hello! I\'m your Progress Agentic RAG AI assistant. I can help you with KendoReact questions and documentation. Try one of the suggestions below, or ask me anything about KendoReact like:\n- components\n- theming\n- data visualization\n- and more!',
     apiEndpoint: '/api/ask',
     placeholder: 'Try a suggestion or ask about KendoReact...',
     suggestions: kendoSuggestions
   });
 
+  // Check if conversation has started (more than initial message)
+  const hasConversationStarted = chatBot.messages.length > 1;
+
   return (
-    <div className="k-d-flex k-flex-column k-overflow-auto k-pb-4" style={{ height: 'calc(100vh - 53px)', background: 'linear-gradient(134deg, #23A5D4 14.27%, #2E7BD2 49.62%, #20B4CB 85.65%)'}}>
-      <div className="k-color-surface k-d-flex k-flex-column k-align-items-center k-py-4 k-py-sm-6 k-py-md-4 k-px-4 k-px-sm-6 k-px-md-8 k-px-lg-12 k-px-xl-20 k-gap-2 k-gap-sm-3 k-gap-md-3 k-flex-none">
-        <div className="k-d-flex k-flex-column k-gap-2 k-gap-sm-3 k-gap-md-3">
-          <div className="k-d-flex k-gap-2 k-align-items-center">
-            <SvgIcon icon={searchIcon} size="xxlarge" className="k-flex-shrink-0" />
-            <h1 className="k-h1 !k-mb-0">Progress Agentic RAG Knowledge Assistant</h1>
+    <DrawerComponent>
+      <div className="knowledge-assistant-container k-d-flex k-flex-column k-overflow-x-hidden k-pos-relative k-h-full">
+
+        {/* Background Illustration with Vectors - Only show in idle state */}
+        <VectorsBackground show={!hasConversationStarted} />
+
+        {/* Hero Section - Only visible in idle state */}
+        {!hasConversationStarted && (
+          <div className="knowledge-assistant-hero k-d-flex k-flex-column knowledge-assistant-hero-wrapper k-pos-relative">
+            <div className="knowledge-assistant-hero-content k-d-flex k-flex-column k-w-full k-gap-9">
+              <h1 className="knowledge-assistant-title !k-mb-0 k-h1">
+                Progress Agentic RAG Knowledge Assistant
+              </h1>
+              <p className="knowledge-assistant-description !k-mb-0">
+                Use AI search to quickly find accurate, relevant information about Progress Agentic RAG—its features, capabilities, and best practices.
+              </p>
+            </div>
           </div>
-          <p className="!k-mb-0 k-font-size-xl k-d-none k-d-sm-block">Explore the comprehensive Progress Agentic RAG knowledge base with AI-powered intelligent search for precise, contextual results about Progress Agentic RAG features, capabilities, and best practices</p>
+        )}
+        {hasConversationStarted && <ChatHeaderTemplate messages={chatBot.messages} />}
+        {/* Chat Component */}
+        <div className={`knowledge-assistant-conversation k-d-flex k-flex-column k-flex-1 k-align-items-center k-w-full conversation-container ${hasConversationStarted ? 'knowledge-assistant-conversation-started' : ''}`}>
+          <div className={`knowledge-assistant-chat-wrapper chat-content-wrapper k-w-full k-d-flex k-flex-column k-pos-relative ${!hasConversationStarted ? 'show-gradient' : ''} ${hasConversationStarted ? 'knowledge-assistant-chat-flex-full' : 'knowledge-assistant-chat-flex-none'}`}>
+            <Chat
+              messages={hasConversationStarted ? chatBot.messages.slice(1) : chatBot.messages}
+              authorId={chatBot.user.id}
+              onSendMessage={chatBot.addNewMessage}
+              placeholder="Try a suggestion or ask about KendoReact"
+              className="k-border-transparent"
+              height={hasConversationStarted ? "100%" : undefined}
+              messageTemplate={ChatMessage}
+              timestampTemplate={() => null }
+              showUsername={false}
+              messageWidthMode="full"
+              messageBox={(props) => (
+                <ChatMessageBox 
+                  {...props} 
+                  isLoading={chatBot.isLoading}
+                  suggestions={chatBot.messages.length <= 1 ? chatBot.availableSuggestions : []}
+                  onSuggestionClick={chatBot.handleSuggestionClick}
+                  placeholder={chatBot.placeholder}
+                  onSendMessage={(text) => {
+                    chatBot.addNewMessage({
+                      message: {
+                        id: Date.now(),
+                        author: chatBot.user,
+                        timestamp: new Date(),
+                        text
+                      }
+                    });
+                  }}
+                />
+              )}
+            />
+          </div>
         </div>
       </div>
-      <div className="k-d-flex k-flex-column k-px-4 k-px-sm-6 k-px-md-8 k-px-lg-12 k-px-xl-20 k-pb-4 k-flex-1 k-min-h-0">
-        <Chat
-          messages={chatBot.messages}
-          authorId={chatBot.user.id}
-          onSendMessage={chatBot.addNewMessage}
-          placeholder={'Try a suggestion or ask about KendoReact...'}
-          className="k-border-transparent"
-          height="100%"
-          messageTemplate={ChatMessage}
-          suggestions={chatBot.availableSuggestions}
-          onSuggestionClick={chatBot.handleSuggestionClick}
-        />
-      </div>
-    </div>
+    </DrawerComponent>
   );
 }
 

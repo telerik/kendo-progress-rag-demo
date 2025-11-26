@@ -4,6 +4,7 @@ import App from './App.tsx'
 
 import '@progress/kendo-theme-bootstrap/dist/all.css'
 import '@progress/kendo-theme-utils/dist/all.css'
+import './styles/styles.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
