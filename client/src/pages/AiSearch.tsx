@@ -6,6 +6,7 @@ import { renderMarkdown } from '../utils/markdownRenderer';
 import { SearchPill } from '../components/SearchPill';
 import { SearchInput } from '../components/SearchInput';
 import { VectorsBackground } from '../components/VectorsBackground';
+import { GradientLoader } from '../components/GradientLoader';
 
 export default function AiSearch() {
   const location = useLocation();
@@ -373,15 +374,10 @@ export default function AiSearch() {
             >
               {/* Answer content */}
               {isLoading && (
-                <div className="k-d-flex k-flex-column k-gap-6 k-align-items-center k-py-8">
-                  <h2 className="gradient-heading k-text-center k-mb-0" style={{ fontSize: '36px', lineHeight: '1', fontWeight: 500, letterSpacing: 'normal' }}>
-                    Searching<br />Knowledge Base
-                  </h2>
-                  <span className="k-icon k-i-loading" style={{ fontSize: '80px', color: '#2359D4' }}></span>
-                  <p className="k-mb-0" style={{ fontSize: '16px', lineHeight: '1.5', color: '#323130' }}>
-                    Analyzing your query...
-                  </p>
-                </div>
+                <GradientLoader 
+                  title="Searching<br />Knowledge Base" 
+                  subtitle="Analyzing your query..." 
+                />
               )}
               
               {!isLoading && answer && (

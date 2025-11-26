@@ -5,6 +5,7 @@ import { buildApiUrl } from '../config/api';
 import { renderMarkdown } from '../utils/markdownRenderer';
 import { sparklesIcon } from "@progress/kendo-svg-icons";
 import { VectorsBackground } from '../components/VectorsBackground';
+import { GradientLoader } from '../components/GradientLoader';
 
 export default function ValueProposition() {
     const [industry, setIndustry] = React.useState<string>('');
@@ -254,15 +255,10 @@ export default function ValueProposition() {
                     {/* Hero section with title and summary */}
                     <section className={`k-d-flex k-flex-column k-gap-9 k-align-items-center k-py-12 k-px-6 k-gap-8 ${!isLoading ? 'hero' : ''}`} style={{ borderBottom: '1px solid rgba(0, 0, 0, 0.08)', background: 'linear-gradient(180deg, rgba(250, 250, 250, 0.80) 85%, rgba(236, 236, 236, 0.80) 100%)'}}>
                         {isLoading && (
-                            <div className="k-d-flex k-flex-column k-gap-6 k-align-items-center">
-                                <h2 className="gradient-heading k-text-center k-mb-0" style={{ fontSize: '36px', lineHeight: '1', fontWeight: 500, letterSpacing: 'normal' }}>
-                                    Generating<br />Custom Value Proposition
-                                </h2>
-                                <div className="gradient-loader"></div>
-                                <p className="!k-mb-0" style={{ fontSize: '16px', lineHeight: '1.5', color: '#323130' }}>
-                                    Analyzing industry requirements...
-                                </p>
-                            </div>
+                            <GradientLoader 
+                                title="Generating<br />Custom Value Proposition" 
+                                subtitle="Analyzing industry requirements..." 
+                            />
                         )}
                         
                         {!isLoading && (
