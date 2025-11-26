@@ -160,7 +160,7 @@ export default function ValueProposition() {
                 </div>
             </div>
             <section className="k-py-16 k-text-center k-mx-auto">
-                <div className="k-mb-16 k-d-flex k-flex-col k-gap-7">
+                <div className="k-mb-16 k-d-flex k-flex-col k-gap-7 gradient-wrapper">
                     <h2 className="k-h2 !k-mb-0">Configure Your Scenario</h2>
                     <p className="k-font-size-sm k-line-height-sm !k-mb-0">Tell us about your organization and we'll create a tailored value proposition</p>
                 </div>
@@ -271,7 +271,7 @@ export default function ValueProposition() {
                             </h2>
                         )}
                         
-                        <div className="k-p-6 k-d-flex k-flex-col k-flex-md-row k-gap-6 k-p-4 k-box-sizing-border k-w-full user-selection-wrapper" style={{ 
+                        <div className={`k-p-6 k-d-flex k-flex-col k-flex-md-row k-gap-6 k-p-4 k-box-sizing-border ${isLoading ? 'user-selection-wrapper-loading' : 'user-selection-wrapper'}`} style={{ 
                             maxWidth: '770px', 
                             borderRadius: '20px', 
                             backgroundColor: 'rgba(255, 255, 255, 0.5)', 
