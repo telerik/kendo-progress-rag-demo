@@ -70,6 +70,22 @@ jobs:
                 "value": "${{ secrets.NUCLIA_FIN_API_KEY }}"
               },
               {
+                "name": "NUCLIA_FIN_KB",
+                "value": "${{ secrets.NUCLIA_FIN_KB }}"
+              },
+              {
+                "name": "NUCLIA_FIN_API_KEY", 
+                "value": "${{ secrets.NUCLIA_FIN_API_KEY }}"
+              },
+              {
+                "name": "NUCLIA_VERSE_KB",
+                "value": "${{ secrets.NUCLIA_VERSE_KB }}"
+              },
+              {
+                "name": "NUCLIA_VERSE_API_KEY", 
+                "value": "${{ secrets.NUCLIA_VERSE_API_KEY }}"
+              },
+              {
                 "name": "NODE_ENV",
                 "value": "production"
               }
