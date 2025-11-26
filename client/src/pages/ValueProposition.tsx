@@ -141,7 +141,6 @@ export default function ValueProposition() {
                             fontWeight: 500,
                             lineHeight: 1,
                             letterSpacing: '-1.12px',
-                            fontFamily: '"Metric", sans-serif'
                         }}
                     >
                         Progress Agentic RAG Value
