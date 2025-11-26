@@ -211,20 +211,25 @@ html, body, #root {
 }
 
 .k-drawer-wrapper::after,
-.preview .chat-preview:after {
+.preview .charts-preview:before {
   content: "";
   display: block;
   height: 100%;
   width: 63.344px;
   position: absolute;
   background: conic-gradient(from 180deg at 49.93% 47.29%, rgba(255, 0, 251, 0.6) 0deg, rgba(0, 200, 255, 0.3) 180deg, rgba(0, 119, 255, 0.6) 360deg);
-  filter: blur(75px);
+  filter: blur(60px);
   opacity: 0.6;
   bottom: 0;
-  right: 0;
   transform-origin: center;
   border-radius: 815px;
   pointer-events: none;
+}
+.k-drawer-wrapper::after {
+  right: 0;
+}
+.preview .charts-preview:before {
+   left: -60px;
 }
 
 /* Financial Analysis gradient - positioned higher in the content, only shown before conversation starts */
