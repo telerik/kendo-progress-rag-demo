@@ -102,7 +102,7 @@ export default function Home() {
           />
           {/* Explore Demos section */}
           <div className="k-d-flex k-flex-column k-align-items-center k-w-full">
-            <p className="k-font-size-xl k-font-weight-medium k-text-center !k-mb-0 k-mb-4">
+            <p className="k-font-size-xl k-font-weight-medium k-text-center k-mb-4">
               Explore Demos
             </p>
             <div className="k-d-flex k-flex-wrap k-justify-content-center k-align-items-center k-gap-lg-8 k-gap-md-6 k-gap-3 k-w-full">
