@@ -57,7 +57,6 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         <Button
           className="k-d-none k-d-md-inline-flex"
           rounded="full"
-          fillMode="flat"
           svgIcon={plusIcon}
           size="large"
           fillMode="clear"
@@ -69,7 +68,6 @@ export const SearchInput: React.FC<SearchInputProps> = ({
           <Button
             className="k-d-none k-d-md-inline-flex"
             rounded="full"
-            fillMode="flat" 
             svgIcon={microphoneOutlineIcon}
             fillMode="clear"
             size="large"
@@ -87,7 +85,6 @@ export const SearchInput: React.FC<SearchInputProps> = ({
           <div className="k-d-flex k-d-md-none k-align-items-stretch k-w-full">
             <Button
               rounded="full"
-              fillMode="flat"
               svgIcon={plusIcon}
               size="large"
               fillMode="clear"
@@ -95,9 +92,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
             />
             <Button
             rounded="full"
-            fillMode="flat" 
             svgIcon={microphoneOutlineIcon}
-            
             fillMode="clear"
             size="large"
             style={{ padding: "11px"}}
