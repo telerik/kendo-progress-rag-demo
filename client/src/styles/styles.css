@@ -442,8 +442,64 @@ html, body, #root {
   pointer-events: none;
 }
 
+/* Base styles - mobile first */
+.hero-wrapper {
+  margin-block-start: 48px;
+}
+
+.rag-hero-wrapper {
+  padding: 48px 32px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.search-input-wrapper {
+  padding: 0 32px;
+  margin: 0 auto;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.knowledge-assistant-hero-wrapper {
+  padding: 48px;
+}
+
+.results-section {
+  padding: 64px 24px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.results-content {
+  padding: 0 8px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.results-content * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.conversation-container {
+  padding: 24px;
+}
+
+.footer {
+  margin-block-end: var(--kendo-spacing-20);
+}
+
 .heading-wrapper > .k-flex-column {
   max-width: 100%;
+}
+
+.suggestions-container {
+  flex-direction: column;
+}
+
+.search-pill {
+  width: 100%;
+  white-space: normal;
 }
 
 /* Kendo UI Breakpoints */
@@ -569,60 +625,5 @@ html, body, #root {
   
   .gradient-heading {
     font-size: 48px;
-  }
-  
-  .suggestions-container {
-    flex-direction: column;
-  }
-  
-  .search-pill {
-    width: 100%;
-    white-space: normal;
-  }
-  
-  .hero-wrapper {
-    margin-block-start: 48px;
-  }
-  
-  .rag-hero-wrapper {
-    padding: 48px 32px;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .search-input-wrapper {
-    padding: 0 32px;
-    margin: 0 auto;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .knowledge-assistant-hero-wrapper {
-    padding: 48px;
-  }
-  
-  .results-section {
-    padding: 64px 24px;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .results-content {
-    padding: 0 8px;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .results-content * {
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .conversation-container {
-    padding: 24px;
-  }
-  
-  .footer {
-    margin-block-end: var(--kendo-spacing-20);
   }
 }
