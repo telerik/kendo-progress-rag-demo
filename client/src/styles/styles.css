@@ -295,7 +295,8 @@ html, body, #root {
   );
   filter: blur(75px);
   opacity: 0.6;
-  left: 184px;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 115px;
   border-radius: 815px;
   pointer-events: none;
