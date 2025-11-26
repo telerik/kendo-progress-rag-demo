@@ -156,16 +156,13 @@ export default function AiSearch() {
               zIndex: 0
             }}
           >
-            <div
+            <div className="k-pos-absolute"
               style={{
-                position: 'absolute',
                 inset: '-177.57% -32.26%'
               }}
             >
-              <div 
+              <div className="k-w-full k-h-full"
                 style={{
-                  width: '100%',
-                  height: '100%',
                   background: 'radial-gradient(ellipse at center, rgba(193, 88, 228, 0.15) 0%, rgba(0, 187, 255, 0.1) 50%, transparent 70%)'
                 }}
               />
@@ -178,7 +175,7 @@ export default function AiSearch() {
       )}
 
       {/* Main content container */}
-      <div className="k-d-flex k-flex-column" style={{ position: 'relative', zIndex: 1, maxWidth: '100%', overflow: 'hidden' }}>
+      <div className="k-d-flex k-flex-column k-pos-relative k-overflow-hidden" style={{ zIndex: 1, maxWidth: '100%' }}>
         {/* Header section - changes based on hasResults */}
         {!hasResults ? (
           // Initial state: Large header with description
@@ -218,9 +215,8 @@ export default function AiSearch() {
 
             {/* Search input section - centered horizontally */}
             <div 
-              className="k-d-flex k-flex-column k-gap-8 search-input-wrapper"
+              className="k-d-flex k-flex-column k-gap-8 search-input-wrapper k-w-full"
               style={{
-                width: '100%',
                 maxWidth: '770px'
               }}
             >
@@ -247,10 +243,7 @@ export default function AiSearch() {
                   Popular searches:
                 </p>
                 <div 
-                  className="k-d-flex k-flex-wrap k-gap-1.5"
-                  style={{
-                    justifyContent: 'flex-start'
-                  }}
+                  className="k-d-flex k-flex-wrap k-gap-1.5 k-justify-content-flex-start"
                 >
                   {popularSearches.map((searchText, index) => (
                     <SearchPill key={index} text={searchText} onClick={handleExampleSearch} disabled={isLoading} />
@@ -262,14 +255,13 @@ export default function AiSearch() {
         ) : (
           // Results state: Compact header with integrated search
           <div 
-            className="k-d-flex k-flex-column k-gap-9 hero"
+            className="k-d-flex k-flex-column k-gap-9 k-pos-relative hero"
             style={{
               borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
               paddingLeft: '32px',
               paddingRight: '32px',
               paddingTop: '64px',
               paddingBottom: '64px',
-              position: 'relative',
               isolation: 'isolate',
               maxWidth: '100%',
               boxSizing: 'border-box'
@@ -277,10 +269,9 @@ export default function AiSearch() {
           >
             {/* Decorative elements container with overflow clipping */}
             <div 
-              className="k-pos-absolute"
+              className="k-pos-absolute k-overflow-hidden"
               style={{
                 inset: 0,
-                overflow: 'hidden',
                 pointerEvents: 'none',
                 zIndex: 0
               }}
@@ -297,16 +288,13 @@ export default function AiSearch() {
                   opacity: 0.6
                 }}
               >
-                <div
+                <div className="k-pos-absolute"
                   style={{
-                    position: 'absolute',
                     inset: '-236.8% -18.4%'
                   }}
                 >
-                  <div 
+                  <div className="k-w-full k-h-full"
                     style={{
-                      width: '100%',
-                      height: '100%',
                       background: 'radial-gradient(ellipse at center, rgba(193, 88, 228, 0.15) 0%, rgba(0, 187, 255, 0.1) 50%, transparent 70%)'
                     }}
                   />
@@ -329,19 +317,17 @@ export default function AiSearch() {
             </div>
 
             <h1 
-              className="k-mb-0"
+              className="k-mb-0 k-text-center k-pos-relative"
               style={{
                 fontSize: '36px',
                 fontWeight: 500,
                 lineHeight: '1.3',
-                textAlign: 'center',
                 background: 'linear-gradient(105deg, #C158E4 11.99%, #0BF 49.33%, #001DFF 88.12%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
                 maxWidth: '800px',
                 margin: '0 auto',
-                position: 'relative',
                 zIndex: 1,
                 paddingBottom: '4px'
               }}
@@ -350,12 +336,10 @@ export default function AiSearch() {
             </h1>
 
             {/* Search input - centered and integrated */}
-            <div 
+            <div className="k-w-full k-pos-relative"
               style={{
-                width: '100%',
                 maxWidth: '770px',
                 margin: '0 auto',
-                position: 'relative',
                 zIndex: 1
               }}
             >
@@ -374,19 +358,16 @@ export default function AiSearch() {
         {/* Results section */}
         {hasResults && (
           <div 
-            className="k-d-flex k-flex-column results-section"
+            className="k-d-flex k-flex-column k-overflow-hidden k-w-full results-section"
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.7)',
-              width: '100%',
-              overflow: 'hidden'
+              backgroundColor: 'rgba(255, 255, 255, 0.7)'
             }}
           >
             <div 
-              className="k-d-flex k-flex-column k-gap-16 results-content"
+              className="k-d-flex k-flex-column k-gap-16 k-w-full results-content"
               style={{
                 maxWidth: '770px',
                 margin: '0 auto',
-                width: '100%',
                 minWidth: 0
               }}
             >
@@ -432,10 +413,7 @@ export default function AiSearch() {
                     Related searches:
                   </p>
                   <div 
-                    className="k-d-flex k-flex-wrap k-gap-1"
-                    style={{
-                      justifyContent: 'flex-start'
-                    }}
+                    className="k-d-flex k-flex-wrap k-justify-content-flex-start k-gap-1"
                   >
                     {popularSearches.map((searchText, index) => (
                       <SearchPill key={index} text={searchText} onClick={handleExampleSearch} disabled={isLoading} />

@@ -63,21 +63,18 @@ export default function Home() {
       style={{ height: "calc(100vh - 54px)" }}
     >
       {/* Gradient background - positioned fixed to viewport */}
-      <div
+      <div className="k-pos-fixed k-overflow-hidden"
         style={{
-          position: "fixed",
           top: "54px",
           left: 0,
           right: 0,
           bottom: 0,
-          overflow: "hidden",
           pointerEvents: "none",
           zIndex: 0,
         }}
       >
-        <div
+        <div className="k-pos-absolute"
           style={{
-            position: "absolute",
             width: "1266px",
             height: "331px",
             left: "50%",
@@ -86,23 +83,19 @@ export default function Home() {
             opacity: 0.6,
           }}
         >
-          <div
+          <div className="k-pos-absolute"
             style={{
-              position: "absolute",
               top: "-90.63%",
               right: "-23.7%",
               bottom: "-90.63%",
               left: "-23.7%",
             }}
           >
-            <img
+            <img className="k-d-block k-w-full k-h-full"
               src={imgBackground}
               alt=""
               style={{
-                display: "block",
                 maxWidth: "none",
-                width: "100%",
-                height: "100%",
               }}
             />
           </div>
@@ -110,7 +103,7 @@ export default function Home() {
       </div>
 
       {/* Main heading + Subtitle */}
-      <section style={{ position: "relative", zIndex: 1 }}>
+      <section className="k-pos-relative" style={{ zIndex: 1 }}>
         <div className="k-d-flex k-align-items-center k-justify-content-center hero-wrapper">
           <div className="k-d-flex k-flex-column k-text-center k-flex-1 k-gap-8">
             <h1
@@ -131,7 +124,7 @@ export default function Home() {
       </section>
 
       {/* Search bar */}
-      <section style={{ position: "relative", zIndex: 1 }}>
+      <section className="k-pos-relative" style={{ zIndex: 1 }}>
         <div className="k-mt-17 k-d-flex k-flex-column k-align-items-center k-justify-content-between k-gap-25">
           <SearchInput
             query={searchQuery}

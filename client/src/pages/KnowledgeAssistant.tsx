@@ -41,11 +41,9 @@ const KnowledgeAssistant = () => {
   return (
     <DrawerComponent>
       <div 
-        className="k-d-flex k-flex-column k-overflow-x-hidden" 
+        className="k-d-flex k-flex-column k-overflow-x-hidden k-pos-relative k-h-full" 
         style={{ 
-          height: '100%', 
           backgroundColor: 'rgba(255, 255, 255, 0.6)',
-          position: 'relative',
         }}
       >
 
@@ -54,8 +52,8 @@ const KnowledgeAssistant = () => {
 
         {/* Hero Section - Only visible in idle state */}
         {!hasConversationStarted && (
-          <div className="k-d-flex k-flex-column knowledge-assistant-hero-wrapper" style={{ position: 'relative', zIndex: 1 }}>
-            <div className="k-d-flex k-flex-column" style={{ width: '100%', maxWidth: '770px', gap: '36px' }}>
+          <div className="k-d-flex k-flex-column knowledge-assistant-hero-wrapper k-pos-relative" style={{ zIndex: 1 }}>
+            <div className="k-d-flex k-flex-column k-w-full k-gap-9" style={{ maxWidth: '770px' }}>
               <h1 
                 className="k-mb-0"
                 style={{
@@ -89,24 +87,18 @@ const KnowledgeAssistant = () => {
         {hasConversationStarted && <ChatHeaderTemplate messages={chatBot.messages} />}
         {/* Chat Component */}
         <div 
-          className="k-d-flex k-flex-column k-flex-1 conversation-container"
+          className="k-d-flex k-flex-column k-flex-1 k-align-items-center k-w-full conversation-container"
           style={{ 
-            width: '100%',
-            alignItems: 'center',
             boxSizing: 'border-box',
             padding: hasConversationStarted ? '24px' : '',
           }}
         >
           <div 
-            className={`chat-content-wrapper ${!hasConversationStarted ? 'show-gradient' : ''}`}
+            className={`chat-content-wrapper k-w-full k-d-flex k-flex-column k-pos-relative ${!hasConversationStarted ? 'show-gradient' : ''}`}
             style={{ 
-            width: '100%',
             maxWidth: '770px',
-            display: 'flex',
-            flexDirection: 'column',
             boxSizing: 'border-box',
             flex: hasConversationStarted ? '1' : 'none',
-            position: 'relative'
           }}>
             <Chat
               messages={hasConversationStarted ? chatBot.messages.slice(1) : chatBot.messages}

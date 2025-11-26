@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@progress/kendo-react-buttons";
+import { TextArea } from "@progress/kendo-react-inputs";
 import { buildApiUrl } from '../config/api';
 import { renderMarkdown } from '../utils/markdownRenderer';
 import { sparklesIcon } from "@progress/kendo-svg-icons";
@@ -226,12 +227,12 @@ export default function ValueProposition() {
                     </div>
                     <div className="k-d-flex k-flex-column k-gap-5 k-bg-surface k-p-5 k-mx-auto k-w-full k-box-sizing-border" style={{ maxWidth: '900px', borderRadius: '28px', boxShadow: '0 2px 6px 0 rgba(13, 10, 44, 0.08)', backdropFilter: 'blur(2px)', backgroundColor: 'rgba(255, 255, 255, 0.5)', border: '1px solid white' }}>
                         <h3 className="k-h3 k-align-self-start">Additional Details (Optional)</h3>
-                        <textarea 
+                        <TextArea 
                             className="k-textarea"
                             placeholder="Provide any additional context about your organization, specific challenges, or requirements that would help create a more targeted value proposition..."
                             rows={4}
                             value={additionalDetails}
-                            onChange={(e) => setAdditionalDetails(e.target.value)}
+                            onChange={(e) => setAdditionalDetails(e.value || '')}
                             style={{ borderRadius: '12px', border: '2px solid #bacae3', padding: '24px' }}
                         />
                     </div>
@@ -249,7 +250,7 @@ export default function ValueProposition() {
             </section>
             </>
             ) : (
-                <div className="k-d-flex k-flex-column" style={{ backgroundColor: 'rgba(255, 255, 255, 0.6)', width: '100%' }}>
+                <div className="k-d-flex k-flex-column k-w-full" style={{ backgroundColor: 'rgba(255, 255, 255, 0.6)' }}>
                     {/* Hero section with title and summary */}
                     <section className={`k-d-flex k-flex-column k-gap-9 k-align-items-center k-py-12 k-px-6 k-gap-8 ${!isLoading ? 'hero' : ''}`} style={{ borderBottom: '1px solid rgba(0, 0, 0, 0.08)', background: 'linear-gradient(180deg, rgba(250, 250, 250, 0.80) 85%, rgba(236, 236, 236, 0.80) 100%)'}}>
                         {isLoading && (
@@ -270,9 +271,8 @@ export default function ValueProposition() {
                             </h2>
                         )}
                         
-                        <div className="k-p-6 k-d-flex k-flex-col k-flex-md-row k-gap-6 k-p-4 k-box-sizing-border user-selection-wrapper" style={{ 
+                        <div className="k-p-6 k-d-flex k-flex-col k-flex-md-row k-gap-6 k-p-4 k-box-sizing-border k-w-full user-selection-wrapper" style={{ 
                             maxWidth: '770px', 
-                            width: '100%',
                             borderRadius: '20px', 
                             backgroundColor: 'rgba(255, 255, 255, 0.5)', 
                             border: '1px solid white',
@@ -308,7 +308,7 @@ export default function ValueProposition() {
                     {/* Results content */}
                     {!isLoading && valueProposition && (
                         <section className="k-d-flex k-flex-column k-gap-8 k-align-items-center k-px-6 k-py-16" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
-                            <div style={{ maxWidth: '770px', width: '100%', fontSize: '16px', lineHeight: '1.5', color: '#323130' }}>
+                            <div className=" k-w-full" style={{ maxWidth: '770px', fontSize: '16px', lineHeight: '1.5', color: '#323130' }}>
                                 {renderMarkdown(valueProposition)}
                             </div>
                         </section>

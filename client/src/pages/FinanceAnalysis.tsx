@@ -268,11 +268,9 @@ export default function FinanceAnalysis() {
         // Default Single-Column Layout with Drawer
         <DrawerComponent>
           <div 
-            className="k-d-flex k-flex-column k-overflow-x-hidden k-justify-content-between financial-analysis" 
+            className="k-d-flex k-flex-column k-overflow-x-hidden k-justify-content-between k-pos-relative k-h-full financial-analysis" 
             style={{ 
               backgroundColor: 'rgba(255, 255, 255, 0.6)',
-              position: 'relative',
-              height: '100%'
             }}
           >
 
@@ -282,7 +280,7 @@ export default function FinanceAnalysis() {
         {/* Hero Section - Only show on initial screen */}
         {chatBot.messages.length <= 1 && (
           <div className="k-d-flex k-flex-column k-pos-relative k-p-12 hero">
-            <div className="k-d-flex k-flex-column" style={{ width: '100%', gap: '32px' }}>
+            <div className="k-d-flex k-flex-column k-w-full k-gap-8">
               <h1 
                 className="k-mb-0 k-h1"
                 style={{
@@ -313,8 +311,7 @@ export default function FinanceAnalysis() {
         {/* Conversation Area */}
         <div className={`k-d-flex k-flex-column k-flex-1 k-p-6 k-gap-8 chat-wrapper ${chatBot.messages.length <= 1 ? 'show-gradient' : ''}`} style={{ position: 'relative' }}>
           <div 
-            className={chatBot.messages.length > 1 ? "finance-analysis-chat-wrapper-conversation" : ""}
-            style={{  display: 'flex', flexDirection: 'column', height: '100%', alignItems: "center", justifyContent: "flex-end"}}
+            className={`k-d-flex k-flex-column k-align-items-center k-justify-content-flex-end k-h-full ${chatBot.messages.length > 1 ? "finance-analysis-chat-wrapper-conversation" : ""}`}
           >
             {renderChat()}
           </div>
@@ -347,24 +344,19 @@ export default function FinanceAnalysis() {
 
           }}>
             {/* Glassmorphism Card */}
-            <div className="k-align-self-center k-gap-9 "
+            <div className="k-d-flex k-flex-column k-text-center k-align-self-center k-w-full"
               style={{
-                
                 maxWidth: "679px",
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                    gap: "20px",
-                    textAlign: "center"
+                gap: "20px",
               }}
             >
               {/* Close Button */}
               <Button
+                className="k-pos-absolute"
                 onClick={() => setIsChartsExpanded(false)}
                 fillMode="flat"
                 rounded="full"
                 style={{
-                  position: 'absolute',
                   top: '16px',
                   right: '16px'
                 }}
