@@ -69,7 +69,7 @@ const KnowledgeAssistant = () => {
 
         {/* Hero Section - Only visible in idle state */}
         {!hasConversationStarted && (
-          <div className="k-d-flex k-flex-column" style={{ paddingTop: '96px', paddingBottom: '24px', paddingLeft: '128px', paddingRight: '128px', position: 'relative', zIndex: 1 }}>
+          <div className="k-d-flex k-flex-column knowledge-assistant-hero-wrapper" style={{ position: 'relative', zIndex: 1 }}>
             <div className="k-d-flex k-flex-column" style={{ width: '100%', maxWidth: '770px', gap: '36px' }}>
               <h1 
                 className="k-mb-0"
@@ -104,23 +104,21 @@ const KnowledgeAssistant = () => {
         {hasConversationStarted && <ChatHeaderTemplate messages={chatBot.messages} />}
         {/* Chat Component */}
         <div 
-          className="k-d-flex k-flex-column k-flex-1" 
+          className="k-d-flex k-flex-column k-flex-1 conversation-container" 
           style={{ 
-            minHeight: 0,
             width: '100%',
-            alignItems: hasConversationStarted ? 'stretch' : 'center',
+            alignItems: 'center',
             boxSizing: 'border-box',
-            padding: hasConversationStarted ? '24px' : '0'
+            padding: hasConversationStarted ? '24px' : ''
           }}
         >
           <div style={{ 
             width: '100%',
-            maxWidth: hasConversationStarted ? 'none' : '770px',
-            paddingInline: hasConversationStarted ? '128px' : '0',
-            height: '100%',
+            maxWidth: '770px',
             display: 'flex',
             flexDirection: 'column',
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            flex: hasConversationStarted ? '1' : 'none'
           }}>
             <Chat
               messages={hasConversationStarted ? chatBot.messages.slice(1) : chatBot.messages}
@@ -128,7 +126,7 @@ const KnowledgeAssistant = () => {
               onSendMessage={chatBot.addNewMessage}
               placeholder="Try a suggestion or ask about KendoReact"
               className="k-border-transparent"
-              height="100%"
+              height={hasConversationStarted ? "100%" : undefined}
               messageTemplate={ChatMessage}
               timestampTemplate={() => null }
               showUsername={false}
@@ -137,7 +135,7 @@ const KnowledgeAssistant = () => {
                 <ChatMessageBox 
                   {...props} 
                   isLoading={chatBot.isLoading}
-                  suggestions={chatBot.availableSuggestions}
+                  suggestions={chatBot.messages.length <= 1 ? chatBot.availableSuggestions : []}
                   onSuggestionClick={chatBot.handleSuggestionClick}
                   placeholder={chatBot.placeholder}
                   onSendMessage={(text) => {

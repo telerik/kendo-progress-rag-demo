@@ -58,7 +58,7 @@ export const ChatMessageBox: React.FC<ChatMessageBoxAdapterProps> = ({
       
       {suggestions.length > 0 && (
         <div 
-          className="k-d-flex k-flex-wrap k-gap-1.5"
+          className="k-d-flex k-flex-wrap k-gap-1.5 suggestions-container"
           style={{ width: '100%' }}
         >
           {suggestions.map((suggestion) => (
