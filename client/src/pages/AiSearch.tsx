@@ -247,7 +247,7 @@ export default function AiSearch() {
                   Popular searches:
                 </p>
                 <div 
-                  className="k-d-flex k-flex-wrap k-gap-1"
+                  className="k-d-flex k-flex-wrap k-gap-1.5"
                   style={{
                     justifyContent: 'flex-start'
                   }}

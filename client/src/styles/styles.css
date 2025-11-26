@@ -496,13 +496,16 @@ html, body, #root {
   max-width: 100%;
 }
 
-.suggestions-container {
-  flex-direction: column;
-}
-
-.search-pill {
-  width: 100%;
-  white-space: normal;
+/* Mobile: Pills stack vertically */
+@media (max-width: 767px) {
+  .suggestions-container {
+    flex-direction: column;
+  }
+  
+  .search-pill {
+    width: 100%;
+    white-space: normal;
+  }
 }
 
 /* Kendo UI Breakpoints */
@@ -560,13 +563,11 @@ html, body, #root {
     padding: 64px;
   }
   
-  .suggestions-container {
-    flex-direction: row;
-  }
-  
+  /* Desktop: Pills wrap horizontally, don't override flex-direction */
   .search-pill {
     white-space: nowrap;
     flex-shrink: 0;
+    width: auto;
   }
 }
 
