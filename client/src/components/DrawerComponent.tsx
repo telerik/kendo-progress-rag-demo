@@ -14,9 +14,9 @@ const chatImg = `${import.meta.env.BASE_URL}new-chat.svg`;
 const libraryImg = `${import.meta.env.BASE_URL}book-open.svg`;
 
 const drawerItems = [
-  { text: "New chat", icon: chatImg, route: "/knowledge-assistant" },
-  { text: "Search chats", icon: searchImg, route: "/knowledge-assistant" },
-  { text: "Library", icon: libraryImg, route: "/knowledge-assistant" },
+  { text: "New chat", icon: chatImg, route: "#" },
+  { text: "Search chats", icon: searchImg, route: "#" },
+  { text: "Library", icon: libraryImg, route: "#" },
 ];
 
 interface DrawerComponentProps {
