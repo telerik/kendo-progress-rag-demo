@@ -110,14 +110,24 @@ html, body, #root {
   box-sizing: border-box;
 }
 
+.search-input .k-input-inner {
+  overflow: hidden;
+}
+
 /* Target the input inside the TextBox wrapper */
 .search-input input::placeholder,
 .search-input .k-input-inner::placeholder,
 .search-input.k-textbox input::placeholder {
   color: #A1B0C7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: normal;
+  vertical-align: middle;
 }
 
-.search-input.k-focus {
+.search-input.k-focus,
+.search-input:focus {
   position: relative;
   border: 2px solid transparent !important;
   background: linear-gradient(white, white) padding-box,
@@ -632,9 +642,9 @@ html, body, #root {
     font-size: 72px;
   }
   /* Add xl breakpoint styles here */
-  .chat-preview {
+  /* .chat-preview {
     padding: 32px;
-  }
+  } */
 
   .preview-wrapper > .preview {
     grid-template-columns: 393px 1fr;

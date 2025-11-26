@@ -255,6 +255,7 @@ export default function FinanceAnalysis() {
             onSuggestionClick={chatBot.handleSuggestionClick}
             onSendMessage={handleSendMessage}
             placeholder={chatBot.placeholder}
+            forceOneRow={isChartsExpanded}
           />
         )}
       />
@@ -328,7 +329,7 @@ export default function FinanceAnalysis() {
         >
           {/* Page Header */}
           <ChatHeaderTemplate messages={chatBot.messages} />
-          <div className="k-d-grid k-grid-cols-1 k-grid-cols-xl-2 k-overflow-auto preview">
+          <div className="k-d-grid k-grid-cols-1 k-grid-cols-xl-2 preview">
           {/* Left Panel - Chat (393px) */}
           <div className="k-align-self-end k-d-none k-d-xl-flex chat-preview k-pos-relative">
             {renderChat()}

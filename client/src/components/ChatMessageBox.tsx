@@ -10,6 +10,7 @@ interface ChatMessageBoxAdapterProps extends ChatMessageBoxProps {
   suggestions?: ChatSuggestion[];
   onSuggestionClick?: (suggestion: ChatSuggestion) => void;
   placeholder?: string;
+  forceOneRow?: boolean;
 }
 
 export const ChatMessageBox: React.FC<ChatMessageBoxAdapterProps> = ({
@@ -17,7 +18,8 @@ export const ChatMessageBox: React.FC<ChatMessageBoxAdapterProps> = ({
   onSendMessage,
   suggestions = [],
   onSuggestionClick,
-  placeholder = 'Type a message...'
+  placeholder = 'Type a message...',
+  forceOneRow = false
 }) => {
   const [inputValue, setInputValue] = React.useState('');
 
@@ -54,6 +56,7 @@ export const ChatMessageBox: React.FC<ChatMessageBoxAdapterProps> = ({
         onSearchClick={handleSend}
         isLoading={isLoading}
         placeholder={placeholder}
+        forceOneRow={forceOneRow}
       />
       
       {suggestions.length > 0 && (

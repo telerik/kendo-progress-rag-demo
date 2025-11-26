@@ -10,6 +10,7 @@ interface SearchInputProps {
   onSearchClick: () => void;
   isLoading: boolean;
   placeholder: string;
+  forceOneRow?: boolean;
 }
 
 export const SearchInput: React.FC<SearchInputProps> = ({
@@ -19,6 +20,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   onSearchClick,
   isLoading,
   placeholder,
+  forceOneRow = false,
 }) => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -37,7 +39,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
     <TextArea
       style={{ 
         width: '100%',
-        padding: "7px",
+        padding: "2px",
         whiteSpace: 'nowrap'
       }}
       className={'search-input k-white-space-none k-align-items-center k-flex-col k-flex-md-row'}
@@ -48,7 +50,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       onChange={onQueryChange}
       onKeyPress={onKeyPress}
       disabled={isLoading}
-      rows={isMobile ? 3 : 1}
+      rows={forceOneRow ? 1 : (isMobile ? 3 : 1)}
       autoSize={true}
       resizable={'none'}
       prefix={() => (
@@ -58,7 +60,8 @@ export const SearchInput: React.FC<SearchInputProps> = ({
           fillMode="flat"
           svgIcon={plusIcon}
           size="large"
-          style={{ padding: "14px"}}
+          fillMode="clear"
+          style={{ padding: "11px"}}
         />
       )}
       suffix={() => (
@@ -68,9 +71,9 @@ export const SearchInput: React.FC<SearchInputProps> = ({
             rounded="full"
             fillMode="flat" 
             svgIcon={microphoneOutlineIcon}
-            
+            fillMode="clear"
             size="large"
-            style={{ padding: "14px"}}
+            style={{ padding: "11px"}}
           />
           <Button
             className="send-button k-d-none k-d-md-inline-flex"
@@ -79,7 +82,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
             onClick={onSearchClick}
             disabled={isLoading}
             size="large"
-            style={{ padding: "14px", color: '#fff', backgroundColor: '#A1B0C7'}}
+            style={{ padding: "11px", color: '#fff', backgroundColor: '#A1B0C7'}}
           />
           <div className="k-d-flex k-d-md-none k-align-items-stretch k-w-full">
             <Button
@@ -87,15 +90,17 @@ export const SearchInput: React.FC<SearchInputProps> = ({
               fillMode="flat"
               svgIcon={plusIcon}
               size="large"
-              style={{ padding: "14px"}}
+              fillMode="clear"
+              style={{ padding: "11px"}}
             />
             <Button
             rounded="full"
             fillMode="flat" 
             svgIcon={microphoneOutlineIcon}
             
+            fillMode="clear"
             size="large"
-            style={{ padding: "14px"}}
+            style={{ padding: "11px"}}
           />
           <div className="k-spacer"></div>
           <Button
@@ -105,7 +110,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
             onClick={onSearchClick}
             disabled={isLoading}
             size="large"
-            style={{ padding: "14px", color: '#fff', backgroundColor: '#A1B0C7'}}
+            style={{ padding: "11px", color: '#fff', backgroundColor: '#A1B0C7'}}
           />
 
           </div>
