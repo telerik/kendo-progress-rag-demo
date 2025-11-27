@@ -67,7 +67,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
     >
       <DrawerNavigation className="drawer-navigation k-d-none k-d-lg-flex">
         <div className="k-drawer-items k-h-full">
-          <Tooltip anchorElement="element" position="right" parentTitle={true} offset={{ left: 10, top: 0 }}>
+          <Tooltip anchorElement="element" position="right" parentTitle={true}>
             {drawerItems.map((item) => (
               <div
                 onClick={() => navigate(item.route)}
@@ -83,7 +83,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
             ))}
           </Tooltip>
           <div className="k-mt-6 k-d-flex k-flex-column k-justify-content-between k-flex-1">
-            <Tooltip anchorElement="element" position="right" parentTitle={true} offset={{ left: 10, top: 0 }}>
+            <Tooltip anchorElement="element" position="right" parentTitle={true}>
               <div>
                 <span className="k-p-4" style={{ color: "#A1B0C7" }}>
                   Chats

@@ -50,7 +50,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       autoSize={true}
       resizable={'none'}
       prefix={() => (
-        <Tooltip anchorElement="element" position="top" parentTitle={true} offset={{ left: 0, top: 5 }}>
+        <Tooltip anchorElement="element" position="top" parentTitle={true}>
           <Button
             className="search-input-button k-d-none k-d-md-inline-flex"
             rounded="full"

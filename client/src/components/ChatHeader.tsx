@@ -28,7 +28,7 @@ const ChatHeaderTemplate: React.FC<ChatHeaderTemplateProps> = ({
   return (
     <div className="chat-header k-d-flex k-justify-content-between k-align-items-center k-px-4 k-py-2">
       <span>{firstUserMessage.text}</span>
-      <Tooltip anchorElement="element" position="bottom" parentTitle={true} offset={{ left: 0, top: 5 }}>
+      <Tooltip anchorElement="element" position="bottom" parentTitle={true}>
         <Button imageUrl={shareIcon} fillMode="flat" title="Interaction is disabled for this demo.">
           Share
         </Button>
