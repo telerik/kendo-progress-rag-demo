@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TextArea, type TextAreaProps, type TextAreaChangeEvent } from "@progress/kendo-react-inputs";
 import { Button } from "@progress/kendo-react-buttons";
 import { plusIcon, microphoneOutlineIcon, arrowUpIcon } from "@progress/kendo-svg-icons";
+import { Tooltip } from "@progress/kendo-react-tooltip";
 
 interface SearchInputProps {
   query: TextAreaProps['value'];
@@ -49,23 +50,29 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       autoSize={true}
       resizable={'none'}
       prefix={() => (
-        <Button
-          className="search-input-button k-d-none k-d-md-inline-flex"
-          rounded="full"
-          svgIcon={plusIcon}
-          size="large"
-          fillMode="clear"
-        />
-      )}
-      suffix={() => (
-        <>
+        <Tooltip anchorElement="element" position="top" parentTitle={true}>
           <Button
             className="search-input-button k-d-none k-d-md-inline-flex"
             rounded="full"
-            svgIcon={microphoneOutlineIcon}
-            fillMode="clear"
+            svgIcon={plusIcon}
             size="large"
+            fillMode="clear"
+            title="Interaction is disabled for this demo."
           />
+        </Tooltip>
+      )}
+      suffix={() => (
+        <>
+          <Tooltip anchorElement="element" position="top" parentTitle={true}>
+            <Button
+              className="search-input-button k-d-none k-d-md-inline-flex"
+              rounded="full"
+              svgIcon={microphoneOutlineIcon}
+              fillMode="clear"
+              size="large"
+              title="Interaction is disabled for this demo."
+            />
+          </Tooltip>
           <Button
             className="send-button k-d-none k-d-md-inline-flex"
             rounded="full"
@@ -75,20 +82,26 @@ export const SearchInput: React.FC<SearchInputProps> = ({
             size="large"
           />
           <div className="k-d-flex k-d-md-none k-align-items-stretch k-w-full">
-            <Button
-              className="search-input-button"
-              rounded="full"
-              svgIcon={plusIcon}
-              size="large"
-              fillMode="clear"
-            />
-            <Button
-              className="search-input-button"
-              rounded="full"
-              svgIcon={microphoneOutlineIcon}
-              fillMode="clear"
-              size="large"
-            />
+            <Tooltip anchorElement="element" position="top" parentTitle={true}>
+              <Button
+                className="search-input-button"
+                rounded="full"
+                svgIcon={plusIcon}
+                size="large"
+                fillMode="clear"
+                title="Interaction is disabled for this demo."
+              />
+            </Tooltip>
+            <Tooltip anchorElement="element" position="top" parentTitle={true}>
+              <Button
+                className="search-input-button"
+                rounded="full"
+                svgIcon={microphoneOutlineIcon}
+                fillMode="clear"
+                size="large"
+                title="Interaction is disabled for this demo."
+              />
+            </Tooltip>
             <div className="k-spacer"></div>
             <Button
               className="send-button"

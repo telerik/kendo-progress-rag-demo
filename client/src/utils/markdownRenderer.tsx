@@ -109,7 +109,6 @@ export const renderMarkdown = (text: string): React.ReactNode[] => {
     // Handle empty lines
     else if (line.trim() === '') {
       flushList();
-      elements.push(<br key={lineIndex} />);
     }
     // Regular paragraph
     else {

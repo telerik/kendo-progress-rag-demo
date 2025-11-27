@@ -7,6 +7,7 @@ import {
 import type { To } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Avatar } from "@progress/kendo-react-layout";
+import { Tooltip } from "@progress/kendo-react-tooltip";
 
 const userImg = `${import.meta.env.BASE_URL}drawer-user.svg`;
 const searchImg = `${import.meta.env.BASE_URL}search.svg`;
@@ -66,38 +67,43 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
     >
       <DrawerNavigation className="drawer-navigation k-d-none k-d-lg-flex">
         <div className="k-drawer-items k-h-full">
-          {drawerItems.map((item) => (
-            <div
-              onClick={() => navigate(item.route)}
-              key={item.text}
-              className={`k-drawer-item ${
-                selected === item.text ? "k-selected" : ""
-              }`}
-            >
-              <img src={item.icon} alt={item.text} />
-              <span className="k-item-text">{item.text}</span>
-            </div>
-          ))}
+          <Tooltip anchorElement="element" position="right" parentTitle={true}>
+            {drawerItems.map((item) => (
+              <div
+                onClick={() => navigate(item.route)}
+                key={item.text}
+                className={`k-drawer-item ${
+                  selected === item.text ? "k-selected" : ""
+                }`}
+                title="Interaction is disabled for this demo."
+              >
+                <img src={item.icon} alt={item.text} />
+                <span className="k-item-text">{item.text}</span>
+              </div>
+            ))}
+          </Tooltip>
           <div className="k-mt-6 k-d-flex k-flex-column k-justify-content-between k-flex-1">
-            <div>
-              <span className="k-p-4" style={{ color: "#A1B0C7" }}>
-                Chats
-              </span>
-              <div className="k-drawer-item">
-                <span className="k-text-ellipsis">How do I get started with KendoReact components?</span>
-              </div>
-              <div className="k-drawer-item">
-                <span className="k-text-ellipsis">
-                  What are the best KendoReact components for data
-                  visualization?
+            <Tooltip anchorElement="element" position="right" parentTitle={true}>
+              <div>
+                <span className="k-p-4" style={{ color: "#A1B0C7" }}>
+                  Chats
                 </span>
+                <div className="k-drawer-item" title="Interaction is disabled for this demo.">
+                  <span className="k-text-ellipsis">How do I get started with KendoReact components?</span>
+                </div>
+                <div className="k-drawer-item" title="Interaction is disabled for this demo.">
+                  <span className="k-text-ellipsis">
+                    What are the best KendoReact components for data
+                    visualization?
+                  </span>
+                </div>
+                <div className="k-drawer-item" title="Interaction is disabled for this demo.">
+                  <span className="k-text-ellipsis">
+                    How to implement theming and styling with KendoReact?
+                  </span>
+                </div>
               </div>
-              <div className="k-drawer-item">
-                <span className="k-text-ellipsis">
-                  How to implement theming and styling with KendoReact?
-                </span>
-              </div>
-            </div>
+            </Tooltip>
             <div className="k-d-flex k-gap-2 k-align-items-center k-p-4">
               <Avatar type="image">
                 <img src={userImg} alt="User" />

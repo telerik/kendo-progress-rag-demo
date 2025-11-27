@@ -92,7 +92,7 @@ export default function AppBarComponent() {
             />
           </div>
           <p className="app-bar-title !k-m-0 k-font-weight-medium k-text-center">
-            Progress Agentic RAG + Telerik DevTools
+            Agentic RAG + Telerik DevTools
           </p>
         </AppBarSection>
       </AppBar>
