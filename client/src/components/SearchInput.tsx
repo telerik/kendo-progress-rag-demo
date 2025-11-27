@@ -62,8 +62,8 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         </Tooltip>
       )}
       suffix={() => (
-        <Tooltip anchorElement="element" position="top" parentTitle={true}>
-          <>
+        <>
+          <Tooltip anchorElement="element" position="top" parentTitle={true}>
             <Button
               className="search-input-button k-d-none k-d-md-inline-flex"
               rounded="full"
@@ -72,15 +72,17 @@ export const SearchInput: React.FC<SearchInputProps> = ({
               size="large"
               title="Interaction is disabled for this demo."
             />
-            <Button
-              className="send-button k-d-none k-d-md-inline-flex"
-              rounded="full"
-              svgIcon={arrowUpIcon}
-              onClick={onSearchClick}
-              disabled={isLoading}
-              size="large"
-            />
-            <div className="k-d-flex k-d-md-none k-align-items-stretch k-w-full">
+          </Tooltip>
+          <Button
+            className="send-button k-d-none k-d-md-inline-flex"
+            rounded="full"
+            svgIcon={arrowUpIcon}
+            onClick={onSearchClick}
+            disabled={isLoading}
+            size="large"
+          />
+          <div className="k-d-flex k-d-md-none k-align-items-stretch k-w-full">
+            <Tooltip anchorElement="element" position="top" parentTitle={true}>
               <Button
                 className="search-input-button"
                 rounded="full"
@@ -89,6 +91,8 @@ export const SearchInput: React.FC<SearchInputProps> = ({
                 fillMode="clear"
                 title="Interaction is disabled for this demo."
               />
+            </Tooltip>
+            <Tooltip anchorElement="element" position="top" parentTitle={true}>
               <Button
                 className="search-input-button"
                 rounded="full"
@@ -97,18 +101,18 @@ export const SearchInput: React.FC<SearchInputProps> = ({
                 size="large"
                 title="Interaction is disabled for this demo."
               />
-              <div className="k-spacer"></div>
-              <Button
-                className="send-button"
-                rounded="full"
-                svgIcon={arrowUpIcon}
-                onClick={onSearchClick}
-                disabled={isLoading}
-                size="large"
-              />
-            </div>
-          </>
-        </Tooltip>
+            </Tooltip>
+            <div className="k-spacer"></div>
+            <Button
+              className="send-button"
+              rounded="full"
+              svgIcon={arrowUpIcon}
+              onClick={onSearchClick}
+              disabled={isLoading}
+              size="large"
+            />
+          </div>
+        </>
       )}
     />
   );
