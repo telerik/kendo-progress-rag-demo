@@ -62,9 +62,18 @@ export default function Home() {
       <div className="home-background-fixed k-pos-fixed k-overflow-hidden">
         <div className="home-background-gradient k-pos-absolute">
           <div className="home-background-gradient-inner k-pos-absolute">
-            <svg className="home-background-image k-d-block k-w-full k-h-full" width="1440" height="838" viewBox="0 0 1440 838" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg className="home-background-image k-d-block k-w-full k-h-full" width="1440" height="838" viewBox="0 0 1440 838" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
               <g opacity="0.6" filter="url(#filter0_f_144_966)">
-                <ellipse cx="720" cy="465.5" rx="633" ry="165.5" fill="url(#radialGradient)" opacity="0.4"/>
+                <g clipPath="url(#clip0)">
+                  {/* Top half - Pink to Cyan transition */}
+                  <ellipse cx="720" cy="465.5" rx="633" ry="165.5" fill="url(#gradient_top)" opacity="0.4"/>
+                  {/* Bottom half - Cyan to Blue transition */}
+                  <ellipse cx="720" cy="465.5" rx="633" ry="165.5" fill="url(#gradient_bottom)" opacity="0.4"/>
+                  {/* Left side - Pink emphasis */}
+                  <ellipse cx="400" cy="465.5" rx="400" ry="165.5" fill="url(#gradient_left)" opacity="0.3"/>
+                  {/* Right side - Blue emphasis */}
+                  <ellipse cx="1040" cy="465.5" rx="400" ry="165.5" fill="url(#gradient_right)" opacity="0.3"/>
+                </g>
               </g>
               <defs>
                 <filter id="filter0_f_144_966" x="-213" y="0" width="1866" height="931" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
@@ -72,10 +81,28 @@ export default function Home() {
                   <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
                   <feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_144_966"/>
                 </filter>
-                <radialGradient id="radialGradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
-                  <stop offset="0%" stopColor="rgb(255, 0, 250)" stopOpacity="1"/>
-                  <stop offset="50%" stopColor="rgb(0, 199, 255)" stopOpacity="0.7"/>
-                  <stop offset="100%" stopColor="rgb(0, 119, 255)" stopOpacity="1"/>
+                <clipPath id="clip0">
+                  <ellipse cx="720" cy="465.5" rx="633" ry="165.5"/>
+                </clipPath>
+                {/* Top: Pink (270deg start) to Cyan */}
+                <linearGradient id="gradient_top" x1="0%" y1="100%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#FF00FB" stopOpacity="1"/>
+                  <stop offset="100%" stopColor="#00C8FF" stopOpacity="0.5"/>
+                </linearGradient>
+                {/* Bottom: Cyan to Blue */}
+                <linearGradient id="gradient_bottom" x1="100%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#00C8FF" stopOpacity="0.2"/>
+                  <stop offset="100%" stopColor="#0077FF" stopOpacity="1"/>
+                </linearGradient>
+                {/* Left side: Pink radial */}
+                <radialGradient id="gradient_left" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0%" stopColor="#FF00FB" stopOpacity="0.6"/>
+                  <stop offset="100%" stopColor="#FF00FB" stopOpacity="0"/>
+                </radialGradient>
+                {/* Right side: Blue radial */}
+                <radialGradient id="gradient_right" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0%" stopColor="#0077FF" stopOpacity="0.6"/>
+                  <stop offset="100%" stopColor="#0077FF" stopOpacity="0"/>
                 </radialGradient>
               </defs>
             </svg>
