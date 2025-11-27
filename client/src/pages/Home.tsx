@@ -148,7 +148,7 @@ export default function Home() {
               {demos.map((demo) => (
                 <div
                   key={demo.name}
-                  className="demo-card"
+                  className="demo-card k-elevation-2"
                   onClick={() => handleDemoClick(demo.path)}
                 >
                   <div className="demo-card-icon">
