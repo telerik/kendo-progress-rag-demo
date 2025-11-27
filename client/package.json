@@ -13,9 +13,12 @@
   },
   "dependencies": {
     "@progress/kendo-licensing": "^1.7.1",
+    "@progress/kendo-react-tooltip": "13.0.0",
     "@progress/kendo-react-buttons": "^13.0.0",
     "@progress/kendo-react-charts": "^13.0.0",
     "@progress/kendo-react-common": "^13.0.0",
+    "@progress/kendo-popup-common": "1.9.5",
+    "@progress/kendo-react-popup": "13.0.0",
     "@progress/kendo-react-conversational-ui": "^13.0.0",
     "@progress/kendo-react-layout": "^13.0.0",
     "@progress/kendo-theme-bootstrap": "^12.3.0-dev.1",
