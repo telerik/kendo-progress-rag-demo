@@ -8,7 +8,6 @@ const imgBot = `${import.meta.env.BASE_URL}bot.svg`;
 const imgChartArea = `${import.meta.env.BASE_URL}chart-area.svg`;
 const imgScanSearch = `${import.meta.env.BASE_URL}scan-search.svg`;
 const imgSparkles = `${import.meta.env.BASE_URL}sparkles.svg`;
-const imgBackground = `${import.meta.env.BASE_URL}background.svg`;
 
 export default function Home() {
   const navigate = useNavigate();
@@ -63,10 +62,23 @@ export default function Home() {
       <div className="home-background-fixed k-pos-fixed k-overflow-hidden">
         <div className="home-background-gradient k-pos-absolute">
           <div className="home-background-gradient-inner k-pos-absolute">
-            <img className="home-background-image k-d-block k-w-full k-h-full"
-              src={imgBackground}
-              alt=""
-            />
+            <svg className="home-background-image k-d-block k-w-full k-h-full" width="1440" height="838" viewBox="0 0 1440 838" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g opacity="0.6" filter="url(#filter0_f_144_966)">
+                <ellipse cx="720" cy="465.5" rx="633" ry="165.5" fill="url(#radialGradient)" opacity="0.4"/>
+              </g>
+              <defs>
+                <filter id="filter0_f_144_966" x="-213" y="0" width="1866" height="931" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                  <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+                  <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                  <feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_144_966"/>
+                </filter>
+                <radialGradient id="radialGradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                  <stop offset="0%" stopColor="rgb(255, 0, 250)" stopOpacity="1"/>
+                  <stop offset="50%" stopColor="rgb(0, 199, 255)" stopOpacity="0.7"/>
+                  <stop offset="100%" stopColor="rgb(0, 119, 255)" stopOpacity="1"/>
+                </radialGradient>
+              </defs>
+            </svg>
           </div>
         </div>
       </div>
