@@ -147,6 +147,8 @@ export default function FinanceAnalysis() {
 
   const [selectedCharts, setSelectedCharts] = React.useState<BarChartDef[]>([]);
   const [isChartsExpanded, setIsChartsExpanded] = React.useState(false);
+  // Map message IDs to their associated charts
+  const [messageCharts, setMessageCharts] = React.useState<Map<string | number, BarChartDef[]>>(new Map());
 
   // Predefined suggestions related to financial data
   const financialSuggestions: ChatSuggestion[] = [
@@ -178,36 +180,48 @@ export default function FinanceAnalysis() {
     suggestions: financialSuggestions,
   });
 
-  // Watch for changes in the latest response to update charts
+  // Associate charts with the latest bot message when response arrives
   React.useEffect(() => {
     if (
       chatBot.latestResponse?.json?.charts &&
-      Array.isArray(chatBot.latestResponse.json.charts)
+      Array.isArray(chatBot.latestResponse.json.charts) &&
+      chatBot.latestResponse.messageId
     ) {
       const validCharts: BarChartDef[] = chatBot.latestResponse.json.charts
         .filter(isBarChartDef)
         .slice(0, 3);
-      setSelectedCharts(validCharts);
-    } else {
-      setSelectedCharts([]);
+      
+      if (validCharts.length > 0) {
+        setMessageCharts(prev => {
+          const newMap = new Map(prev);
+          newMap.set(chatBot.latestResponse!.messageId!, validCharts);
+          return newMap;
+        });
+        setSelectedCharts(validCharts);
+      }
     }
   }, [chatBot.latestResponse, isBarChartDef]);
 
   // Custom message template that includes thumbnail when charts are available
   const customMessageTemplate = React.useCallback((props: ChatMessageTemplateProps) => {
     const isBot = props.item.author.id !== chatBot.user.id;
-    const isLatestBotMessage = isBot && props.item.id === chatBot.messages[chatBot.messages.length - 1]?.id;
-    const hasCharts = selectedCharts.length > 0;
+    const chartsForThisMessage = messageCharts.get(props.item.id);
     
     return (
       <div>
         <ChatMessage {...props} />
-        {isLatestBotMessage && hasCharts && (
-          <ChartThumbnail onClick={() => setIsChartsExpanded(true)} />
+        {isBot && chartsForThisMessage && chartsForThisMessage.length > 0 && (
+          <ChartThumbnail onClick={() => {
+            const charts = messageCharts.get(props.item.id);
+            if (charts) {
+              setSelectedCharts(charts);
+              setIsChartsExpanded(true);
+            }
+          }} />
         )}
       </div>
     );
-  }, [chatBot.user.id, chatBot.messages, selectedCharts]);
+  }, [chatBot.user.id, messageCharts]);
 
   // Memoized callback for sending messages
   const handleSendMessage = React.useCallback((text: string) => {
