@@ -1,6 +1,7 @@
 import React from "react";
 import { type Message } from "@progress/kendo-react-conversational-ui";
 import { Button } from "@progress/kendo-react-buttons";
+import { Tooltip } from "@progress/kendo-react-tooltip";
 
 interface ChatHeaderTemplateProps {
   messages: Message[];
@@ -27,9 +28,11 @@ const ChatHeaderTemplate: React.FC<ChatHeaderTemplateProps> = ({
   return (
     <div className="chat-header k-d-flex k-justify-content-between k-align-items-center k-px-4 k-py-2">
       <span>{firstUserMessage.text}</span>
-      <Button imageUrl={shareIcon} fillMode="flat">
-        Share
-      </Button>
+      <Tooltip anchorElement="element" position="bottom" parentTitle={true} offset={{ left: 0, top: 5 }}>
+        <Button imageUrl={shareIcon} fillMode="flat" title="Interaction is disabled for this demo.">
+          Share
+        </Button>
+      </Tooltip>
     </div>
   );
 };

@@ -75,7 +75,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
                 className={`k-drawer-item ${
                   selected === item.text ? "k-selected" : ""
                 }`}
-                title={item.text}
+                title="Interaction is disabled for this demo."
               >
                 <img src={item.icon} alt={item.text} />
                 <span className="k-item-text">{item.text}</span>
@@ -88,16 +88,16 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
                 <span className="k-p-4" style={{ color: "#A1B0C7" }}>
                   Chats
                 </span>
-                <div className="k-drawer-item" title="How do I get started with KendoReact components?">
+                <div className="k-drawer-item" title="Interaction is disabled for this demo.">
                   <span className="k-text-ellipsis">How do I get started with KendoReact components?</span>
                 </div>
-                <div className="k-drawer-item" title="What are the best KendoReact components for data visualization?">
+                <div className="k-drawer-item" title="Interaction is disabled for this demo.">
                   <span className="k-text-ellipsis">
                     What are the best KendoReact components for data
                     visualization?
                   </span>
                 </div>
-                <div className="k-drawer-item" title="How to implement theming and styling with KendoReact?">
+                <div className="k-drawer-item" title="Interaction is disabled for this demo.">
                   <span className="k-text-ellipsis">
                     How to implement theming and styling with KendoReact?
                   </span>
