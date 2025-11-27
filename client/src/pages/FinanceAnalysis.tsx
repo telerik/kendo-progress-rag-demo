@@ -285,9 +285,10 @@ export default function FinanceAnalysis() {
         {/* Page Header */}
         {chatBot.messages.length > 1 && <ChatHeaderTemplate messages={chatBot.messages} />}
         {/* Conversation Area */}
-        <div className={`finance-analysis-chat-wrapper k-d-flex k-flex-column k-flex-1 k-p-6 k-gap-8 chat-wrapper ${chatBot.messages.length <= 1 ? 'show-gradient' : ''}`}>
+        <div className={`finance-analysis-chat-wrapper k-d-flex k-flex-column k-flex-1 k-p-6 k-gap-8 chat-wrapper ${chatBot.messages.length <= 1 ? 'show-gradient' : ''}`} style={{ minHeight: 0 }}>
           <div 
-            className={`k-d-flex k-flex-column k-align-items-center k-justify-content-flex-end k-h-full ${chatBot.messages.length > 1 ? "finance-analysis-chat-wrapper-conversation" : ""}`}
+            className={`k-d-flex k-flex-column k-align-items-center k-h-full ${chatBot.messages.length > 1 ? "finance-analysis-chat-wrapper-conversation" : ""}`}
+            style={chatBot.messages.length > 1 ? { minHeight: 0 } : { justifyContent: 'flex-end', paddingBottom: '64px' }}
           >
             {renderChat()}
           </div>
@@ -299,9 +300,9 @@ export default function FinanceAnalysis() {
         <div className="finance-preview-wrapper k-overflow-auto preview-wrapper k-d-flex k-flex-col">
           {/* Page Header */}
           <ChatHeaderTemplate messages={chatBot.messages} />
-          <div className="k-d-grid k-grid-cols-1 k-grid-cols-xl-2 preview k-flex-1">
+          <div className="k-d-grid k-grid-cols-1 k-grid-cols-xl-2 preview k-flex-1" style={{ minHeight: 0 }}>
           {/* Left Panel - Chat (393px) */}
-          <div className="k-align-self-end k-d-none k-d-xl-flex chat-preview k-pos-relative">
+          <div className="k-d-none k-d-xl-flex chat-preview k-pos-relative" style={{ minHeight: 0}}>
             {renderChat()}
           </div>
 
