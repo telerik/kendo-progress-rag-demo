@@ -329,6 +329,20 @@ html, body, #root {
   color: currentColor;
 }
 
+.k-tooltip {
+  color: #242424;
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0 , 0, .14), 0 0 2px 0 rgba(0, 0 , 0, .12);
+  padding: 12px;
+  max-width: 240px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.k-tooltip .k-callout {
+  color: #fff;
+}
+
 .k-chat {
   background: transparent;
   max-width: 770px;
