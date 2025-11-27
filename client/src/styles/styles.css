@@ -54,7 +54,7 @@ html, body, #root {
   --overlay-95: rgba(255, 255, 255, 0.95);
 
   /* Typography */
-  --kendo-font-family: "Metric", "Segoe UI", Roboto,
+  --kendo-font-family: 'Metric', "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   --kendo-font-size: 16px;
   --kendo-line-height: 1;
@@ -133,14 +133,14 @@ html, body, #root {
   border: 1px solid white;
   border-radius: 16px;
   padding: var(--kendo-spacing-2\.5);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--kendo-font-size-sm);
+  font-family: var(--kendo-font-family);
   color: #000000;
   cursor: pointer;
   transition: background-color 0.2s ease;
   line-height: 1;
   box-shadow: var(--kendo-elevation-2);
-  font-weight: var(--kendo-font-weight-medium);
+  font-weight: var(--kendo-font-weight);
   text-align: center;
   word-wrap: break-word;
   overflow-wrap: break-word;
