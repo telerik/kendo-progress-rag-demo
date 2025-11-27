@@ -66,8 +66,8 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
       drawerClassName="k-border-none"
     >
       <DrawerNavigation className="drawer-navigation k-d-none k-d-lg-flex">
-        <Tooltip anchorElement="element" position="right" parentTitle={true} offset={{ left: 10, top: 0 }}>
-          <div className="k-drawer-items k-h-full">
+        <div className="k-drawer-items k-h-full">
+          <Tooltip anchorElement="element" position="right" parentTitle={true} offset={{ left: 10, top: 0 }}>
             {drawerItems.map((item) => (
               <div
                 onClick={() => navigate(item.route)}
@@ -81,7 +81,9 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
                 <span className="k-item-text">{item.text}</span>
               </div>
             ))}
-            <div className="k-mt-6 k-d-flex k-flex-column k-justify-content-between k-flex-1">
+          </Tooltip>
+          <div className="k-mt-6 k-d-flex k-flex-column k-justify-content-between k-flex-1">
+            <Tooltip anchorElement="element" position="right" parentTitle={true} offset={{ left: 10, top: 0 }}>
               <div>
                 <span className="k-p-4" style={{ color: "#A1B0C7" }}>
                   Chats
@@ -100,19 +102,19 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children }) => {
                     How to implement theming and styling with KendoReact?
                   </span>
                 </div>
-                </div>
-              <div className="k-d-flex k-gap-2 k-align-items-center k-p-4">
-                <Avatar type="image">
-                  <img src={userImg} alt="User" />
-                </Avatar>
-                <div className="k-d-flex k-flex-column">
-                  <span>John Smith</span>
-                  <span style={{ opacity: "0.5" }}>Manager</span>
-                </div>
+              </div>
+            </Tooltip>
+            <div className="k-d-flex k-gap-2 k-align-items-center k-p-4">
+              <Avatar type="image">
+                <img src={userImg} alt="User" />
+              </Avatar>
+              <div className="k-d-flex k-flex-column">
+                <span>John Smith</span>
+                <span style={{ opacity: "0.5" }}>Manager</span>
               </div>
             </div>
           </div>
-        </Tooltip>
+        </div>
       </DrawerNavigation>
       <DrawerContent style={{ height: "calc(100vh - 54px)" }}>{children}</DrawerContent>
     </Drawer>
