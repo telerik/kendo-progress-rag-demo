@@ -17,6 +17,7 @@ export interface StreamingResponse {
   json?: Record<string, unknown>; // For chart data or other structured responses
   error?: string;
   incomplete?: boolean;
+  messageId?: string | number; // ID of the message associated with this response
 }
 
 export interface UseChatBotReturn {
@@ -174,9 +175,10 @@ export const useChatBot = (config: ChatBotConfig): UseChatBotReturn => {
         setMessages(prev => prev.filter(msg => msg.id !== typingMessageId));
         
         // Then add complete response after a tiny delay
+        const botMessageId = Date.now() + 2;
         setTimeout(() => {
           const botMessage: Message = {
-            id: Date.now() + 2,
+            id: botMessageId,
             author: bot,
             timestamp: new Date(),
             text: currentAnswer
@@ -184,14 +186,15 @@ export const useChatBot = (config: ChatBotConfig): UseChatBotReturn => {
           
           setMessages(prev => [...prev, botMessage]);
         }, 10);
+        
+        // Set the final response with the message ID for any additional processing
+        if (finalResponse) {
+          finalResponse.messageId = botMessageId;
+          setLatestResponse(finalResponse);
+        }
       } else {
         // If no response, just remove typing indicator
         setMessages(prev => prev.filter(msg => msg.id !== typingMessageId));
-      }
-      
-      // Set the final response for any additional processing
-      if (finalResponse) {
-        setLatestResponse(finalResponse);
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Network error';

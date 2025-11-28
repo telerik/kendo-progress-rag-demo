@@ -60,7 +60,7 @@ const KnowledgeAssistant = () => {
         )}
         {hasConversationStarted && <ChatHeaderTemplate messages={chatBot.messages} />}
         {/* Chat Component */}
-        <div className={`knowledge-assistant-conversation k-d-flex k-flex-column k-flex-1 k-align-items-center k-w-full conversation-container ${hasConversationStarted ? 'knowledge-assistant-conversation-started' : ''}`}>
+        <div className={`knowledge-assistant-conversation k-d-flex k-flex-column k-flex-1 k-align-items-center k-w-full conversation-container ${hasConversationStarted ? 'knowledge-assistant-conversation-started' : ''}`} style={hasConversationStarted ? { minHeight: 0 } : { justifyContent: 'flex-end', paddingBottom: '64px' }}>
           <div className={`knowledge-assistant-chat-wrapper chat-content-wrapper k-w-full k-d-flex k-flex-column k-pos-relative ${!hasConversationStarted ? 'show-gradient' : ''} ${hasConversationStarted ? 'knowledge-assistant-chat-flex-full' : 'knowledge-assistant-chat-flex-none'}`}>
             <Chat
               messages={hasConversationStarted ? chatBot.messages.slice(1) : chatBot.messages}
@@ -68,7 +68,7 @@ const KnowledgeAssistant = () => {
               onSendMessage={chatBot.addNewMessage}
               placeholder="Try a suggestion or ask about KendoReact"
               className="k-border-transparent"
-              height={hasConversationStarted ? "100%" : undefined}
+              height="100%"
               messageTemplate={ChatMessage}
               timestampTemplate={() => null }
               showUsername={false}
