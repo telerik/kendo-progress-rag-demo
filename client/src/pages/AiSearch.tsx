@@ -180,7 +180,7 @@ export default function AiSearch() {
                 <p className="ai-search-popular-label !k-mb-0">
                   Popular searches:
                 </p>
-                <div className="k-d-flex k-flex-wrap k-gap-1.5 k-justify-content-flex-start">
+                <div className="k-d-flex k-flex-wrap k-gap-1.5 k-justify-content-flex-start k-pb-4.5">
                   {popularSearches.map((searchText, index) => (
                     <SearchPill key={index} text={searchText} onClick={handleExampleSearch} disabled={isLoading} />
                   ))}
