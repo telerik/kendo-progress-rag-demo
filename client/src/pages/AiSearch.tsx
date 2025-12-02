@@ -160,7 +160,7 @@ export default function AiSearch() {
                 Progress Agentic RAG Knowledge
               </h1>
               <p className="ai-search-description !k-mb-0">
-                Search our comprehensive Nuclia knowledge base with AI-powered intelligent search for precise, contextual results about Nuclia features, capabilities, and best practices
+                Search our comprehensive Progress Agentic RAG knowledge base with AI-powered intelligent search for precise, contextual results about Progress Agentic RAG features, capabilities, and best practices
               </p>
             </div>
 
