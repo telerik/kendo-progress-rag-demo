@@ -137,7 +137,7 @@ export default function ValueProposition() {
                         Progress Agentic RAG Value
                     </h1>
                     <p className="value-proposition-description !k-mb-0">
-                        Generate a customized value proposition showing exactly how Nuclia delivers ROI for your specific industry, company size, and use case.
+                        Generate a customized value proposition showing exactly how Progress Agentic RAG delivers ROI for your specific industry, company size, and use case.
                     </p>
                 </div>
             </div>

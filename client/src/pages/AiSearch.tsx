@@ -160,7 +160,7 @@ export default function AiSearch() {
                 Progress Agentic RAG Knowledge
               </h1>
               <p className="ai-search-description !k-mb-0">
-                Search our comprehensive Nuclia knowledge base with AI-powered intelligent search for precise, contextual results about Nuclia features, capabilities, and best practices
+                Search our comprehensive Progress Agentic RAG knowledge base with AI-powered intelligent search for precise, contextual results about Progress Agentic RAG features, capabilities, and best practices
               </p>
             </div>
 
@@ -180,7 +180,7 @@ export default function AiSearch() {
                 <p className="ai-search-popular-label !k-mb-0">
                   Popular searches:
                 </p>
-                <div className="k-d-flex k-flex-wrap k-gap-1.5 k-justify-content-flex-start">
+                <div className="k-d-flex k-flex-wrap k-gap-1.5 k-justify-content-flex-start k-pb-4.5">
                   {popularSearches.map((searchText, index) => (
                     <SearchPill key={index} text={searchText} onClick={handleExampleSearch} disabled={isLoading} />
                   ))}
