@@ -184,7 +184,7 @@ html, body, #root {
 }
 
 .k-drawer-wrapper::after,
-.preview .charts-preview:before {
+.preview .chat-preview:before {
   content: "";
   display: block;
   height: 100%;
@@ -198,11 +198,12 @@ html, body, #root {
   border-radius: 815px;
   pointer-events: none;
 }
-.k-drawer-wrapper::after {
+.k-drawer-wrapper::after,
+.preview .chat-preview:before {
   right: 0;
 }
-.preview .charts-preview:before {
-   left: -60px;
+.preview .chat-preview:before {
+   right: -80px;
 }
 
 .user-selection-wrapper:after,
@@ -346,11 +347,10 @@ html, body, #root {
   display: none;
 }
 
-.k-chat .k-message-list {
+.k-chat .k-message-list-content {
   justify-content: flex-end;
-
+  min-height: 100%;
 }
-
 
 .finance-analysis-chat-default .k-message-list {
   padding-block: 64px;
@@ -1102,13 +1102,25 @@ html, body, #root {
 
 .finance-preview-wrapper {
   height: calc(100vh - 54px);
+  overflow: hidden;
 }
+
+.finance-analysis-chat-expanded {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+
+
 
 .finance-charts-preview {
   border: 1px solid #FFF;
   background: rgba(255, 255, 255, 0.50);
   box-shadow: 0 4px 12px 0 rgba(13, 10, 44, 0.08);
   backdrop-filter: blur(2px);
+  overflow-y: auto;
 }
 
 .finance-charts-container {
@@ -1210,6 +1222,7 @@ html, body, #root {
 
 .knowledge-assistant-conversation {
   box-sizing: border-box;
+  min-height: 0;
 }
 
 .knowledge-assistant-conversation-started {
@@ -1223,6 +1236,8 @@ html, body, #root {
 
 .knowledge-assistant-chat-flex-full {
   flex: 1;
+  min-height: 0;
+  height: 100%;
 }
 
 .knowledge-assistant-chat-flex-none {
